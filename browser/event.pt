@@ -1,0 +1,238 @@
+<html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+  <metal:block fill-slot="style_slot">
+    <style type="text/css" media="all" 
+      tal:content="string:@import url(${context/absolute_url}/++resource++calendar.css);"
+    />
+  </metal:block>  
+  
+  <body metal:fill-slot="body"
+    tal:define="event context" 
+    >
+      
+    <div class="eventTitle">
+      <div class="contextlinks" style="float: right"
+        >
+        <tal:block i18n:translate="message_see_this_events_prefix">see this event's</tal:block>
+        <a tal:attributes="href view/getDayUrl" i18n:translate="">day</a>, 
+        <a tal:attributes="href view/getWeekUrl" i18n:translate="">week</a>, 
+        <a tal:attributes="href view/getMonthUrl" i18n:translate="">month</a
+        ><tal:block i18n:translate="message_see_this_events_postfix">.</tal:block>
+      </div>
+      
+      <h1>
+        <tal:block content="event/title"/>
+      </h1>
+    </div>
+
+    <div class="event">
+      <table>
+        <tal:block condition="not: context/allday">
+          <tr>
+            <td class="rowlabel"><tal:block i18n:translate="label_starts">Starts</tal:block>:</td>
+            <td>
+              <b tal:content="view/starttime" />
+            </td>
+          </tr>
+          <tr>
+            <td class="rowlabel"><tal:block i18n:translate="label_ends">Ends</tal:block>:</td>
+            <td>
+              <b tal:content="view/endtime" />
+            </td>
+          </tr>
+          <tr>
+            <td class="rowlabel"><tal:block i18n:translate="label_duration">Duration</tal:block>:</td>
+            <td>
+              <b tal:content="view/duration" />
+            </td>
+          </tr>
+        </tal:block>
+        
+        <tal:block condition="context/allday">
+          <tal:block 
+            define="
+              startdate view/startdate;
+              enddate view/enddate;
+            "
+            >
+            <tr tal:condition="python: startdate == enddate">
+              <td class="rowlabel"><tal:block i18n:translate="label_date">Date</tal:block>:</td>
+              <td>
+                <b tal:content="view/startdate" />
+              </td>
+            </tr>
+            <tr tal:condition="python: startdate != enddate">
+              <td class="rowlabel"><tal:block i18n:translate="label_starts">Starts</tal:block>:</td>
+              <td>
+                <b tal:content="view/startdate" />
+              </td>
+            </tr>
+            <tr tal:condition="python: startdate != enddate">
+              <td class="rowlabel"><tal:block i18n:translate="label_ends">Ends</tal:block>:</td>
+              <td>
+                <b tal:content="view/enddate" />
+              </td>
+            </tr>
+            <tr>
+              <td class="rowlabel"><tal:block i18n:translate="label_duration">Duration</tal:block>:</td>
+              <td>
+                <b i18n:translate="message_this_is_an_all_day_event">
+                  This is an all-day event.
+                </b>
+              </td>
+            </tr>
+          </tal:block>
+        </tal:block>
+
+        <tal:block 
+          define="recurrence view/getRecurrenceRule;" 
+          condition="python:recurrence is not None">
+          <tr>
+            <td class="rowlabel"><tal:block i18n:translate="label_recurrence">Recurrence</tal:block>:</td>
+            <td>
+              <b>
+                <!-- This part is necessarily complex. We need different labels
+                  per day, week, month and year, because of gender differences.
+                  We also need to differentiate between events that happen
+                  every time, every other time, or with other intervals, 
+                  because not only is there a singular/plural difference,
+                  some languges, such as swedish, has a special case for 
+                  "every other", and you simply can not say "every 2 days",
+                  event though two is *not* a special case in normal plural
+                  handling. /-->
+                <tal:block condition="python:recurrence.interval == 1"
+                  i18n:translate="">Every <tal:block 
+                  replace="recurrence/unit"
+                /></tal:block
+                ><tal:block condition="python:recurrence.interval == 2"
+                  i18n:translate="">Every other <tal:block
+                  replace="recurrence/unit"
+                /></tal:block
+                ><tal:block condition="python:recurrence.interval > 2"
+                  i18n:translate="">Every <tal:block 
+                  content="recurrence/interval" i18n:name="count"
+                /> <tal:block replace="recurrence/unit"/>s</tal:block
+                ><tal:block condition="recurrence/count" i18n:translate=""
+                  >, for <tal:block content="recurrence/count" i18n:name="count"
+                  /> times</tal:block
+                ><tal:block condition="recurrence/until" i18n:translate=""
+                  >, until <tal:block content="view/recurUntilStr" i18n:name="date"
+                /></tal:block>
+              </b>
+            </td>
+          </tr>
+        </tal:block>
+        
+        <tr>
+          <td class="rowlabel"><tal:block i18n:translate="label_location">Location</tal:block>:</td>
+          <td>
+            <b tal:content="context/location" />
+          </td>
+        </tr>
+        <tr tal:condition="context/transparent">
+          <td class="rowlabel"><tal:block i18n:translate="label_transparent">Not Busy</tal:block>:</td>
+          <td>
+            <b i18n:translate="transparent_description">
+              You can be invited to meetings during this event.
+            </b>
+          </td>
+        </tr>
+        <tr>
+          <td class="rowlabel"><tal:block i18n:translate="label_status">Status</tal:block>:</td>
+          <td>
+            <b tal:content="context/status" i18n:translate="" />
+          </td>
+        </tr>
+        <tr>
+          <td class="rowlabel"><tal:block i18n:translate="label_access">Access</tal:block>:</td>
+          <td>
+            <b tal:content="context/access" i18n:translate="" />
+          </td>
+        </tr>
+        <tr>
+          <td class="rowlabel"><tal:block i18n:translate="label_categories">Categories</tal:block>:</td>
+          <td>
+            <tal:block tal:repeat="category context/categories">
+              <b tal:content="category" />
+              <br tal:condition="not: repeat/category/end" />
+            </tal:block>
+          </td>
+        </tr>
+        <tr tal:condition="view/document_url">
+          <td class="rowlabel"><tal:block i18n:translate="label_attached_document">Attached Document</tal:block>:</td>
+          <td>
+            <a tal:attributes="href view/document_url">
+              <b tal:content="view/document_title" />
+            </a>
+          </td>
+        </tr>
+      
+      </table>
+
+      <div class="eventDescription">
+        <div>
+          <b i18n:translate="label_description">
+            Description:
+          </b>
+        </div>
+        <div>
+          <tal:block content="event/description" />
+        </div>
+      </div>
+      <div class="eventDescription">
+        <div>
+          <b i18n:translate="label_attendee_list">
+            List of attendees:
+          </b>
+        </div>  
+        <table>
+          <thead>
+            <tr align="left">
+              <th i18n:translate="label_attendee_name">name</th>
+              <th i18n:translate="label_status">status</th>
+            </tr>
+          </thead>
+          <tbody
+            tal:define="
+              event context;
+              management context/@@attendeesmanagement"
+            >
+            <tal:block repeat="attendee management/getAttendees">
+              <tr
+                tal:define="
+                  attendee_id attendee/getAttendeeId;
+                  odd repeat/attendee/odd;"
+                tal:attributes="class python: odd and 'odd' or 'even'"
+                >
+                <td>
+                  <tal:block content="attendee/title" />
+                  (<tal:block content="python: attendee.getAttendeeType()" 
+                    i18n:translate="" /><tal:block 
+                    condition="python:attendee.getId() == context.getOrganizerId()">,
+                    <tal:block i18n:translate="">label_organizer</tal:block>
+                   </tal:block>)
+                </td>
+                <tal:block 
+                  define="
+                    status python: event.getParticipationStatus(attendee);
+                    statuslist python: management.validStatusList(attendee);
+                    needsaction python: statuslist and status == 'needs-action';"
+                  >
+                  <td tal:condition="not: needsaction">
+                    <tal:block content="status" i18n:translate="" />
+                  </td>
+                  <td tal:condition="needsaction">
+                    <a
+                      tal:attributes="href string:${context/absolute_url}/attendees.html"
+                      tal:content="status"
+                    />
+                  </td>
+                </tal:block>
+              </tr>
+            </tal:block>
+          </tbody>
+        </table>
+        
+      </div>
+    </div>
+  </body>
+</html>

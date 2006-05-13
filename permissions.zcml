@@ -1,0 +1,56 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser">
+
+  <permission
+    id="calendar.ViewCalendar"
+    title="View calendar"
+    />
+
+  <permission
+    id="calendar.EditCalendar"
+    title="Edit calendar"
+    />
+    
+  <permission
+    id="calendar.CreateEvents"
+    title="Create events"
+    />
+
+  <permission
+    id="calendar.InviteAttendee"
+    title="Invite attendee"
+    />
+    
+  <permission
+    id="calendar.ManageParticipationStatus"
+    title="Manage participation status"
+    />
+    
+  <permission
+    id="calendar.ViewEvent"
+    title="View event"
+    />
+        
+  <permission
+    id="calendar.ModifyEvent"
+    title="Modify event"
+    />
+    
+  <permission
+    id="calendar.DeleteEvent"
+    title="Delete event"
+    />
+    
+  <permission
+    id="calendar.InviteAttendees"
+    title="Invite attendees"
+    />
+    
+  <permission
+    id="calendar.ManageAttendees"
+    title="Manage attendees"
+    />
+
+
+</configure>

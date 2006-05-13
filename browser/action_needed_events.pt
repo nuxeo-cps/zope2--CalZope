@@ -1,0 +1,44 @@
+<html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+<metal:block fill-slot="style_slot">
+  <style type="text/css" media="all" 
+    tal:content="string:@import url(${context/absolute_url}/++resource++calendar.css);"
+  />
+</metal:block>
+<metal:block fill-slot="body">
+  <div class="eventTitle">
+    <h1 i18n:translate="message_events_action_is_needed_for">
+      Events that need action from you
+    </h1>
+  </div>
+  <div class="event">
+    <div class="eventDescription">
+      <tal:block define="dummy view/updateParticipationStatus"/>
+    
+      <form action="action_needed_events.html" method="POST"
+        tal:define="events view/getEvents"
+        >      
+        <table>
+          <metal:block use-macro="context/eventlist_macro/macros/event_header"></metal:block>
+          
+          <tal:block repeat="event events">
+            <metal:block use-macro="context/eventlist_macro/macros/event_row"/>
+          </tal:block>
+
+          <tal:block condition="not: events">
+            <metal:block use-macro="context/eventlist_macro/macros/no_events_row"/>
+          </tal:block>
+          
+        </table>
+      
+        <tal:block condition="events">
+          <metal:block 
+            use-macro="context/eventlist_macro/macros/change_participation_status"
+          />      
+        </tal:block>
+      </form>
+
+    </div>
+    
+  </div>
+</metal:block>
+</html>

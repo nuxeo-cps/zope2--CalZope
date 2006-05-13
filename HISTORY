@@ -1,0 +1,496 @@
+*******************************************
+** CalZope V2.3.0 [R1 build 2006/04/11-15:54 by lregebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 35105
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- Added Title() methods for DublinCore/CMF support.
+- Transferred the translations of breadcrumbs from CPSSharedCalendar.
+- Moved some documentation that was in CPSSharedCalendar but belonged here.
+- Added Brazilian Portugese translation.
+Bug fixes:
+~~~~~~~~~~
+- The events didn't have a meta_type. 
+- The + to add events was always shown.
+- The event display tried to translate categories, which would give unicode
+  errors if you used non-ascii characters in the category name.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V2.2.2 [R1 build 2006/03/17-16:18 by lregebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 34545
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- If you looked at a calendar where you did not have the right to see
+  private events, a private event would cause an error, due to a missing
+  import.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V2.2.1 [R1 build 2006/03/09-15:19 by lregebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 34211
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Fixed a untranslated label in english.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V2.2.0 [R1 build 2006/03/03-17:34 by ben]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 33855
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+-
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- The defaultPermissions now get initialized at every restart. This is to make
+  sure that they exist, as the CPSSharedCalendars GenericSetup 
+  rolesmapping-setup otherwise would not work.
+
+*******************************************
+** CalZope V2.1.0 [R1 build 2006/02/17-20:32 by fermigier]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 32986
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- Added "Organizer" to the event view and event overviews.
+Bug fixes:
+~~~~~~~~~~
+- Various internationalisation bugfixes.
+- The event overview-pages didn't work.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- More functional tests.
+- The calendar no longer claims to implement IContainerNamesContainer.
+
+*******************************************
+** CalZope V2.0.0 [R1 build 2006/01/12-21:07 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 31582
+Requires:
+~~~~~~~~~
+- Now requires Five 1.3.1 or later (and as a consequence, Zope 3.2 or later).
+New features:
+~~~~~~~~~~~~~
+- Major refactoring to use local utilities instead of portal tools.
+- Now uses Zope 3 internationalization support.
+Bug fixes:
+~~~~~~~~~~
+-
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V1.3.8 [R1 build 2005/12/30-13:01 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 31151
+Requires:
+~~~~~~~~~
+- Five 1.1
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- #1147: Fixed import of non-latin-9 Windows characters.
+- #1169: Event display did not handle when to_hour is 24.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V1.3.7 [R1 build 2005/11/23-01:33 by gracinet]
+** SVN URL: http://svn/pub/CalZope/trunk Revision: 29749
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- #1102: getId was used on an attendee, instead of getAttendeeId.
+- #1103: Event display did not handle if current attendee is None.
+- 0003587: Mercredi was shortened to "Mar", giving two tuesdays in the
+  French jscalendar.
+- 0003577: The end date sometimes moved one day when editing full day events.
+- #1141: The jscalendar inorrectly displayed Sunday as the first day for german.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- #1107: getMainCalendarForAttendeeId was not defined in any interface.
+  A new IZopeAttendeeSource interface that extends IAttendeeSource has
+  been created for this, as this method is used only to handle Zope
+  security.
+
+*******************************************
+** CalZope V1.3.6 [R1 build 2005/10/27-15:20 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 28721
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- #1066: Full day events were not displayed in a very clear manner.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V1.3.5 [R1 build 2005/10/19-16:58 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 28435
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- iCalendar imports sometimes gives you events in unicode, but we must store
+  them as strings.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V1.3.4 [R1 build 2005/10/14-16:29 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 28324
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- When searching for attendees to display in the multiple calendar view, 
+  results would include users which calendars you can not view, which makes
+  no sense, since you wouldn't be able to see the events anyway.
+- More translation fixes.
+- If you had a "until" date in the recurrence rule, the event view would 
+  return a Site Error  with a missing xlate attribute.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V1.3.3 [R1 build 2005/10/13-11:53 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 28245
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Events for users that has no main calendar would always be displayed as 
+  private.
+- Missing date format localization in meeting helper.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- The translation tests are now skipped if CPSI18n is not installed.
+- CalZopeSimpleSkin was removed as this functionality since some time 
+  exists in Five, and so it is no longer needed.
+
+*******************************************
+** CalZope V1.3.2 [R1 build 2005/10/07-15:31 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 28072
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Many translation fixes.
+- In certain language-settings, notably french and english, the date 
+  selected in the meeting-helper was lost when clicking on "Create event".
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V1.3.1 [R1 build 2005/10/06-12:44 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 28004
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- When making a meeting the calendar which you are using must be an attendee.
+  This was nowever not reflected either in the free time search result, nor was
+  it visible in the meeting helper view. No the current calendar is viewed as
+  a participant, and you can not remove it.
+- The langauge selection for the jscalendar widget has been improved.
+- If you press the button to change the status in the list of events you
+  participate in, you no longer get an error message.
+- Various translation errors.
+- The "Document" field is no longer displayed if here is no attached document.
+- The date format is now translatable throughout the calendar.
+  Warning: For english it defaults to the incomprehensible U.S. m/d/Y format.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V1.3.0 [R1 build 2005/10/01-17:10 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 27817
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- Events you are not allowed to view (normally because they are private) are
+  now a sober grey color, and not clickable.
+Bug fixes:
+~~~~~~~~~~
+- Events that started and ended early was displayed incorrectly.
+- Day views did not display any events at all, becuase of a CSS error.
+- Editing of recurrence did not cause an "even changed" event, so notification
+  and indexing was not properly done.
+- Numerous translation fixes.
+- The event list links was shown also for users that did not have the rights
+  to view the pages.
+- The jscalendar is translated into many languages, this is now used in the
+  widget.
+- The event list overview would not work if one of the events had an 
+  attachement. You'd get an error on @@eventview.
+- Five doesn't handle __bobo_traverse__ correctly, so if you have an object
+  in the acquisition path that is a number between 1 and 31 or a year
+  year, adding events to dates that contain these numbers would fail.
+  The calendar now uses the Zope3 ITraversable interface instead of the Zope2
+  __bobo_traverse__()
+- The javascript popup for date selection now picks the correct translation
+  (out of the available) if you have Localizer installed. Otherwise it picks
+  english. The dependancy on Localizer will be removed when we get full i18n
+  support in Five.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V1.2.0 [R1 build 2005/09/21-15:34 by fguillaume]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 27427
+Requires:
+~~~~~~~~~
+- Old installations requires a reindexing of the database. This can be done
+  by a python script calling context.portal_calendar.storage._storage.reindexAll()
+New features:
+~~~~~~~~~~~~~
+- Searching the ZodbStorage for events is now significantly faster on 
+  larger data sets.
+- The links to current week or current month was removed.
+- Events can now have different colour depending on if they are private,
+  public or meetings.
+Bug fixes:
+~~~~~~~~~~
+- Events that ended after the display time was often displayed incorrectly.
+- Changing a participation status from the meeting lists caused an error.
+- When using the meeting helper, the duration is now correctly reflected
+  in the meeting creation form.
+- Some missing translations fixed.
+- The calendar edit form was made more readable.
+- If you attached a document that would generate an error message when you
+  rendered it, the event rendering would also fail. This is now fixed.
+- The selected attendees in the meeting helper was actually ignored during
+  meeting creation. This is now fixed by the new "addmeeting.html" view,
+  that creates an event and invites the attendees selected in the helper.
+- Trying to access attributes from withing ZPT restricted Python expressions
+  didn't always work, becuase the claendars __bobo_traverse__ did not return
+  the standard attributes. This seems to have only caused problems during unit
+  testing, probably because the objects was not then patched by Five.
+  
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- The version of jscalendar was upgraded to 1.0.
+- The new getAttendeeFromSpec() method was added.
+*******************************************
+** CalZope V1.1.0 [R1 build 2005/08/22-17:31 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 26066
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- The calendar editing now has a new section where you can select which
+  calendars (or actually attendees) that should be visible through this
+  calendar.
+Bug fixes:
+~~~~~~~~~~
+- It was not possible to edit the calendars properties for personal calendars.
+- The meeting helper did not translate the attendee type in the 
+  list of attendees to search for.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- #843: removed unused import.
+- #848: The recurrence type selector now works on interfaces rather than 
+  classes, which is cleaner and allows for overriding the recurrence objects.
+
+*******************************************
+** CalZope V1.0.0 [R1 build 2005/07/21-14:33 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 25135
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- The event security that was earlier handled by CPSSharedCalendar has been
+  moved to CalZope and completely refactored. It's also better tested.
+- French translation.
+Bug fixes:
+~~~~~~~~~~
+- When adding events, if there was an error on the form the start date and
+  end date would be lost.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V0.4.0 [R1 build 2005/06/29-10:58 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 24507
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- All hours before and after business hours are now displayed only as one 
+  hour, making the calendar use it's area more efficiently.
+- There are now title attributes on the events, so that a "tooltip" pops up
+  with more information.
+- There is now a document field. This holds a text string which is supposed
+  to be a path to a document. CPSSharedCalendar uses this is a more 
+  detailed fashion with popup boxes containing navigation trees. CalZope 
+  has no such fancy features, as it is assumed most implementations will 
+  override this anyway.
+Bug fixes:
+~~~~~~~~~~
+- Missing inputs in the meeting helper caused an error message, instead of
+  missing input displays.
+- The iCalendar import caused an exception, which now is removed.
+- The pages for events now have proper permission checks, so that you now
+  only can edit and delete events and manage attendees when you have the
+  correct permissions.
+- The month view now looks a bit less cluttered.
+- Invalid input in datetime fields would cause an exception (#744).
+- The event and and edit forms have received numerous cosmetic changes (#744).
+- The add event form to and from fields defaults to "now" if no date or 
+  week is selected. (Mantis 2937)
+- Any event you had the right to view, could be reached through any calendar
+  you have the right to view, even if the event did not show up in the 
+  calendar itself. This made little sense, so now you get an error instead.
+- The end widget now gives user feedback when the event end is before the start.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V0.3.0 [R1 build 2005/06/01-10:40 by regebro]
+** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 21999
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- The attendee status is now only displayed for meetings.
+- There is an upload form to import iCalendar files.
+
+Bug fixes:
+~~~~~~~~~~
+- The attendee status is now the main (primary) attendee for the calendar.
+- The events are displayed correctly even for small browser widths.
+- Weekly recurrence now works.
+- When deleting an event you now need to confirm the deletion.
+- Events that has a duration of Zero are now displayed.
+- Some changes to better support workspace and resource calendars.
+
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V0.2.1 [R1 build 2005/04/29-15:40 by fguillaume]
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+-
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- Updated INSTALL.txt
+
+*******************************************
+** CalZope V0.2.0 [R1 build 2005/04/28-10:15 by regebro]
+
+Requires:
+~~~~~~~~~
+-
+
+New features:
+~~~~~~~~~~~~~
+- All events are now recurring events. Events have a recurrence type field, 
+  and a new page to edit the recurrence.
+
+- There is no longer a separate storage for recurring events.
+
+- There are now working widgets for Date a Time fields, in addition to
+  the previous Datetime field widget.
+
+- An implementation of getCurrentUserAttendee()
+
+- Everything should now be translatable.
+
+Bug fixes:
+~~~~~~~~~~
+
+- The object name box was removed for month, week and day views.
+
+- Addforms again work directly on the calendar as well.
+
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
+** CalZope V0.1.0 [R1 build 2005/03/11-12:23 by regebro]
+
+Initial release.
+

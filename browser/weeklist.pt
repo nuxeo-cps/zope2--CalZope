@@ -1,0 +1,11 @@
+<html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+<body metal:fill-slot="body">
+<h2 i18n:translate="">Weeks</h2>
+<ul tal:define="calendar context/getCalendar">
+  <li tal:repeat="year calendar/getRecentYears">
+    <a tal:attributes="href string:${context/absolute_url}/${year}" 
+       tal:content="year"></a>
+  </li>
+</ul>
+</body>
+</html>

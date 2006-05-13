@@ -1,0 +1,97 @@
+<html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+  <body metal:fill-slot="body" tal:define="dummy view/update">
+
+    <h1><span i18n:translate="">Edit calendar</span>: <tal:block replace="here/title"/></h1>
+    <form tal:attributes="action request/URL" method="post">
+      <div class="label">
+        <label for="title_field" i18n:translate="">label_title</label>:
+      </div>
+      <div class="field">
+        <input type="text" name="title" id="title_field" 
+          tal:attributes="value view/title" />
+      </div>
+
+      <div class="label">
+        <label for="type_field" i18n:translate="">label_type</label>:
+      </div>
+      <div class="field">
+        <select name="attendee_type" id="type_field" 
+          tal:condition="python:len(view.attendee_types) > 1">
+          <option tal:repeat="type view/attendee_types"
+            tal:attributes="value type; 
+                            selected python:view.attendee_type==type"
+            tal:content="type"
+            i18n:translate="" />
+        </select>
+        <tal:block condition="python:len(view.attendee_types) == 1"
+          content="python:view.attendee_types[0]" i18n:translate="" />
+      </div>
+      
+      <div class="label">
+        <label for="desc_field" i18n:translate="">label_description</label>:
+      </div>
+      <div class="field">
+        <textarea cols="50" rows="5" name="description" id="desc_field"
+          tal:content="view/description" />
+      </div>
+
+      <div class="controls">
+        <input type="submit" class="standalone" name="SUBMIT_EDIT" 
+          value="button_change" i18n:attributes="value"/>
+      </div>
+    </form>
+    <br /><hr /><br />
+    <form tal:attributes="action request/URL" method="post">
+      <div class="eventTitle">
+        <h3 i18n:translate="label_multiple_calendar_view">
+          Multiple calendar view
+        </h3>
+      </div>
+      <p i18n:translate="description_multiple_calendar_view">
+        With multiple calendar view, you can see the events from several 
+        calendars as if they were one. 
+      </p>
+      <h4 i18n:translate="">label_currently_visible_calendars</h4>
+      <div metal:use-macro="template/macros/attendee_list"/>
+    </form>
+    <form tal:attributes="action request/URL" method="post">
+      <h4 i18n:translate="">label_search_for_calendars_to_add</h4>
+      <div metal:use-macro="context/meetinghelper.html/macros/attendee_search"/>
+      <tal:block define="results view/getSearchResults"
+        condition="results">
+        <h4 i18n:translate="label_search_results">Search results</h4>
+        <div metal:use-macro="context/meetinghelper.html/macros/search_results"/>
+      </tal:block>
+    </form>
+  </body>
+</html>
+
+<tal:block condition="nothing">
+
+<table metal:define-macro="attendee_list"
+  tal:define="attendees context/getAttendees">
+  <tr tal:repeat="attendee attendees">
+    <tal:block define="attendee_id attendee/getId;
+                       remove_id string:remove_${attendee_id};
+                       main_attendee context/getMainAttendee">
+      <td>
+        <input type="checkbox" tal:attributes="id remove_id; name remove_id;"
+          tal:condition="python:attendee_id != main_attendee.getAttendeeId()">
+      </td>
+      <td>
+        <label tal:attributes="for remove_id" tal:content="attendee/title" />
+      </td>
+    </tal:block>
+  </tr>
+  <tr tal:condition="python:len(attendees) > 1">
+    <td colspan="2">
+      <input type="submit" name="UPDATE_REMOVE" value="button_remove"
+        i18n:attributes="value" />
+    <td/>
+  </tr>
+  <tr tal:condition="not:attendees">
+  <td i18n:translate="label_no_attendees_selected">No attendees selected</td>
+  </tr>
+</table>
+
+</tal:block>

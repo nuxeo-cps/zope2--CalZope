@@ -1,0 +1,221 @@
+<tal:block define="dummy python:request.response.setHeader('content-type', 'text/css;; charset= iso-8859-15')" />
+
+table.calendarMain {
+  border-collapse: collapse;
+  border-color: gray;
+  padding: 0;
+}
+
+td.calendarBody {
+  vertical-align: top;
+  padding: 0;
+}
+
+td.calendarMain {
+  padding: 0;
+}
+
+td.hourLabels {
+  vertical-align: top;
+  width: 50px;
+  padding: 0;
+}
+
+td.dayLabels {
+  vertical-align: top;
+  height: 20px;
+  background: #9999ff;
+}
+
+td.dayFooter {
+  vertical-align: top;
+  height: 40px;
+}
+
+td.weekHeader {
+  padding-right: 7px;
+}
+
+div.dayLabel {
+  position: absolute;
+}
+
+div.hourLabel {
+  border-width: 1px 0px 0px 0px;
+  border-style: solid;
+  border-color: gray;
+  width: 100%;
+  position: absolute;
+}
+
+div.privateEvent {
+  position: absolute;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #ffaaaa;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+div.publicEvent {
+  position: absolute;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #aaaaff;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+div.meetingEvent {
+  position: absolute;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #aaffaa;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+div.unauthorizedEvent {
+  position: absolute;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #aaaaaa;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.needs-action {
+  color: red;
+}
+
+.tentative {
+  color: yellow;
+}
+
+td.dayInThisMonth {
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #eeeeff;
+  vertical-align: top;
+  padding: 0;
+}
+
+td.dayNotInThisMonth {
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #cccccc;
+  vertical-align: top;
+  padding: 0;
+}
+
+div.dayHeader {
+  background: #9999ff;
+  padding: 0px 2px;
+  link-color: #FF0000;
+}
+
+.inCalendar a:link {
+  color: #002244;
+}
+
+.inCalendar a:hover {
+  color: #004488;
+}
+
+.inCalendar a:visited {
+  color: #002244;
+}
+
+div.monthEvent {
+  overflow: hidden;
+  padding: 0px 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #aaaaff;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+td {
+  vertical-align: top;
+}
+
+thead tr {
+  background-color: rgb(231,231,231);
+}
+
+tr.even {
+  background-color: transparent;
+}
+
+tr.odd {
+  background-color: rgb(235,235,235);
+}
+
+th.checkbox {
+  width: 5%;
+}
+
+a.addEventShortcut {
+  font-size: 75%;
+}
+
+div.inOfficeHours {
+  background-color: rgb(238,238,255);
+}
+
+div.outOfficeHours {
+  background-color: rgb(204,204,204);
+}
+
+div.event {
+  clear: both;
+  background-color: rgb(231,231,231);
+  padding: 1px 8px 8px 8px;
+}
+
+div.eventTitle {
+  background-color: rgb(231,231,231);
+  padding: 0px 8px 1px 8px;
+}
+
+div.contextlinks {
+  font-size: 75%;
+}
+
+div.eventDescription {
+  clear: both;
+  background-color: rgb(255,255,255);
+  margin-top: 10px;
+  padding: 8px 8px 8px 8px;
+}
+
+div.eventDescription table {
+  width: 100%;
+  border: 0px;
+}
+
+div.eventDescription table td {
+  text-align: left;
+}
+
+div.eventDescription table th {
+  text-align: left;
+}
+
+td.rowlabel {
+  text-align: right;
+}

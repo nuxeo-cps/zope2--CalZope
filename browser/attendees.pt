@@ -1,0 +1,230 @@
+<tal:tag condition="view/update"/>
+<html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+<metal:block fill-slot="style_slot">
+  <style type="text/css" media="all" 
+    tal:content="string:@import url(${context/absolute_url}/++resource++calendar.css);"
+    />
+</metal:block>
+<body metal:fill-slot="body"
+  tal:define="event context"
+  >
+  <div class="eventTitle">
+    <div class="contextlinks" style="float: right"
+      tal:define="eventview context/@@eventview"
+      >
+      <tal:block i18n:translate="message_see_this_events_prefix">see this event's</tal:block>
+      <a tal:attributes="href eventview/getDayUrl" i18n:translate="">day</a>, 
+      <a tal:attributes="href eventview/getWeekUrl" i18n:translate="">week</a>, 
+      <a tal:attributes="href eventview/getMonthUrl" i18n:translate="">month</a
+      ><tal:block i18n:translate="message_see_this_events_postfix">.</tal:block>
+    </div>    
+    
+    <h1>
+      <tal:block content="event/title"/>
+    </h1>
+  </div>    
+  <div class="event">
+    <form action="." method="POST" enctype="multipart/form-data"
+      tal:attributes="action request/URL"
+      >
+      <div class="eventDescription">
+        <div>
+          <b i18n:translate="label_search_for_attendees">
+            Search for attendees
+          </b><b>:</b>
+        </div>  
+        
+        <div metal:use-macro="template/macros/attendee_search" />
+        
+        <tal:block
+          define="results view/getSearchResults"
+          condition="results"
+          >
+          <div style="margin-top: 8px;">
+            <b i18n:translate="label_search_results">
+              Search results
+            </b><b>:</b>
+          </div>
+
+          <table>
+            <thead>
+              <tr align="left">
+                <th></th>
+                <th i18n:translate="label_attendee_name">name</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tal:block repeat="entry results">
+                <tr 
+                  tal:define="
+                    attendee python:entry[0];
+                    busy python:entry[1];
+                    html_id string:add_${attendee/id};
+                    odd repeat/entry/odd;"
+                  tal:attributes="class python: odd and 'odd' or 'even'"
+                  >
+                  <td>
+                    <input type="checkbox" 
+                      tal:attributes="
+                        id html_id; 
+                        name html_id;"
+                      >
+                  </td>
+                  <td>
+                    <label 
+                      tal:attributes="for html_id" 
+                      tal:content="attendee/title"
+                    />
+                  </td>
+                  <td tal:condition="busy" i18n:translate="">
+                    The attendee is busy during this event
+                  </td>
+                  <td tal:condition="not:busy" i18n:translate=""/>
+                </tr>
+              </tal:block>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td/>
+                <td>
+                  <input type="submit" name="UPDATE_ADD" value="button_add" 
+                    tal:condition="results" i18n:attributes="value" />
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </tal:block>
+      </div>
+    </form>
+    
+    <div class="eventDescription">
+      <div>
+        <b i18n:translate="label_list_of_attendees">
+          List of attendees
+        </b><b>:</b>
+      </div>  
+      <form action="." method="POST" enctype="multipart/form-data"
+        tal:attributes="action request/URL"
+        >
+        
+        <table>
+          <thead>
+            <tr align="left">
+              <th class="checkbox"></th>
+              <th i18n:translate="label_attendee_name">name</th>
+              <th i18n:translate="label_attendee_status">status</th>
+            </tr>
+          </thead>
+
+          <tbody tal:define="attendees view/getAttendees">
+            <tal:block repeat="attendee attendees">
+              <tr
+                tal:define="
+                  attendee_id attendee/getId;
+                  remove_id string:remove_${attendee_id};
+                  odd repeat/attendee/odd"
+                tal:attributes="class python: odd and 'odd' or 'even'"
+                >
+                <td>
+                  <input type="checkbox" 
+                    tal:attributes="
+                      id remove_id; 
+                      name remove_id;"
+                    tal:condition="view/canManageAttendees"
+                    />
+                </td>
+                <td>
+                  <label tal:attributes="for remove_id" >
+                    <tal:block content="attendee/title" />
+                    (<tal:block content="python: attendee.getAttendeeType()" 
+                      i18n:translate="" />)
+                  </label>
+                </td>
+                <tal:block 
+                  define="
+                    status python:context.getParticipationStatus(attendee);
+                    statuslist python:view.validStatusList(attendee);"
+                  >
+                  <td tal:condition="python:not statuslist">
+                    <label 
+                      tal:attributes="for remove_id" 
+                      tal:content="status"
+                      i18n:translate=""
+                    />
+                  </td>
+                  <td tal:condition="python:statuslist">
+                    <select 
+                      tal:attributes="
+                        id string:new_status_${attendee_id}; 
+                        name string:new_status_${attendee_id};"
+                      >
+                      <option 
+                        tal:repeat="statusid statuslist" 
+                        tal:attributes="
+                          value statusid;
+                          selected python:status==statusid"
+                        tal:content="statusid"
+                        i18n:translate=""
+                      />
+                    </select>
+                  </td>
+                </tal:block>
+              </tr>
+            </tal:block>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2">
+                <input type="submit" name="UPDATE_REMOVE" value="button_remove"
+                  i18n:attributes="value"
+                  tal:condition="view/canManageAttendees"
+
+                />
+              </td>
+              <td>
+                <input type="submit" name="UPDATE_STATUS" value="button_change"
+                  i18n:attributes="value"
+                />
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
+
+<tal:block condition="nothing">
+
+<div metal:define-macro="attendee_search">
+  <input type="hidden" name="use_query" 
+    tal:attributes="value view/use_query" />
+  <input type="text" name="search_query" />
+  <input type="submit" name="UPDATE_SEARCH" value="button_search"
+    i18n:attributes="value" />
+</div>
+
+<table metal:define-macro="search_results">
+  <tr tal:repeat="attendee results">
+    <tal:block define="html_id string:add_${attendee/id}">
+      <td>
+        <input type="checkbox" tal:attributes="id html_id; name html_id;">
+      </td>
+      <td>
+        <label tal:attributes="for html_id" tal:content="attendee/title" />
+      </td>
+    </tal:block>
+  </tr>
+  <tr>
+    <td/>
+    <td>
+      <input tal:condition="results" type="submit" name="UPDATE_ADD" 
+        value="button_add" i18n:attributes="value" />
+    </td>
+  </tr>
+</table>
+
+</tal:block>

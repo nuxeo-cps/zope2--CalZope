@@ -1,0 +1,10 @@
+<html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+<div metal:fill-slot="style_slot">
+  <style type="text/css" media="all" 
+    tal:content="string:@import url(${context/absolute_url}/++resource++calendar.css);"
+    />
+</div>
+<body metal:fill-slot="body" tal:define="dummy view/calcInfo">
+  <div metal:use-macro="context/week_macro/macros/week_view"/>
+</body>
+</html>

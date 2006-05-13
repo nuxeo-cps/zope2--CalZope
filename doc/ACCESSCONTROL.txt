@@ -1,0 +1,182 @@
+======================================
+Access control (permissions and roles)
+======================================
+
+:Revision: $Id: ACCESSCONTROL.txt 30205 2005-12-01 19:53:43Z dkuhlman $
+
+.. sectnum::    :depth: 4
+.. contents::   :depth: 4
+
+
+Because what permissions a user should have on an event depends
+mostly on what his participation role is on that event in
+conjunction with what the users role is on the calendar that is
+being viewed, using the standard Zope access control gets to be
+very tricky.
+
+
+Use cases
+=========
+
+John is the organizer of an event, and Phil is an attendee. Steve
+should have the right to manage Johns events, and Pete should have
+the right to accept and reject events for Phil. Henry wants to be
+able to see what John and Phil is doing. Abe works in a different
+department and should have no rights at all.
+
+So, Pete and Phil should be able to change the participation
+status for Phil on the event. John, being the organizer should
+also be able to change this status, and in addition he should be
+able to invite new attendees. Henry should be able to view the
+event, but change nothing. Abe shouldn't even be able to view the
+event.
+
+Phil also has an event marked private. Henry, who can view Phil's
+other events, should not be able to view this event. Only Pete,
+since he is managing Phil's events.
+
+So, here we can identify a bunch of roles:
+
+1. A role to signify that this personal calendar is my personal
+   calendar.  CalCMF uses the standard Zope role
+   "Owner" for this.
+
+2. A role for people who manage resources or other attendees. 
+   This is called "AttendeeManager".
+
+3. A role for those who needs to view a calendar but not change
+   it.  This is called "AttendeeReader".
+   
+4. A role for those who organize an event, "EventOrganizer".
+
+5. A role for those who participate in an event,
+   "EventParticipant".
+
+
+Mapping a user to roles to permissions
+======================================
+
+Normally in Zope, user have their roles assigned locally, and the
+roles then have a mapping to permissions. The attendee roles
+(Owner, AttendeeManager and AttendeeReader) are also for
+CalCMF set by local roles, in this case on calendar
+objects. This local roles are checked by the method that checks
+permissions on events.
+
+If you are the organizer, you get the EventOrganizer role. If not,
+the organizers home calendar is retrieved, and it is checked if
+you have the AttendeeManager role on that calendar. If you do, you
+get the EventOrganizer role.
+
+The same is done for the EventParticipant role. If you are
+participating, you get the role. If not, the participants are
+looked through, to see if you are AttendeeManager for any of them,
+in which case you get the EventParticipant role anyway.
+
+Also, you acquire roles in the normal way. For example, it is
+possible to set up a role called "Foobar", give that to a user and
+a calendar, and he will automatically have the role "Foobar" on
+all events accessed through that calendar this means that in
+normal Zope fashion, the roles you have on an event will depend on
+which calendar object you are using to look at the event.
+
+However, the EventParticipant and EventOrganizer role do *not*
+depend on that. Maybe this should be changed? Maybe you should
+only get these roles if you are looking via a calendar that you
+are AttendeeManager on?
+
+As a last step, you should have the right to view the event, if it
+is public, if you have the AttendeeReader role. This works today.
+It only works if you look at the event via an attendees calendar,
+but since that would be the only way for you to see the event in
+the first place, that's OK.
+
+
+Permissions
+===========
+
+Attendee permissions
+--------------------
+
+These are permissions you have on an attendee. Since attendees are
+not persistent events, the permissions are fetched from the
+attendees main calendar object instead. So, if you want, you can
+think of them as calendar permissions. It's pretty much the same
+thing.
+
+- Invite attendee: You have permission to invite this attendee.
+  This is needed so we can allow or disallow people who are not
+  logged in to create events, (unless we make create event a
+  specific permission). This is by default given to Authenticated
+  so anybody that is logged in can invite anybody else. If you
+  have this permission, you also need to be able to search for
+  free times on the attendee, so that searching should be
+  protected by the same permission.
+
+- Manage participation status: You have the right to
+  accept/reject/defer events for this attendee. This is to allow
+  secretaries to accept events for their bosses, as well as assign
+  people who accept bookings for resources. This is by default
+  given to Owner and AttendeeManager, so that you get the
+  permission to accept events for yourself, as well as any 
+  resources you created (as you are the Owner for these). Also
+  you'll have the right to accept and reject events for anybody
+  who you are an AttendeeManager for.
+
+- View calendar: The permission to view an attendees calendar.
+  Often everybody in a company should be able to see everybody's
+  calendar, and then Authenticated could have this permission, but
+  by default it is given to Owner, AttendeeManager and
+  AttendeeReader, which is the minimal set that makes sense.
+  
+- Create events: This permission controls the possibility to
+  create an event as that attendee, that is, create meetings where
+  the attendee is the organizer/chair, or non-meeting events for
+  this attendee. By default, it is given to Owner and
+  AttendeeManager.
+  
+  
+Event permissions
+-----------------
+
+These are permissions you may have on an event. Since events in
+the future may not be Zope objects at all, we can't really set
+roles on the objects in the ZODB, but we need to find another
+mechanism. Ideas here are welcome.
+
+- View event: View event is a "fake" permission. It doesn't exist,
+  and nobody can have it. However, when you want to check if you a
+  user has the right to view an event, you can use it. The check
+  will actually be using either 'View public event' or 'View
+  private event' depending on if the event is public or private.
+
+- View public event: The right to view a public event. If you
+  don't have this permission, the event will be rendered as busy,
+  but without further details. By default, this is given to
+  Authenticated, so anyone can see all public events. Of course,
+  there is no way to actually GET to the events unless you also
+  can view the calendar, which is controlled by the View calendar 
+  permission above.
+
+- View private event: The right to view a private event is by
+  default only given to EventParticipant.
+  
+- Modify event: Only the EventOrganizer can modify and delete an
+  event by default. 
+
+- Delete event: By default, only the EventOrganizer are allowed to
+  delete an event completely.
+  
+- Invite attendees: This is the right to invite more people to an
+  event. By default, anybody who organizes or participates in an
+  event can invite more people, so this permission is given to
+  EventOrganizer and EventParticipant.  This permission does *not*
+  affect the right to delegate an invitation.  Instead, you can
+  delegate one person's invitation to another person if you have
+  'Manage participation status' for the invited person, and 
+  'Invite attendee' for the one you delegate to.
+  
+- Manage attendees: This allows you to set the status for other
+  people on an event. By default, this is only given to the
+  EventOrganizer.
+

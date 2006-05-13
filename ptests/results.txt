@@ -1,0 +1,567 @@
+Here are the results of the Swedish performance jury
+====================================================
+
+This file contain a sort of log of performance optimiziations on CalZope.
+It contains a lot of ramblings,mostly for me to remember certain decisions.
+
+Lets start of with the original unoptimized storage:
+
+Unoptimized ZODBStorage
+Number of events this test: 1000
+       Create Events: 0:00:00.474752
+           per event: 0:00:00.000474
+     Get event by id: 0:00:00.041900
+            per call: 0:00:00.000041
+Get events by period: 0:00:01.349561
+            per call: 0:00:00.006747
+
+Unoptimized ZODBStorage
+Number of events this test: 5000
+       Create Events: 0:00:01.904705
+           per event: 0:00:00.000380
+     Get event by id: 0:00:00.180494
+            per call: 0:00:00.000036
+Get events by period: 0:00:44.210226
+            per call: 0:00:00.044210
+
+As we see, and as expected, getting events by period gets slow quickly, and
+the slowness is exponentially dependent on the number of events.
+
+We have similar effects with MemoryStorage, although it is slightly quicker.
+But that means MemoryStorage will work fine as a benchmarch:
+
+Unoptimized MemoryStorage
+Number of events this test: 1000
+       Create Events: 0:00:00.357602
+           per event: 0:00:00.000357
+     Get event by id: 0:00:00.024454
+            per call: 0:00:00.000024
+Get events by period: 0:00:01.252300
+            per call: 0:00:00.006261
+
+Unoptimized MemoryStorage
+Number of events this test: 5000
+       Create Events: 0:00:01.271496
+           per event: 0:00:00.000254
+     Get event by id: 0:00:00.085082
+            per call: 0:00:00.000017
+Get events by period: 0:00:33.545236
+            per call: 0:00:00.033545
+
+As we see, with 50.000 events, even with all the events in memory, the 
+ZODBStorage will start getting annoyingly slow.
+(The "Get occurrences" test tests the type of call that is called when you
+display a typical calendar page).
+
+Unoptimized ZODBStorage
+Number of events this test: 50000
+       Create Events: 0:00:19.114964
+           per event: 0:00:00.000382
+     Get event by id: 0:00:01.788422
+            per call: 0:00:00.000035
+Get events by period: 0:00:03.682910
+            per call: 0:00:00.368291
+     Get occurrences: 0:00:20.309963
+            per call: 0:00:02.030996
+
+MemoryStorage still is in the same vicinity (but slightly faster):
+
+Unoptimized MemoryStorage
+Number of events this test: 50000
+       Create Events: 0:00:15.209100
+           per event: 0:00:00.000304
+     Get event by id: 0:00:01.037715
+            per call: 0:00:00.000020
+Get events by period: 0:00:05.378829
+            per call: 0:00:00.537882
+     Get occurrences: 0:00:13.203839
+            per call: 0:00:01.320383
+
+
+Index for dtstart
+=================
+So, we try to start optimizing a bit. First we add an index for dtstart.
+That way we can exlude events that start after the end of the period.
+
+(I also changed the data layout somewhat. There are now more events per
+day (40) and therefore more hits per search. I also increased the number of
+request on the last two tests from ten to a hundred, and made sure they are
+spread evenly over the total duration of all generated events. This gives a
+more accurate prediction of speed. It should have no effect on the earlier
+unindexed tests)
+
+ZODBStorage with a dtstart index only
+Number of events this test: 5000
+       Create Events: 0:00:02.677744
+           per event: 0:00:00.000535
+     Get event by id: 0:00:00.171114
+            per call: 0:00:00.000034
+Get events by period: 0:00:04.005136
+            per call: 0:00:00.040051
+     Get occurrences: 0:00:12.446759
+            per call: 0:00:00.124467
+
+ZODBStorage with a dtstart index only
+Number of events this test: 10000
+       Create Events: 0:00:04.595814
+           per event: 0:00:00.000459
+     Get event by id: 0:00:00.688575
+            per call: 0:00:00.000068
+Get events by period: 0:00:08.010785
+            per call: 0:00:00.080107
+     Get occurrences: 0:00:16.197421
+            per call: 0:00:00.161974
+
+ZODBStorage with a dtstart index only
+Number of events this test: 50000
+       Create Events: 0:00:26.838814
+           per event: 0:00:00.000536
+     Get event by id: 0:00:01.796705
+            per call: 0:00:00.000035
+Get events by period: 0:00:44.157089
+            per call: 0:00:00.441570
+     Get occurrences: 0:00:50.168034
+            per call: 0:00:00.501680
+
+Already now, the slowdown is more proportional than exponential to the number 
+of events. 50.000 events now would be usable (assuming the events are in
+memory, which is a bad assumption...), and in any case it's at least 4 times 
+as fast.
+
+And to compare: Unoptimized MemoryStorage
+Number of events this test: 50000
+       Create Events: 0:00:13.010454
+           per event: 0:00:00.000260
+     Get event by id: 0:00:00.752722
+            per call: 0:00:00.000015
+Get events by period: 0:00:39.024280
+            per call: 0:00:00.390242
+     Get occurrences: 0:01:55.837156
+            per call: 0:00:01.158371
+
+
+New test!
+=========
+
+At this point I improved the tests to be more reflective of reality.
+First of all, all the test now is performed during the last quarter of the
+search period, since you typically will have more events that have passed than 
+are coming.
+Also there is a new test: "occurrences 2" test gets the occurrences for user 3, 
+who has much fewer occurences than user 1, who is used for the first test. 
+
+Here are the new results:
+
+ZODBStorage with a dtstart index only
+Number of events this test: 5000
+       Create Events: 0:00:02.797631
+           per event: 0:00:00.000559
+     Get event by id: 0:00:00.178799
+            per call: 0:00:00.000035
+Get events by period: 0:00:00.530666
+            per call: 0:00:00.053066
+   Get occurrences 1: 0:00:01.039763
+            per call: 0:00:00.103976
+   Get occurrences 2: 0:00:00.757901
+            per call: 0:00:00.075790
+
+Number of events this test: 10000
+       Create Events: 0:00:06.624563
+           per event: 0:00:00.000662
+     Get event by id: 0:00:00.354645
+            per call: 0:00:00.000035
+Get events by period: 0:00:01.151327
+            per call: 0:00:00.115132
+   Get occurrences 1: 0:00:01.977576
+            per call: 0:00:00.197757
+   Get occurrences 2: 0:00:01.357447
+            per call: 0:00:00.135744
+
+Number of events this test: 50000
+       Create Events: 0:00:28.070981
+           per event: 0:00:00.000561
+     Get event by id: 0:00:01.831814
+            per call: 0:00:00.000036
+Get events by period: 0:00:05.378938
+            per call: 0:00:00.537893
+   Get occurrences 1: 0:00:10.154220
+            per call: 0:00:01.015422
+   Get occurrences 2: 0:00:07.426637
+            per call: 0:00:00.742663
+
+Supporting several attendees for one SearchCriteria:
+====================================================
+
+This is a change to CalCore, that removes the need for doing multiple
+searches when you have multiple attendees. It should have no positive or
+negative effect on this performance tests, as we only search for one
+at a time here. 
+
+
+ZODBStorage with a dtstart index only
+Number of events this test: 50000
+       Create Events: 0:00:32.400465
+           per event: 0:00:00.000648
+     Get event by id: 0:00:01.765061
+            per call: 0:00:00.000035
+Get events by period: 0:01:02.463342
+            per call: 0:00:00.624633
+   Get occurrences 1: 0:01:13.288925
+            per call: 0:00:00.732889
+   Get occurrences 2: 0:01:03.894414
+            per call: 0:00:00.638944
+
+Funnily enough, it speeds things up. Well, I'm not complaining! :)
+
+
+Index for attendees
+===================
+
+Attempt 1: Indexing all the events for the attendees.
+This means you have relatively few sets, one for each attendee, the sets
+are big, though.
+
+ZODBStorage with a dtstart and attendee to event index:
+Number of events this test: 5000
+       Create Events: 0:00:03.537629
+           per event: 0:00:00.000707
+     Get event by id: 0:00:00.189797
+            per call: 0:00:00.000037
+Get events by period: 0:00:00.580706
+            per call: 0:00:00.058070
+   Get occurrences 1: 0:00:01.173521
+            per call: 0:00:00.117352
+   Get occurrences 2: 0:00:00.355734
+            per call: 0:00:00.035573
+
+Number of events this test: 10000
+       Create Events: 0:00:08.334483
+           per event: 0:00:00.000833
+     Get event by id: 0:00:00.371619
+            per call: 0:00:00.000037
+Get events by period: 0:00:12.577873
+            per call: 0:00:00.125778
+   Get occurrences 1: 0:00:22.867349
+            per call: 0:00:00.228673
+   Get occurrences 2: 0:00:06.970460
+            per call: 0:00:00.069704
+
+Number of events this test: 50000
+       Create Events: 0:00:41.055490
+           per event: 0:00:00.000821
+     Get event by id: 0:00:02.041193
+            per call: 0:00:00.000040
+Get events by period: 0:01:02.569811
+            per call: 0:00:00.625698
+   Get occurrences 1: 0:02:29.035000
+            per call: 0:00:01.490350
+   Get occurrences 2: 0:01:24.629647
+            per call: 0:00:00.846296
+
+The call is significantly faster for the user with few events than the 
+user with many events. However, all in all, we get a FALL in speed!
+
+Before:     per call: 0:00:00.638944
+After:      per call: 0:00:00.846296
+
+No good.
+
+Attempt 2: Indexing the attendees for each event.
+This would mean you only need to load the set from the index instead
+of the whole event. However, loading a set from the ZODB and loading 
+an event is too similar for this to reasonably have any larger effect.
+
+ZODBStorage with a dtstart and event to attendee index:
+Number of events this test: 5000
+       Create Events: 0:00:03.079939
+           per event: 0:00:00.000615
+     Get event by id: 0:00:00.180664
+            per call: 0:00:00.000036
+Get events by period: 0:00:05.437770
+            per call: 0:00:00.054377
+   Get occurrences 1: 0:00:12.120090
+            per call: 0:00:00.121200
+   Get occurrences 2: 0:00:11.135094
+            per call: 0:00:00.111350
+
+Number of events this test: 10000
+       Create Events: 0:00:06.768973
+           per event: 0:00:00.000676
+     Get event by id: 0:00:00.376912
+            per call: 0:00:00.000037
+Get events by period: 0:00:11.538910
+            per call: 0:00:00.115389
+   Get occurrences 1: 0:00:21.842674
+            per call: 0:00:00.218426
+   Get occurrences 2: 0:00:08.237332
+            per call: 0:00:00.082373
+
+Number of events this test: 50000
+       Create Events: 0:00:36.567339
+           per event: 0:00:00.000731
+     Get event by id: 0:00:01.804508
+            per call: 0:00:00.000036
+Get events by period: 0:01:10.831671
+            per call: 0:00:00.708316
+   Get occurrences 1: 0:01:35.334738
+            per call: 0:00:00.953347
+   Get occurrences 2: 0:00:40.167750
+            per call: 0:00:00.401677
+            
+There is possibly with this some minor improvement in speed with users who
+have a small set of events, but the improvement doesn't seem worth it.
+For the larger set, we get a fall in speed:
+
+Before      per call: 0:00:00.732889
+After       per call: 0:00:00.953347
+
+Any attendee index will not be implemented, at least not at the moment.
+
+
+Indexing the dtend
+==================
+Indexing the dtend means we need to figure out the last date of the last 
+recurrence of an event. We also need to handle unbounded events, ie, recurring
+events that has no final ocurrence.
+
+The indexing for bounded recurring events will be slower, since you need to
+apply the recurrence rule and find the last recurrence, but this should not 
+be a noticeable problem (except for events that have tens of thousands of 
+recurrences, but still have a final date).
+
+ZODBStorage with a dtend index only
+Number of events this test: 5000
+       Create Events: 0:00:04.152455
+           per event: 0:00:00.000830
+     Get event by id: 0:00:00.175692
+            per call: 0:00:00.000035
+Get events by period: 0:00:00.115286
+            per call: 0:00:00.011528
+   Get occurrences 1: 0:00:00.642145
+            per call: 0:00:00.064214
+   Get occurrences 2: 0:00:00.319058
+            per call: 0:00:00.031905
+
+Number of events this test: 10000
+       Create Events: 0:00:06.986751
+           per event: 0:00:00.000698
+     Get event by id: 0:00:00.355226
+            per call: 0:00:00.000035
+Get events by period: 0:00:00.209350
+            per call: 0:00:00.020935
+   Get occurrences 1: 0:00:00.887629
+            per call: 0:00:00.088762
+   Get occurrences 2: 0:00:00.510915
+            per call: 0:00:00.051091
+
+Number of events this test: 50000
+       Create Events: 0:00:42.880481
+           per event: 0:00:00.000857
+     Get event by id: 0:00:01.826676
+            per call: 0:00:00.000036
+Get events by period: 0:00:00.936148
+            per call: 0:00:00.093614
+   Get occurrences 1: 0:00:02.278571
+            per call: 0:00:00.227857
+   Get occurrences 2: 0:00:01.316447
+            per call: 0:00:00.131644
+
+As we see, this is significantly faster than with a dtstart index.
+So, doing both must be *really* fast? Well... no. The index searches
+are both reasonably fast, but the intersectioning of them takes longer
+than loading all the events into memory. The result sets are simply
+too big.
+
+After much testing and improving of these searches I got these results, 
+which as you see still are *much* slower that just using one index.
+
+ZODBStorage with a dtstart AND dtend index 
+Number of events this test: 5000
+       Create Events: 0:00:03.540918
+           per event: 0:00:00.000708
+     Get event by id: 0:00:00.183061
+            per call: 0:00:00.000036
+Get events by period: 0:00:00.421164
+            per call: 0:00:00.042116
+   Get occurrences 1: 0:00:00.943001
+            per call: 0:00:00.094300
+   Get occurrences 2: 0:00:00.652468
+            per call: 0:00:00.065246
+
+Number of events this test: 10000
+       Create Events: 0:00:07.220166
+           per event: 0:00:00.000722
+     Get event by id: 0:00:00.880669
+            per call: 0:00:00.000088
+Get events by period: 0:00:00.882603
+            per call: 0:00:00.088260
+   Get occurrences 1: 0:00:03.552884
+            per call: 0:00:00.355288
+   Get occurrences 2: 0:00:01.167599
+            per call: 0:00:00.116759
+
+Number of events this test: 50000
+       Create Events: 0:00:43.930652
+           per event: 0:00:00.000878
+     Get event by id: 0:00:02.186242
+            per call: 0:00:00.000043
+Get events by period: 0:00:08.617022
+            per call: 0:00:00.861702
+   Get occurrences 1: 0:00:10.497783
+            per call: 0:00:01.049778
+   Get occurrences 2: 0:00:09.186153
+            per call: 0:00:00.918615
+
+Event id to dtstart index
+=========================
+So, we need to avoid getting huge result sets and intersecting these, since it 
+takes to long. Instead, I only use the dtend, index, but instead of using the
+inPeriod method to check the period, I use a event_id to dtstart index.
+
+This gets us back to similar speeds as just using the dtend index, but 
+loads way less events from ZODB. This seems to be a viable solution:
+
+Number of events this test: 5000
+       Create Events: 0:00:03.692704
+           per event: 0:00:00.000738
+     Get event by id: 0:00:00.174728
+            per call: 0:00:00.000034
+Get events by period: 0:00:00.104060
+            per call: 0:00:00.010406
+   Get occurrences 1: 0:00:00.619012
+            per call: 0:00:00.061901
+   Get occurrences 2: 0:00:00.358036
+            per call: 0:00:00.035803
+
+Number of events this test: 10000
+       Create Events: 0:00:08.038433
+           per event: 0:00:00.000803
+     Get event by id: 0:00:00.402283
+            per call: 0:00:00.000040
+Get events by period: 0:00:00.197201
+            per call: 0:00:00.019720
+   Get occurrences 1: 0:00:01.057868
+            per call: 0:00:00.105786
+   Get occurrences 2: 0:00:00.511537
+            per call: 0:00:00.051153
+
+Number of events this test: 50000
+       Create Events: 0:00:35.950633
+           per event: 0:00:00.000719
+     Get event by id: 0:00:01.827930
+            per call: 0:00:00.000036
+Get events by period: 0:00:00.731106
+            per call: 0:00:00.073110
+   Get occurrences 1: 0:00:02.063794
+            per call: 0:00:00.206379
+   Get occurrences 2: 0:00:01.140533
+            per call: 0:00:00.114053
+
+As we see, even with 50.000 events we get results in just tenths of seconds.
+It's actually slightly (but only slightly) faster than only the dtend index.
+And with 100.000 events, it's not much worse:
+
+Number of events this test: 100000
+       Create Events: 0:01:16.013332
+           per event: 0:00:00.000760
+     Get event by id: 0:00:04.028975
+            per call: 0:00:00.000040
+Get events by period: 0:00:01.386705
+            per call: 0:00:00.138670
+   Get occurrences 1: 0:00:02.223683
+            per call: 0:00:00.222368
+   Get occurrences 2: 0:00:01.780328
+            per call: 0:00:00.178032
+
+Number of events this test: 200000
+       Create Events: 0:02:47.215674
+           per event: 0:00:00.000836
+     Get event by id: 0:00:07.970051
+            per call: 0:00:00.000039
+Get events by period: 0:00:02.856864
+            per call: 0:00:00.285686
+   Get occurrences 1: 0:00:03.653952
+            per call: 0:00:00.365395
+   Get occurrences 2: 0:00:03.212319
+            per call: 0:00:00.321231
+
+
+Really big tests
+================
+
+I tried setting up a proper sandbox ZODB and doing commits after every 
+10.000 events to not run out of memory. It seems to have worked. The computer
+gets extremely slow, and starts swapping like mad, but I don't actually run 
+out of memory even on big tests, and speed seem to not suffer too much:
+
+Number of events this test: 240000
+Get events by period: 0:00:04.368623
+            per call: 0:00:00.436862
+   Get occurrences 1: 0:00:05.442635
+            per call: 0:00:00.544263
+   Get occurrences 2: 0:00:03.875507
+            per call: 0:00:00.387550
+
+Number of events this test: 300000
+Get events by period: 0:00:08.540981
+            per call: 0:00:00.854098
+   Get occurrences 1: 0:00:09.705157
+            per call: 0:00:00.970515
+   Get occurrences 2: 0:00:04.424748
+            per call: 0:00:00.442474
+
+
+Final testresults
+=================
+
+Unoptimized ZODBStorage stops being usable before 50.000 events, while
+optimized ZODBStorage seems to run quickly at 100.000 events.
+
+Unoptimized ZODBStorage                Optimized ZODBStorage
+
+Number of events this test: 10000
+Get events by period: 0:00:00.670078   Get events by period: 0:00:00.171137
+            per call: 0:00:00.067007               per call: 0:00:00.017113
+   Get occurrences 1: 0:00:04.454904      Get occurrences 1: 0:00:01.006199
+            per call: 0:00:00.445490               per call: 0:00:00.100619
+   Get occurrences 2: 0:00:03.008805      Get occurrences 2: 0:00:00.522772
+            per call: 0:00:00.300880               per call: 0:00:00.052277
+
+Number of events this test: 50000
+Get events by period: 0:00:03.556532   Get events by period: 0:00:00.682899
+            per call: 0:00:00.355653               per call: 0:00:00.068289
+   Get occurrences 1: 0:00:23.975954      Get occurrences 1: 0:00:02.064659
+            per call: 0:00:02.397595               per call: 0:00:00.206465
+   Get occurrences 2: 0:00:16.324383      Get occurrences 2: 0:00:01.087020
+            per call: 0:00:01.632438               per call: 0:00:00.108702
+
+Number of events this test: 100000
+Get events by period: 0:00:06.802190   Get events by period: 0:00:01.326399
+            per call: 0:00:00.680219               per call: 0:00:00.132639
+   Get occurrences 1: 0:00:44.298396      Get occurrences 1: 0:00:02.227316
+            per call: 0:00:04.429839               per call: 0:00:00.222731
+   Get occurrences 2: 0:00:34.618191      Get occurrences 2: 0:00:01.737594
+            per call: 0:00:03.461819               per call: 0:00:00.173759
+
+
+Speed decrease as a function of the number or events:
+
+                Unoptimized ZODBStorage    Optimized ZODBStorage
+Factor 2:       2.11                       1.48
+Factor 5:       5.43                       2.08
+Factor 10:     11.51                       3.32
+Factor 24:                                 7.41
+Factor 30:.................................8.46
+
+The Unoptimized storage sees a 10-doubling of the number of events create
+about a ten-doubling in the time for one call. The optimized storage sees 
+a ten-doubling in the number of events triple the time for each call. If 
+that goes for further increases (which takes to long for me to test) this 
+means that upwards a million events may now very well be feasible.
+
+At that point it is probably a good idea to in any case purge the system 
+of old events.
+
+
+Conclusion: This indexing is probably enough for the forseable future.
+

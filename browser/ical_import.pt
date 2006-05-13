@@ -1,0 +1,27 @@
+<tal:block tal:define="dummy view/importUpdate">
+<html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+  <body metal:fill-slot="body">
+    <h1 i18n:translate="">Import iCalendar file</h1>
+    <form tal:attributes="action request/URL" method="post"
+      enctype="multipart/form-data">
+      <table border="0">
+        <tr valign="top">
+          <th align="left">
+            <label for="file_field" i18n:translate="filename_label">
+              Filename
+            </label>:
+          </th>
+          <td><input type="file" name="file" id="file_field" /></td>
+        </tr>
+        <tr valign="top">
+          <th></th>
+          <td>
+            <input type="submit" name="SUBMIT_IMPORT" value="button_submit"
+              i18n:attributes="value" />
+          </td>
+        </tr>
+        
+    </form>
+  </body>
+</html>
+</tal:block>

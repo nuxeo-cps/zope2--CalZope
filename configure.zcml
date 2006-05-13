@@ -1,0 +1,42 @@
+<configure xmlns="http://namespaces.zope.org/zope" 
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:i18n="http://namespaces.zope.org/i18n">
+
+  <include file="permissions.zcml" />
+  <include file="browser/configure.zcml" />
+
+  <i18n:registerTranslations directory="locales" />
+
+  <vocabulary name="CalendarEventStatus"
+      factory="calcore.cal.CalendarEventStatusVocabulary"
+      />
+
+  <vocabulary name="CalendarEventAccess"
+      factory="calcore.cal.CalendarEventAccessVocabulary"
+      />
+      
+  <vocabulary name="CalendarMontlyRecurrenceType"
+      factory="calcore.cal.CalendarMontlyRecurrenceTypeVocabulary"
+      />
+
+  <vocabulary name="CalendarWeekdays"
+      factory="calcore.cal.CalendarWeekdaysVocabulary"
+      />
+      
+  <adapter factory=".zopecal.AddBusyChecker"
+           for="zope.app.publisher.interfaces.browser.IBrowserView"
+           provides=".interfaces.IBusyChecker" />
+
+  <adapter factory=".zopecal.EventBusyChecker"
+           for="calcore.interfaces.IInvitableCalendarEvent"
+           provides=".interfaces.IBusyChecker" />
+           
+  <adapter factory=".zopecal.AttendeeBusyChecker"
+           for="calcore.interfaces.IAttendee"
+           provides=".interfaces.IBusyChecker" />
+           
+   
+  <!-- five:localsite class="OFS.Folder.Folder" /-->
+  <!-- five:traversable class="OFS.Folder.Folder" /-->
+  
+</configure>

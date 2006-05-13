@@ -1,0 +1,169 @@
+<html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+<div metal:fill-slot="style_slot">
+  <style type="text/css" media="all" 
+    tal:content="string:@import url(${context/absolute_url}/++resource++calendar.css);"
+    />
+</div>
+<body metal:fill-slot="body" tal:define="dummy view/calcInfo">
+  <h2>
+    <tal:block replace="view/year"/> - 
+    <a tal:attributes="href string:${view/getCalendarUrl}/${view/year}/${view/month}">
+    <tal:block content="string:calendar_month_${view/month}" 
+      i18n:translate="" />
+    </a> -
+    <a tal:attributes="href string:${view/getCalendarUrl}/week/${view/year}/${view/week}"
+      i18n:translate="">
+      Week <tal:block replace="view/week" i18n:name="week" />
+    </a>
+  </h2>
+  <div metal:use-macro="template/macros/day_view"/>
+</body>
+</html>
+
+<tal:block condition="nothing">
+
+<table metal:define-macro="day_view" class="calendarMain">
+  <tr>
+    <td class="calendarMain" colspan="2">
+      <div metal:use-macro="template/macros/day_navigation" />
+    </td>
+  </tr>
+  <tr>
+    <td class="hourLabels" />
+    <td metal:use-macro="template/macros/day_labels" />
+  </tr>
+  <tr>
+    <td metal:use-macro="template/macros/hour_labels" />
+    <td metal:use-macro="template/macros/day_body" />
+  </tr>
+  <tr>
+    <td class="hourLabels" />
+  </tr>
+</table>
+
+<div metal:define-macro="day_navigation" i18n:domain="calendar">
+  <a
+    tal:attributes="href view/getPrevDayUrl">
+    &lt;&lt;
+  </a>&nbsp;
+  <a tal:define="today view/getTodayInfo"
+    tal:attributes="href string:${view/getCalendarUrl}/${today/year}/${today/month}/${today/day}"
+    i18n:translate="label_today" >
+    Today
+  </a>&nbsp;
+  <a tal:attributes="href view/getNextDayUrl">
+    &gt;&gt;
+  </a>
+</div>
+
+<td metal:define-macro="day_labels" class="dayLabels inCalendar" i18n:domain="calendar">
+  <div style="position: relative;">
+    <tal:block define="day view/getDate">
+      <div class="dayLabel">
+        <tal:block content="string:calendar_day_${day/weekday}" i18n:translate="" />
+        <tal:block replace="python:view.getShortDate(day)"/>
+        <a class="addEventShortcut"
+          title="Add event"
+          i18n:attributes="title"
+          tal:define="dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};"
+          tal:attributes="href string:${dayurl}/+/addevent.html"
+          tal:condition="python:view.checkPermission('Create events')"
+          >
+          +
+        </a>
+      </div>
+    </tal:block>
+  </div>
+</td>
+
+<td metal:define-macro="hour_labels" class="hourLabels">
+  <div style="position: relative;">
+    <!--Printing hours. TODO: Take care of am/pm or 24h format settings.-->
+    <tal:block repeat="hour python:range(view.from_hour, view.to_hour)">
+      <div class="hourLabel"
+        tal:attributes="style python:'top:%spx;;' % ((repeat['hour'].index + 1) * view.hour_height)">
+        <tal:block replace="python:'%02d:00'% hour" />
+      </div>
+    </tal:block>
+  </div>
+</td>
+
+<td metal:define-macro="day_body" class="calendarBody"
+  tal:attributes="height view/height;
+                  width view/width;">
+  <div style="position: relative;">
+  <!--The hour lines-->
+  
+  <!--The before first hour line-->
+  <tal:block condition="view/from_hour">
+    <div
+      class="hourLabel outOfficeHours"
+      tal:attributes="style python:'height: %spx;; top:0px;;' % view.hour_height;"
+      >
+    </div>
+  </tal:block>
+
+  <!-- The main lines -->
+  <tal:block repeat="hour python:range(view.from_hour, view.to_hour)">
+    <div
+      class="hourLabel inOfficeHours"
+      tal:attributes="style python:'height: %spx;; top:%spx;;' % (view.hour_height, (repeat['hour'].index +1) * view.hour_height);"
+      >
+    </div>
+  </tal:block>
+
+  <!--The after last hour line-->
+  <tal:block condition="view/from_hour">
+    <div
+      class="hourLabel outOfficeHours"
+      tal:attributes="style python:'height: %spx;; top:%spx;;' % (view.hour_height, (view.hour_count + 1) * view.hour_height);"
+      >
+    </div>
+  </tal:block>
+
+    <!--The events-->
+    <tal:block repeat="display python:view.getEventDisplays()">
+      <!-- TODO: Let the event determine the class -->
+      <div metal:use-macro="template/macros/standard_event" />
+    </tal:block>
+  </div>
+</td>
+
+<td metal:define-macro="day_footer" class="dayFooter">
+  <div style="position: relative;">
+    <div tal:repeat="day view/getDays"
+      tal:attributes="style python:'left:%spx;;' % (repeat['day'].index*view.day_width)">
+      <a tal:attributes="href string:AddZodbEvent.html">
+        <tal:block replace="day" />
+      </a>
+    </div>
+  </div>
+</td>
+
+<div metal:define-macro="standard_event"
+  tal:define="url string:${view/getCalendarUrl}/event/${display/event/unique_id}/"
+  tal:attributes="style display/getCssPositionString;
+                  title display/description;
+                  class string:${display/getCssEventClass}Event;"
+>
+  <a tal:attributes="href url;" tal:condition="display/viewable">
+    <tal:block replace="display/title_and_time" />
+  </a>
+  <tal:block replace="display/title_and_time" tal:condition="not:display/viewable"/>
+  <a 
+    tal:define="status display/getCssStatusClass"
+    tal:condition="status"
+    tal:attributes="
+      href string:${url}attendees.html;
+      class status;"
+    >
+    (<tal:block i18n:translate="" 
+      content="status" 
+    />)
+  </a>
+  
+  
+  
+</div>
+
+</tal:block>

@@ -1,0 +1,189 @@
+<tal:tag condition="view/update"/>
+<html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+<metal:block fill-slot="style_slot">
+  <style type="text/css" media="all" 
+    tal:content="string:@import url(${context/absolute_url}/++resource++calendar.css);"
+    />
+</metal:block>
+<metal:block fill-slot="body">
+  <div class="eventTitle">
+    <h1 i18n:translate="label_meeting_helper">
+      Meeting helper
+    </h1>
+  </div>
+  <div class="event">
+    <div class="eventDescription">
+      <form action="." method="POST" enctype="multipart/form-data"
+        tal:attributes="action request/URL"
+        >
+        <table><tr><td valign="top">
+          <h3 i18n:translate="label_search_for_attendees">Search for attendees</h3>
+          <div metal:use-macro="template/macros/attendee_search"/>
+          <tal:block define="results view/getSearchResults"
+            condition="results">
+            <h3 i18n:translate="label_search_results">Search results</h3>
+            <div metal:use-macro="template/macros/search_results"/>
+          </tal:block>
+          <h3 i18n:translate="label_current_attendees">Current attendees</h3>
+          <div metal:use-macro="template/macros/attendee_list"/>
+        </td><td valign="top">
+        <h3 i18n:translate="label_select_timespan">Select Timespan</h3>
+        <table metal:use-macro="template/macros/time_selection"/>
+        </td></tr></table>
+        <p> <input type="submit" name="UPDATE_SEARCH_FREETIME" 
+          value="button_search_for_free_time"
+          i18n:attributes="value"/></p>
+          <h3 i18n:translate="label_list_of_matching_times">List of matching times</h3>
+          <table metal:use-macro="template/macros/list_matches"/>
+      </form>
+    </div>
+</metal:block>
+</html>
+
+<tal:block condition="nothing">
+
+<div metal:define-macro="attendee_search" i18n:domain="calendar">
+  <input type="hidden" name="use_query" 
+    tal:attributes="value view/use_query" />
+  <input type="text" name="search_query" 
+    title="Use * to list all attendees (may take a very long time)"
+    i18n:attributes="title" />
+  <input type="submit" name="UPDATE_USER_SEARCH" value="button_search"
+    i18n:attributes="value"/><br/>
+  <p i18n:translate="">Search in full names and titles of users.</p>
+</div>
+
+<table metal:define-macro="search_results" i18n:domain="calendar">
+  <tr tal:repeat="attendee results">
+    <tal:block define="html_id string:add_${attendee/id}">
+      <td>
+        <input type="checkbox" tal:attributes="id html_id; name html_id;">
+      </td>
+      <td>
+        <label tal:attributes="for html_id" tal:content="attendee/title" />
+      </td>
+    </tal:block>
+  </tr>
+  <tr>
+    <td/>
+    <td>
+      <input tal:condition="results" type="submit" name="UPDATE_ADD" 
+        value="button_add" i18n:attributes="value"/>
+    </td>
+  </tr>
+</table>
+
+<table metal:define-macro="attendee_list"
+  tal:define="attendees view/getAttendees"  i18n:domain="calendar">
+  <tr tal:repeat="attendee attendees">
+    <tal:block define="attendee_id attendee/getId;
+                       remove_id string:remove_${attendee_id}">
+      <td>
+        <input type="checkbox" tal:attributes="id remove_id; name remove_id;"
+          tal:condition="python:attendee_id != view.getMainAttendeeId()" />
+      </td>
+      <td>
+        <label tal:attributes="for remove_id" tal:content="attendee/title" />
+      </td>
+      <td>
+        <label tal:attributes="for remove_id" 
+          tal:content="attendee/getAttendeeType"
+          i18n:translate="" />
+      </td>
+    </tal:block>
+  </tr>
+  <tr tal:condition="attendees">
+    <td colspan="2">
+      <input type="submit" name="UPDATE_REMOVE" value="button_remove"
+        i18n:attributes="value" />
+    <td/>
+  </tr>
+  <tr tal:condition="not:attendees">
+  <td i18n:translate="label_no_attendees_selected">No attendees selected</td>
+  </tr>
+</table>
+
+<table metal:define-macro="time_selection2" i18n:domain="calendar">
+    <tal:tag repeat="widget view/widgets">
+      <tal:tag condition="repeat/widget/even" replace="structure string:<tr>" />
+      <td><div class="label">
+      <p tal:content="repeat/widget/even" />
+        <label for="field.name" title="The widget's hint"  
+          tal:attributes="for widget/name; title widget/hint"
+	  i18n:attributes="title"
+          tal:content="widget/label">The Label</label>
+      </div>
+        <div class="field" tal:content="structure widget"/>
+      </td>
+      <td>
+        <div class="error" tal:define="error widget/error"
+          tal:condition="error" tal:content="structure error" />
+      </td>
+      <tal:tag condition="repeat/widget/odd" replace="structure string:</tr>" />
+    </tal:tag>
+    <tr class="row"><td colspan="2">
+      <input type="submit" name="UPDATE_SEARCH_FREETIME" value="label_search_for_free_time"
+        i18n:attributes="value"/>
+    </td></tr>
+</table>
+
+<table metal:define-macro="time_selection">
+  <tr>
+    <tal:block tal:define="widget nocall:view/begindate_widget">
+      <metal:block use-macro="template/macros/widget_cells" />
+    </tal:block>
+  </tr><tr>
+    <tal:block tal:define="widget nocall:view/enddate_widget">
+      <metal:block use-macro="template/macros/widget_cells" />
+    </tal:block>
+  </tr><tr>
+    <tal:block tal:define="widget nocall:view/fromhour_widget">
+      <metal:block use-macro="template/macros/widget_cells" />
+    </tal:block>
+  </tr><tr>
+    <tal:block tal:define="widget nocall:view/tohour_widget">
+      <metal:block use-macro="template/macros/widget_cells" />
+    </tal:block>
+  </tr><tr>
+    <tal:block tal:define="widget nocall:view/duration_widget">
+      <metal:block use-macro="template/macros/widget_cells" />
+    </tal:block>
+</table>
+
+<metal:block define-macro="widget_cells">
+  <td>
+    <div class="label">
+      <label i18n:attributes="title" 
+        tal:attributes="for widget/name; title widget/hint"
+        tal:content="widget/label" i18n:translate=""/>
+    </div>
+  </td><td>
+    <span class="field" tal:content="structure widget"/>
+  </td>
+  <tal:block define="error widget/error" tal:condition="error" >
+    <td tal:content="structure error" i18n:translate="" class="error" />
+  </tal:block>
+</metal:block>
+
+<div metal:define-macro="list_matches" i18n:domain="calendar">
+  <table>
+    <tr>
+      <th i18n:translate="label_starts">Starts</th>
+      <th i18n:translate="label_ends">Ends</th></tr>
+    <tr tal:repeat="period view/free_periods|nothing">
+      <tal:block define="dtstart python:period[0];
+                         dtstop python:period[1];
+                         duration python:view.helper.duration;
+                         timeurl python:view.makeTimeUrl(dtstart, duration);">
+        <td tal:content="python:view.datetime2str(dtstart)" />
+        <td tal:content="python:view.datetime2str(dtstop)" />
+        <td><a tal:attributes="href string:+/addmeeting.html?${timeurl}"
+              i18n:translate="label_create_event">
+          Create event</a>
+        </td>
+      </tal:block>
+    </tr>
+  </table>
+</div>
+
+</tal:block>

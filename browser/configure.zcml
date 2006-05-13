@@ -1,0 +1,596 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:i18n="http://namespaces.zope.org/i18n"
+           i18n_domain="calendar">
+
+  
+  <five:traversable class=".zopecal.StorageManager" />
+  <five:traversable class=".zopecal.Attendee" />
+
+  <five:traversable class=".zopecal.Calendar" />
+  <five:defaultViewable class=".zopecal.Calendar" />
+  <adapter
+      for="calcore.interfaces.ICalendar"
+      factory=".zopecal.CalendarTraversable"
+      provides="zope.app.traversing.interfaces.ITraversable"
+      />
+
+  <five:traversable class=".zopecal.Year" />
+  <five:defaultViewable class=".zopecal.Year" />
+  <adapter
+      for=".interfaces.IYear"
+      factory=".zopecal.YearTraversable"
+      provides="zope.app.traversing.interfaces.ITraversable"
+      />
+
+  <five:traversable class=".zopecal.Month" />
+  <five:defaultViewable class=".zopecal.Month" />
+  <adapter
+      for=".interfaces.IMonth"
+      factory=".zopecal.MonthTraversable"
+      provides="zope.app.traversing.interfaces.ITraversable"
+      />
+
+  <five:traversable class=".zopecal.Day" />
+  <five:defaultViewable class=".zopecal.Day" />
+
+  <five:traversable class=".zopecal.WeekList" />
+  <five:defaultViewable class=".zopecal.WeekList" />
+  <adapter
+      for=".interfaces.IWeekList"
+      factory=".zopecal.WeekListTraversable"
+      provides="zope.app.traversing.interfaces.ITraversable"
+      />
+
+  <five:traversable class=".zopecal.WeekYear" />
+  <five:defaultViewable class=".zopecal.WeekYear" />
+  <adapter
+      for=".interfaces.IWeekYear"
+      factory=".zopecal.WeekYearTraversable"
+      provides="zope.app.traversing.interfaces.ITraversable"
+      />
+  
+  <five:traversable class=".zopecal.Week" />
+  <five:defaultViewable class=".zopecal.Week" />
+  <adapter
+      for=".interfaces.IWeek"
+      factory=".zopecal.WeekTraversable"
+      provides="zope.app.traversing.interfaces.ITraversable"
+      />
+
+  <five:traversable class=".zopecal.EventList" />
+  <five:defaultViewable class=".zopecal.EventList" />
+  <adapter
+      for=".interfaces.IEventList"
+      factory=".zopecal.EventListTraversable"
+      provides="zope.app.traversing.interfaces.ITraversable"
+      />
+
+  <five:traversable class=".storage.ZODBEvent" />
+  <five:defaultViewable class=".storage.ZODBEvent" />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    template="calendar.css"
+    name="calendar.css"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendarEvent"
+    class=".browser.calview.GotoCalendarView"
+    name="calendar.html"
+    permission="calendar.ViewCalendar"
+  />
+
+  <browser:page
+    for=".interfaces.IWeekList"
+    class=".browser.calview.GotoCalendarView"
+    name="calendar.html"
+    permission="calendar.ViewCalendar"
+  />
+
+  <browser:page
+    for=".interfaces.IWeekYear"
+    class=".browser.calview.GotoCalendarView"
+    name="calendar.html"
+    permission="calendar.ViewCalendar"
+  />
+  
+  <browser:page
+    for=".interfaces.IDate"
+    class=".browser.calview.GotoCalendarView"
+    name="calendar.html"
+    permission="calendar.ViewCalendar"
+  />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    class=".browser.calview.CalendarView"
+    template="calendar.pt"
+    name="calendar.html"
+    permission="calendar.ViewCalendar"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    template="calendar_edit.pt"
+    name="edit.html"
+    permission="calendar.EditCalendar"
+    class=".browser.calview.CalendarEditView"
+    />
+
+  <browser:defaultView
+    for="calcore.interfaces.ICalendar"
+    name="calendar.html"
+  />
+  
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    template="week_macro.pt"
+    name="week_macro"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    template="eventlist_macro.pt"
+    name="eventlist_macro"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    template="organized_events.pt"
+    name="organized_events.html"
+    class=".browser.calview.OrganizedEventsView"
+    permission="calendar.ManageParticipationStatus"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    template="action_needed_events.pt"
+    name="action_needed_events.html"
+    class=".browser.calview.NeedsActionEventsView"
+    permission="calendar.ManageParticipationStatus"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    template="attended_events.pt"
+    name="attended_events.html"
+    class=".browser.calview.AttendedEventsView"
+    permission="calendar.ManageParticipationStatus"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    class=".browser.meetinghelper.MeetingHelperView"
+    template="meetinghelper.pt"
+    name="meetinghelper.html"
+    permission="calendar.CreateEvents"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    class=".browser.icalsupport.ICalendarImportExportView"
+    template="icalexport.pt"
+    name="calendar.ics"
+    permission="calendar.ViewCalendar"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    class=".browser.icalsupport.ICalendarImportExportView"
+    template="ical_import.pt"
+    name="import.html"
+    permission="calendar.CreateEvents"
+    />
+
+  <browser:page
+    for=".interfaces.IDate"
+    class=".browser.date.DateView"
+    attribute="meetingHelper"
+    name="meetinghelper.html"
+    permission="calendar.ViewCalendar"
+    />
+
+  <browser:page
+    for=".interfaces.IYear"
+    template="year.pt"
+    name="year.html"
+    permission="calendar.ViewCalendar"
+    />
+
+  <browser:defaultView
+    for=".interfaces.IYear"
+    name="year.html"
+    />
+
+  <browser:page
+    for=".interfaces.IMonth"
+    template="month.pt"
+    name="month.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.month.MonthView"
+    />
+
+  <browser:defaultView
+    for=".interfaces.IMonth"
+    name="month.html"
+    />
+
+  <browser:page
+    for=".interfaces.IDay"
+    template="day.pt"
+    name="day.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.day.DayView"
+    />
+
+  <browser:defaultView
+    for=".interfaces.IDay"
+    name="day.html"
+    />
+
+  <browser:page
+    for=".interfaces.IEventList"
+    class=".browser.event.EventListView"
+    name="eventlist.html"
+    permission="calendar.ViewCalendar"
+    />
+
+  <browser:defaultView
+    for=".interfaces.IEventList"
+    name="eventlist.html"
+    />
+
+  <browser:page
+    name="eventview"
+    for="calcore.interfaces.IExtendedCalendarEvent"
+    class=".browser.event.EventView"
+    permission="calendar.ViewEvent"
+  />
+
+  <browser:page
+    for="calcore.interfaces.IExtendedCalendarEvent"
+    template="event.pt"
+    class=".browser.event.EventView"
+    name="event.html"
+    permission="calendar.ViewEvent"
+    />
+
+  <adapter
+    for="calcore.interfaces.IExtendedCalendarEvent"
+    provides=".browser.interfaces.IEventEditSchema"
+    factory=".browser.eventedit.EventEdit"
+    />
+
+  <browser:editform
+    for="calcore.interfaces.IExtendedCalendarEvent"
+    name="edit.html"
+    schema=".browser.interfaces.IEventEditSchema"
+    class=".browser.eventedit.EventEditSaver"
+    permission="calendar.ModifyEvent"
+    label="Edit event">
+
+    <browser:widget
+      field="dtend"
+      class=".browser.widget.EndDateWidget"
+      />
+
+    <browser:widget
+      field="categories"
+      class=".browser.widget.SetTextAreaWidget"
+      />
+
+  </browser:editform>
+
+  <browser:defaultView
+    for="calcore.interfaces.IInvitableCalendarEvent"
+    name="event.html"
+    />
+
+  <browser:page
+    name="attendeesmanagement"
+    for="calcore.interfaces.IInvitableCalendarEvent"
+    permission="zope.Public"
+    class=".browser.event.AttendeeManagementView"
+  />
+  
+  <browser:page
+    for="calcore.interfaces.IInvitableCalendarEvent"
+    template="attendees.pt"
+    name="attendees.html"
+    permission="calendar.InviteAttendees"
+    class=".browser.event.AttendeeManagementView"
+  />
+
+  <browser:page
+    for="calcore.interfaces.ICalendarEvent"
+    template="edit.pt"
+    name="recurrence.html"
+    permission="calendar.ModifyEvent"
+    class=".browser.event.RecurrenceView"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendarEvent"
+    template="eventdelete.pt"
+    name="delete.html"
+    permission="zope.Public"
+    class=".browser.event.EventView" 
+    />
+
+  <browser:page
+    for=".interfaces.IWeekList"
+    template="weeklist.pt"
+    name="weeklist.html"
+    permission="calendar.ViewCalendar"
+    />
+
+  <browser:defaultView
+    for=".interfaces.IWeekList"
+    name="weeklist.html"
+    />
+
+  <browser:page
+    for=".interfaces.IWeekYear"
+    template="weekyear.pt"
+    name="weekyear.html"
+    permission="calendar.ViewCalendar"
+    />
+
+  <browser:defaultView
+    for=".interfaces.IWeekYear"
+    name="weekyear.html"
+    />
+  
+  <browser:page
+    for=".interfaces.IWeek"
+    template="week_macro.pt"
+    name="week_macro"
+    permission="zope.Public"
+    />
+
+  <browser:page
+    for=".interfaces.IWeek"
+    template="week.pt"
+    name="week.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.week.WeekView"
+    />
+
+  <browser:defaultView
+    for=".interfaces.IWeek"
+    name="week.html"
+    />
+
+  <!-- needed css -->
+  <browser:resource
+    template="calendar.css"
+    name="calendar.css"
+    />
+
+  <!-- for the javascript calendar -->
+
+  <browser:resource
+    file="jscalendar/calendar-win2k-1.css"
+    name="calendar-win2k-1.css"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    file="jscalendar/calendar.js"
+    name="calendar.js"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    file="jscalendar/calendar-setup.js"
+    name="calendar-setup.js"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    file="jscalendar/img.gif"
+    name="jscalendar.gif"
+    permission="zope.Public" 
+    />
+
+  <!-- Adding the language files for languages we and jscalendar support. 
+       That means no Euskera (eu), no malagasy (mg) and standard 
+       portugese (pt) instead of Brazilian Portugese (pt_Br).
+
+       There is a list of supported languages in widget.py that needs to
+       be updated as well. /-->
+
+  <browser:resource
+    file="jscalendar/lang/calendar-de.js"
+    name="calendar-de.js"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    file="jscalendar/lang/calendar-en.js"
+    name="calendar-en.js"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    file="jscalendar/lang/calendar-es.js"
+    name="calendar-es.js"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    file="jscalendar/lang/calendar-fr.js"
+    name="calendar-fr.js"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    file="jscalendar/lang/calendar-it.js"
+    name="calendar-it.js"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    file="jscalendar/lang/calendar-nl.js"
+    name="calendar-mg.js"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    file="jscalendar/lang/calendar-pt.js"
+    name="calendar-pt.js"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    file="jscalendar/lang/calendar-ro.js"
+    name="calendar-ro.js"
+    permission="zope.Public" 
+    />
+
+  <!-- event display-->
+
+  <adapter
+    for="calcore.interfaces.ICalendarOccurrence .browser.interfaces.IUnPositionedView"
+    provides=".browser.interfaces.IEventDisplay"
+    factory=".browser.eventdisplay.EventDisplay"
+    />
+
+  <!-- event display with positioning -->
+
+  <adapter
+    for="calcore.interfaces.ICalendarOccurrence .browser.interfaces.IPositionedView"
+    provides=".browser.interfaces.IEventDisplay"
+    factory=".browser.eventdisplay.PositionedEventDisplay"
+    />
+
+  <!-- duration widget -->
+
+  <view
+      type="zope.publisher.interfaces.browser.IBrowserRequest"
+      for="calcore.schema.ITimedelta"
+      provides="zope.app.form.interfaces.IInputWidget"
+      factory=".browser.widget.TimedeltaWidget"
+      permission="zope.Public"
+      />
+
+  <!-- time widget -->
+
+  <view
+      type="zope.publisher.interfaces.browser.IBrowserRequest"
+      for="calcore.schema.ITime"
+      provides="zope.app.form.interfaces.IInputWidget"
+      factory=".browser.widget.TimeWidget"
+      permission="zope.Public"
+      />
+
+  <!-- adding events -->
+  <browser:view
+      for="calcore.interfaces.ICalendar"
+      name="+"
+      class=".browser.adding.CalendarEventAdding"
+      permission="calendar.CreateEvents"
+      >
+
+    <browser:page name="index.html"  template="adding.pt" />
+    <browser:page name="action.html" attribute="action" />
+
+  </browser:view>
+
+  <browser:view
+      for=".interfaces.IDate"
+      name="+"
+      class=".browser.adding.CalendarEventAdding"
+      permission="calendar.CreateEvents"
+      >
+
+    <browser:page name="index.html"  template="adding.pt" />
+    <browser:page name="action.html" attribute="action" />
+
+  </browser:view>
+
+  <browser:addform
+     schema=".browser.interfaces.IEventEditSchema"
+     class=".browser.adding.AddingHelper"
+     content_factory=".browser.adding.EventFactory"
+     name="addevent.html"
+     permission="calendar.CreateEvents"
+     arguments="dtstart dtend"
+     keyword_arguments="allday"
+     label="Add event"
+     >
+
+    <browser:widget
+      field="dtend"
+      class=".browser.widget.EndDateWidget"
+      />
+
+    <browser:widget
+      field="categories"
+      class=".browser.widget.SetTextAreaWidget"
+      />
+
+  </browser:addform>
+
+  <browser:addform
+     schema=".browser.interfaces.IEventEditSchema"
+     class=".browser.adding.AddingHelper"
+     content_factory=".browser.adding.MeetingFactory"
+     name="addmeeting.html"
+     permission="calendar.CreateEvents"
+     arguments="dtstart dtend"
+     keyword_arguments="allday"
+     label="Add event"
+     >
+
+    <browser:widget
+      field="dtend"
+      class=".browser.widget.EndDateWidget"
+      />
+
+    <browser:widget
+      field="categories"
+      class=".browser.widget.SetTextAreaWidget"
+      />
+
+  </browser:addform>
+
+  <browser:page
+    for="calcore.interfaces.IDailyRecurrenceRule"
+    name="recurrencerule"
+    permission="zope.Public"
+    class=".browser.event.DailyRecurrenceRuleView"
+  />
+
+  <browser:page
+    for="calcore.interfaces.IWeeklyRecurrenceRule"
+    name="recurrencerule"
+    permission="zope.Public"
+    class=".browser.event.WeeklyRecurrenceRuleView"
+  />
+  
+  <browser:page
+    for="calcore.interfaces.IMonthlyRecurrenceRule"
+    name="recurrencerule"
+    permission="zope.Public"
+    class=".browser.event.MonthlyRecurrenceRuleView"
+  />
+  
+  <browser:page
+    for="calcore.interfaces.IYearlyRecurrenceRule"
+    name="recurrencerule"
+    permission="zope.Public"
+    class=".browser.event.YearlyRecurrenceRuleView"
+  />
+  
+  <vocabulary name="RecurrenceVocabulary"
+    factory=".browser.event.RecurrenceVocabulary"
+    />
+
+</configure>

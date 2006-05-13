@@ -1,0 +1,28 @@
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- The add and edit forms now check if any of the attendees of the event is 
+  busy, and in that case, it you will get a form error status message.
+  Also, when seraching for users in the attendee form, users who are busy
+  are marked so. You can still invite them in that case.
+  
+  The "busy rules" are as follows: 
+  
+  1. An attendee is seen as busy if it has a non-blocking confirmed event
+     which it has accepted. 
+
+  2. If the attendee is somebody else than the current calendars attendee,
+     and you are logged in as somebody who has Manage participation status 
+     permission for the attendee, you will be allowed to double book.
+     
+  These rules are subject to change to whatever turns out to work best in
+  practice. The feature should be seen as slightly experimental at the moment.
+  
+Bug fixes:
+~~~~~~~~~~
+- Updated Spanish translation thanks to Jesús Martín.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-

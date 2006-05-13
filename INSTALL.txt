@@ -1,0 +1,53 @@
+Requirements
+============
+
+* Zope 2.9.1
+
+* CalCore 2.0.1
+
+* iCalendar 0.10 
+
+About
+=====
+
+CalZope is a Calendaring system for CPS and Zope 2, using the CalCore
+calendaring library. It provides a user interface and a Zope event
+storage and can easily be integrated into any Zope site.
+
+To integrate CalZope into your Zope site, you need to create navigation,
+mainly some sort of menu support. For this you may want to take a look
+at CMFonFive and CPSSharedCalendar, who together do just this for 
+CMF and CPS.
+
+
+To set up a basic calendar
+==========================
+
+* Create an external method with the following information:
+    Module Name: CalZope.install
+    Method Name: install
+
+* After you have created it, run it by clicking on its "Test" tab.
+  This creates a folder called "calendars" in which you can create calendars.
+
+* In the folder there is an external method called "create_home_calendar".
+  Open it and run it by clicking the test tab.
+  This creates a home calendar for the current user. The calendar will be 
+  named <user>_cal, where <user> is the user_id.
+
+* You can view the newly created calendar by going to the calendars URL.
+  For example: http://localhost:8080/calendars/admin_cal/
+
+* As pure Zope has no menu system, you have to type in the URLS of many
+  pages. Here are some of them:
+    edit.html              Edit the calendar
+    +/addevent.html        Add an event
+    meetinghelper.html     Creating events for several attendees.
+
+  The same goes for event objects. Here are some event URLs:
+    edit.html              Edit the event
+    recurrence.html        Change the recurrence of the event
+
+  For a full list, see browser/configure.zcml
+  
+Have fun!

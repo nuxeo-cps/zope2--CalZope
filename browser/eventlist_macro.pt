@@ -1,0 +1,73 @@
+<metal:block define-macro="event_header" i18n:domain="calendar">
+<thead
+  tal:define="enablecheckbox enablecheckbox | python: True;"
+  >
+  <tr>
+    <th class="checkbox"
+      tal:condition="enablecheckbox"
+      >
+    </th>
+    <th i18n:translate="label_start">Start</th>
+    <th i18n:translate="label_duration">Duration</th>
+    <th i18n:translate="label_title">Title</th>
+    <th i18n:translate="label_status">Status</th>
+    <th i18n:translate="label_organizer">Organizer</th>
+  </tr>
+</thead>
+</metal:block>
+
+<metal:block define-macro="no_events_row" i18n:domain="calendar">
+  <tr class="even"
+    tal:define="enablecheckbox enablecheckbox | python: True;"
+    >
+    <td tal:attributes="colspan python: enablecheckbox and 5 or 4"
+      i18n:translate="">
+      No events to list
+    </td>
+  </tr>  
+</metal:block>
+
+<metal:block define-macro="event_row" i18n:domain="calendar">
+<tal:block
+  define="
+    eventview event/@@eventview;
+    odd repeat/event/odd; 
+    enablecheckbox enablecheckbox | python: True;"
+  >
+  <tr tal:attributes="class python: odd and 'odd' or 'even'">
+    <td tal:condition="enablecheckbox">
+      <input type="checkbox" name="event_ids:list"
+        tal:attributes="value event/unique_id"
+      />
+    </td>
+    <td tal:content="eventview/starttime"></td>
+    <td tal:content="eventview/duration"></td>
+    <td>
+      <a 
+        tal:content="event/title"
+        tal:attributes="href string:event/${event/unique_id}"
+      />
+    </td>
+    <td 
+      tal:content="python:view.getParticipationStatus(event)" 
+      i18n:translate="">
+    </td>
+    <td tal:content="eventview/getOrganizerTitle"></td>
+  </tr>
+</tal:block>
+</metal:block>
+
+<metal:block define-macro="change_participation_status" i18n:domain="calendar">
+  <h4 i18n:translate="message_select_new_participation_status">
+    Select new participation status
+  </h4>
+  <select name="participation_status">
+    <tal:block 
+      repeat="action python:['ACCEPTED', 'DECLINED', 'TENTATIVE','DELEGATED']">
+      <option tal:content="action" tal:attributes="value action" i18n:translate="" />
+    </tal:block>
+  </select>
+  <input type="submit" name="update_participation_status" value="button_change"
+    i18n:attributes="value"
+  />
+</metal:block>
