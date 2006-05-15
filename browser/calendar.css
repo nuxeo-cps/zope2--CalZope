@@ -93,11 +93,11 @@ div.unauthorizedEvent {
 }
 
 .needs-action {
-  color: red;
+  color: Red;
 }
 
 .tentative {
-  color: yellow;
+  color: Orange;
 }
 
 td.dayInThisMonth {
@@ -162,7 +162,7 @@ tr.even {
 }
 
 tr.odd {
-  background-color: rgb(235,235,235);
+  background-color: rgb(231,231,231);
 }
 
 th.checkbox {
@@ -188,8 +188,6 @@ div.event {
 }
 
 div.eventTitle {
-  background-color: rgb(231,231,231);
-  padding: 0px 8px 1px 8px;
 }
 
 div.contextlinks {
