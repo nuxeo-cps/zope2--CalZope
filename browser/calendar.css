@@ -97,7 +97,7 @@ div.unauthorizedEvent {
 }
 
 .tentative {
-  color: Orange;
+  color: #ffa500;
 }
 
 td.dayInThisMonth {
