@@ -18,7 +18,6 @@
 # $Id$
 
 import urllib
-from cgi import escape
 
 def add_and_edit(self, id, REQUEST, screen='manage_main'):
     """Helper function to point to the object's management screen if
