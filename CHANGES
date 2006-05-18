@@ -35,6 +35,7 @@ Bug fixes:
   
 - 0004430: The error message "End must come after start" was untranslated.
 
+- 0004429: Translation consistency. Always say "Add event", not "Create".
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -

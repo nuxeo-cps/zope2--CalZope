@@ -217,10 +217,11 @@ msgid "label_categories"
 msgstr "Categorias"
 
 #.   <a attributes="href string:+/addmeeting.html?${timeurl}">
-#.             Create event</a>
+#.             Add event</a>
 #: from ../skins/meetinghelper.pt
-msgid "label_create_event"
-msgstr "Criar evento"
+#, fuzzy
+msgid "label_add_event"
+msgstr "Adicionar evento"
 
 #.   <h3>Current attendees</h3>
 #: from ../skins/meetinghelper.pt

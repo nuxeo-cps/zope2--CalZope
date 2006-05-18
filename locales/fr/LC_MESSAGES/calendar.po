@@ -221,10 +221,10 @@ msgid "label_categories"
 msgstr "Catégories"
 
 #.   <a attributes="href string:+/addmeeting.html?${timeurl}">
-#.             Create event</a>
+#.             Add event</a>
 #: from ../skins/meetinghelper.pt
-msgid "label_create_event"
-msgstr "Créer un événement"
+msgid "label_add_event"
+msgstr "Ajouter un événement"
 
 #.   <h3>Current attendees</h3>
 #: from ../skins/meetinghelper.pt
@@ -913,7 +913,7 @@ msgid "Every ${count} years"
 msgstr "Tous les ${count} ans"
 
 msgid "Who has access to this event."
-msgstr "Qui a accès à cet évènement."
+msgstr "Qui a accès à cet événement."
 
 # # Dates
 msgid "calendar_month_1"

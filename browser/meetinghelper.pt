@@ -178,8 +178,8 @@
         <td tal:content="python:view.datetime2str(dtstart)" />
         <td tal:content="python:view.datetime2str(dtstop)" />
         <td><a tal:attributes="href string:+/addmeeting.html?${timeurl}"
-              i18n:translate="label_create_event">
-          Create event</a>
+              i18n:translate="label_add_event">
+          Add event</a>
         </td>
       </tal:block>
     </tr>
