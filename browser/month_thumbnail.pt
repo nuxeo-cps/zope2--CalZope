@@ -1,0 +1,17 @@
+<h3 tal:define="dummy view/calcInfo"
+    tal:content="string:calendar_month_${view/month}" i18n:translate="" />
+<table class="calendarThumbnail">
+  <tr tal:repeat="week python:range(view.weeks)">
+    <tal:block repeat="weekday python:range(1,8)">
+      <td tal:define="day python:view.getDateForWeekDay(week, weekday);
+                      dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};"
+          tal:attributes="class python:day.month == context.getMonth() and 
+                                'dayInThisMonth' or 'dayNotInThisMonth'">
+        <a tal:attributes="href dayurl;
+                           class python:view.getOccurrences(day) and 'hasEvent' or 'noEvent'"
+           tal:content="day/day" />
+       </td>
+     </tal:block>
+   </tr>
+</table>
+           
