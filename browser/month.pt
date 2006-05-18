@@ -25,7 +25,8 @@
 </html>
 
 <tal:block condition="nothing">
-<table metal:define-macro="month_view" class="calendarMain">
+<table metal:define-macro="month_view" class="calendarMain" 
+       i18n:domain="calendar">
   <tr>
     <td class="calendarMain" colspan="2">
       <div metal:use-macro="template/macros/month_navigation" />
@@ -35,7 +36,7 @@
     <td class="weekHeader" tal:define="weekstart python:view.getDateForWeekDay(week, 1);
                                       thisweek python:weekstart.isocalendar()[1]">
       <a tal:attributes="href string:${view/getCalendarUrl}/week/${weekstart/year}/${thisweek}">
-        <tal:block i18n:translate="" >
+        <tal:block i18n:translate="">
           Week <tal:block replace="thisweek" i18n:name="week"/>
         </tal:block>
       </a>

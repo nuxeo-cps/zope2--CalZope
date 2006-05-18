@@ -36,6 +36,10 @@ Bug fixes:
 - 0004430: The error message "End must come after start" was untranslated.
 
 - 0004429: Translation consistency. Always say "Add event", not "Create".
+
+- 0004431: The month-macro was missing a domain, so the "Week" label was not
+           translated. 
+           
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
