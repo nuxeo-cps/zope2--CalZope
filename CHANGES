@@ -20,6 +20,8 @@ New features:
   These rules are subject to change to whatever turns out to work best in
   practice. The feature should be seen as slightly experimental at the moment.
   
+- 0004431: The weeks are now displayed in the breadcrumb as "Week 20".
+
 Bug fixes:
 ~~~~~~~~~~
 - Updated Spanish translation thanks to Jesús Martín.

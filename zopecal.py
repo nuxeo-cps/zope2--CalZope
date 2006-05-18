@@ -475,7 +475,7 @@ class Week(SimpleItem):
     
     def __init__(self, year, week_nr):
         self.id = str(week_nr)
-        self.title = self.id
+        self.title = _("Week ${week}", mapping={'week': self.id})
         self._year = year
         self._week_nr = week_nr
 
