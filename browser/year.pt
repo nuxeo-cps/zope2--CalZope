@@ -1,12 +1,33 @@
 <html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+<div metal:fill-slot="style_slot">
+  <style type="text/css" media="all" 
+    tal:content="string:@import url(${context/absolute_url}/++resource++calendar.css);"
+    />
+</div>
 <body metal:fill-slot="body">
-<h2><tal:block i18n:translate="">Year</tal:block>
- <span tal:replace="context/getYear">year</span></h2>
-<ul>
-  <li tal:repeat="month context/getMonths">
-    <a tal:attributes="href string:${context/absolute_url}/${month}" 
-       tal:content="month"></a>
-  </li>
-</ul>
+  <h2>
+    <a class="prevnext"
+      tal:attributes="href python:'../' + str(context.getYear() -1)">
+      &lt;&lt;
+    </a>
+
+    <tal:block i18n:translate="">Year</tal:block>
+    <span tal:replace="context/getYear">year</span>
+    
+    <a class="prevnext"
+      tal:attributes="href python:'../' + str(context.getYear() +1)">
+      &gt;&gt;
+    </a>
+  </h2>
+
+  <table>
+    <tr tal:repeat="row python:(0, 1, 2)">
+      <td tal:repeat="col python:(1, 2, 3, 4)">
+        <span tal:define="month python:str(row*4+col);
+                          month_object context/?month"
+          tal:content="structure month_object/@@thumbnail.html" />
+      </td>
+    </tr>
+  </table>
 </body>
 </html>

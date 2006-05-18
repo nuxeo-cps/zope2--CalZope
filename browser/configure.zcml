@@ -216,6 +216,14 @@
     class=".browser.month.MonthView"
     />
 
+  <browser:page
+    for=".interfaces.IMonth"
+    template="month_thumbnail.pt"
+    name="thumbnail.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.month.MonthView"
+    />
+
   <browser:defaultView
     for=".interfaces.IMonth"
     name="month.html"
