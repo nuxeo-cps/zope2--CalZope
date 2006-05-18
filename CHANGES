@@ -32,6 +32,9 @@ Bug fixes:
   that if you open a calendar which is Anonymously readable, you will never
   be able to modify it, because Subnird will not ask you for a password,
   even though it received an Unauthorized error.
+  
+- 0004430: The error message "End must come after start" was untranslated.
+
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -

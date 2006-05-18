@@ -377,7 +377,7 @@ class SetTextAreaWidget(TextAreaWidget):
 
 
 class EndBeforeStart(ValidationError):
-    __doc__ = """End must come after start"""
+    __doc__ = _("""End must come after start""")
 
 class EndDateWidget(DivDatetimeWidget):
     """A special widget for end dates
