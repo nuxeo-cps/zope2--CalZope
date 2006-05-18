@@ -23,6 +23,15 @@ New features:
 Bug fixes:
 ~~~~~~~~~~
 - Updated Spanish translation thanks to Jesús Martín.
+
+- The WebDAV support previously incorrectly let you edit the calendar even
+  if you only had the view permission. Now you need Edit Calendar.
+  
+  Note that some calendar clients, for example SunBird, will not tell you
+  that the editing failed. Neither will they ask for a password, which means
+  that if you open a calendar which is Anonymously readable, you will never
+  be able to modify it, because Subnird will not ask you for a password,
+  even though it received an Unauthorized error.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -

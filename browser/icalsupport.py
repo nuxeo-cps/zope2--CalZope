@@ -18,6 +18,8 @@
 # $Id$
 
 from Products.Five import BrowserView
+from AccessControl import getSecurityManager
+from AccessControl import Unauthorized
 
 class ICalendarImportExportView(BrowserView):
     
@@ -51,6 +53,10 @@ class ICalendarImportExportView(BrowserView):
         This is because PUT is not called through Five directly,
         but through the Zope 2 Publisher.
         """
+        if not getSecurityManager().checkPermission(
+            'Edit calendar', self.context):
+            raise Unauthorized(self.__name__, self.context)
+        
         icalendar = REQUEST['BODYFILE'].read()
         calendar = self._getCalendar()
         calendar.import_(icalendar, synchronize=1)
