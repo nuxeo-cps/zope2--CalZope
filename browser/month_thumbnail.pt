@@ -1,5 +1,7 @@
-<h3 tal:define="dummy view/calcInfo"
-    tal:content="string:calendar_month_${view/month}" i18n:translate="" />
+<h3 tal:define="dummy view/calcInfo">
+  <a tal:attributes="href view/month"
+     tal:content="string:calendar_month_${view/month}" i18n:translate="" />
+</h3>
 <table class="calendarThumbnail">
   <tr tal:repeat="week python:range(view.weeks)">
     <tal:block repeat="weekday python:range(1,8)">

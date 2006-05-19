@@ -35,7 +35,7 @@ td.weekThumbnailHeader {
 td.weekThumbnailWeekNo {
   width: 25pt;
   font:bold 125% Verdana, Arial, Helvetica, sans-serif !important;
-  color:#666666
+  color:#666666;
   text-align: right;
 }
 
