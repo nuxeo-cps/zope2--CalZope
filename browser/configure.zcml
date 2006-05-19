@@ -333,7 +333,7 @@
 
   <browser:page
     for=".interfaces.IWeekList"
-    template="weeklist.pt"
+    class=".browser.event.EventListView"
     name="weeklist.html"
     permission="calendar.ViewCalendar"
     />

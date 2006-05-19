@@ -22,7 +22,10 @@ New features:
   
 - 0004431: The weeks are now displayed in the breadcrumb as "Week 20".
 
-- #643/0004431: There is now a year-view, and a year-week view.
+- #643/0004431: There is now a year-view, and a year-week view. 
+  Also, the default view for the WeekList object redirects to the 
+  calendar. This is useful if you have breadcrumbs, where the WeekList 
+  object is clickable.
 
 Bug fixes:
 ~~~~~~~~~~
