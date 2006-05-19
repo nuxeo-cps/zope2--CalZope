@@ -1,4 +1,60 @@
 *******************************************
+** CalZope V2.4.0 [R1 build 2006/05/19-13:23 by fermigier]
+** SVN URL: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk Revision: 45805
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- The add and edit forms now check if any of the attendees of the event is 
+  busy, and in that case, it you will get a form error status message.
+  Also, when seraching for users in the attendee form, users who are busy
+  are marked so. You can still invite them in that case.
+  
+  The "busy rules" are as follows: 
+  
+  1. An attendee is seen as busy if it has a non-blocking confirmed event
+     which it has accepted. 
+
+  2. If the attendee is somebody else than the current calendars attendee,
+     and you are logged in as somebody who has Manage participation status 
+     permission for the attendee, you will be allowed to double book.
+     
+  These rules are subject to change to whatever turns out to work best in
+  practice. The feature should be seen as slightly experimental at the moment.
+  
+- 0004431: The weeks are now displayed in the breadcrumb as "Week 20".
+
+- #643/0004431: There is now a year-view, and a year-week view. 
+  Also, the default view for the WeekList object redirects to the 
+  calendar. This is useful if you have breadcrumbs, where the WeekList 
+  object is clickable.
+
+Bug fixes:
+~~~~~~~~~~
+- Updated Spanish translation thanks to Jesús Martín.
+
+- The WebDAV support previously incorrectly let you edit the calendar even
+  if you only had the view permission. Now you need Edit Calendar.
+  
+  Note that some calendar clients, for example SunBird, will not tell you
+  that the editing failed. Neither will they ask for a password, which means
+  that if you open a calendar which is Anonymously readable, you will never
+  be able to modify it, because Subnird will not ask you for a password,
+  even though it received an Unauthorized error.
+  
+- 0004430: The error message "End must come after start" was untranslated.
+
+- 0004429: Translation consistency. Always say "Add event", not "Create".
+
+- 0004431: The month-macro was missing a domain, so the "Week" label was not
+           translated. 
+           
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CalZope V2.3.0 [R1 build 2006/04/11-15:54 by lregebro]
 ** SVN URL: https://svn.nuxeo.org/pub/CalZope/trunk Revision: 35105
 Requires:
