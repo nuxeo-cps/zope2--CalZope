@@ -14,6 +14,31 @@ table.calendarThumbnail td {
   font-weight: bold;
 }
 
+td.weekThumbnailDay {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #eeeeff;
+  width: 13pt;
+  text-align: center;
+}
+
+td.weekThumbnailHeader {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #cccccc;
+  width: 13pt;
+  text-align: center;
+}
+
+td.weekThumbnailWeekNo {
+  width: 25pt;
+  font:bold 125% Verdana, Arial, Helvetica, sans-serif !important;
+  color:#666666
+  text-align: right;
+}
+
 td.calendarBody {
   vertical-align: top;
   padding: 0;

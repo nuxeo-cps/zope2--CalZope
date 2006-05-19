@@ -750,6 +750,28 @@ msgstr "Sábado"
 msgid "weekday_6"
 msgstr "Domingo"
 
+# The initial
+msgid "weekday_initial_0"
+msgstr "S"
+
+msgid "weekday_initial_1"
+msgstr "T"
+
+msgid "weekday_initial_2"
+msgstr "Q"
+
+msgid "weekday_initial_3"
+msgstr "Q"
+
+msgid "weekday_initial_4"
+msgstr "S"
+
+msgid "weekday_initial_5"
+msgstr "S"
+
+msgid "weekday_initial_6"
+msgstr "D"
+
 msgid "week"
 msgstr "semana"
 

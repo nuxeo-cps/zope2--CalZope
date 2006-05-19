@@ -370,6 +370,14 @@
     class=".browser.week.WeekView"
     />
 
+  <browser:page
+    for=".interfaces.IWeek"
+    template="week_thumbnail.pt"
+    name="thumbnail.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.week.WeekView"
+    />
+
   <browser:defaultView
     for=".interfaces.IWeek"
     name="week.html"

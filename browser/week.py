@@ -117,12 +117,14 @@ class WeekView:
         return [self.getDateForWeekday(d) 
                 for d in self.getWeekdays()]
     
-    def getEventDisplays(self):
-        calendar = self.context.getCalendar()
+    def getOccurrencesInDay(self, day):
+        return self.context.getCalendar().getOccurrencesInDay(day)
+        
+    def getEventDisplays(self):        
         all_displays = []
         for d in self.context.getWeekdays():
             day = self.context.getDateForWeekday(d) 
-            occurrences = calendar.getOccurrencesInDay(day)
+            occurrences = self.getOccurrencesInDay(day)
             displays = [getMultiAdapter([occurrence, self], IEventDisplay) for
                         occurrence in occurrences]
             

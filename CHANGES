@@ -22,7 +22,7 @@ New features:
   
 - 0004431: The weeks are now displayed in the breadcrumb as "Week 20".
 
-- #643/0004431: There is now a year-view.
+- #643/0004431: There is now a year-view, and a year-week view.
 
 Bug fixes:
 ~~~~~~~~~~
