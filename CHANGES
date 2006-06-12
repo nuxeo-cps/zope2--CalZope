@@ -6,7 +6,8 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- #1668: The jscalendars support for Portugese Brazilian didn't work.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
--
+- Now uses ILanguageAvailability adapter if one exists to figure out which
+  languages are defined in the site.

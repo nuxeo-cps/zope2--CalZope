@@ -38,24 +38,31 @@ from zope.schema.interfaces import ValidationError
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory("calendar")
 
-from zope.i18n.interfaces import IUserPreferredLanguages
+from zope.i18n.interfaces import IUserPreferredLanguages, ILanguageAvailability
 # List of the supported languages for the jscalendar.
 # These must be synced with what is configured in the configure.zcml.
-# The first one is used as default.
-supported_languages = ('en', 'de', 'es', 'fr', 'it', 'nl', 'pt', 'ro',)
+supported_languages = ('en', 'de', 'es', 'fr', 'it', 'nl', 'pt-br', 'ro',)
 
 def setupLanguage(context, request):
     if getattr(request, 'jscalendar_language', None) is not None:
         # Only do this once per request
         return
-    langs = IUserPreferredLanguages(request).getPreferredLanguages()
+    user_langs = IUserPreferredLanguages(request).getPreferredLanguages()
+    site_lang_adapter = ILanguageAvailability(context, None)
+    if site_lang_adapter is not None:
+        site_langs = site_lang_adapter.getAvailableLanguages()
+        # Filter out languages not supported by jscalendar:
+        site_langs = [l for l in site_langs if l in supported_languages]
+    else:
+        site_langs = supported_languages
+    
     use_lang = None
-    for lang in langs:
-        if lang in supported_languages:
+    for lang in user_langs:
+        if lang in site_langs:
             use_lang = lang
             break
-    if use_lang is None: # Take the first
-        use_lang = supported_languages[0]
+    if use_lang is None:
+        use_lang = site_langs[0]
 
     request.jscalendar_language = use_lang
     

@@ -458,9 +458,11 @@
     permission="zope.Public" 
     />
 
+  <!-- jscalendar calles Brazilian 'br' which is really Breton. 
+       We "rename" it to it's proper 'pt-br' name here: /-->
   <browser:resource
-    file="jscalendar/lang/calendar-pt.js"
-    name="calendar-pt.js"
+    file="jscalendar/lang/calendar-br.js"
+    name="calendar-pt-br.js"
     permission="zope.Public" 
     />
 
