@@ -215,7 +215,7 @@
                   define="
                     status python: event.getParticipationStatus(attendee);
                     statuslist python: management.validStatusList(attendee);
-                    needsaction python: statuslist and status == 'needs-action';"
+                    needsaction python: statuslist and status == 'NEEDS-ACTION';"
                   >
                   <td tal:condition="not: needsaction">
                     <tal:block content="status" i18n:translate="" />
@@ -223,7 +223,7 @@
                   <td tal:condition="needsaction">
                     <a
                       tal:attributes="href string:${context/absolute_url}/attendees.html"
-                      tal:content="status"
+                      tal:content="status" i18n:translate=""
                     />
                   </td>
                 </tal:block>
