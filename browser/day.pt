@@ -1,10 +1,10 @@
 <html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
-<div metal:fill-slot="style_slot">
+<metal:block fill-slot="style_slot">
   <style type="text/css" media="all" 
     tal:content="string:@import url(${context/absolute_url}/++resource++calendar.css);"
     />
-</div>
-<body metal:fill-slot="body" tal:define="dummy view/calcInfo">
+</metal:block>
+<metal:block fill-slot="body" tal:define="dummy view/calcInfo">
   <h2>
     <tal:block replace="view/year"/> - 
     <a tal:attributes="href string:${view/getCalendarUrl}/${view/year}/${view/month}">
@@ -17,7 +17,7 @@
     </a>
   </h2>
   <div metal:use-macro="template/macros/day_view"/>
-</body>
+</metal:block>
 </html>
 
 <tal:block condition="nothing">
@@ -89,8 +89,7 @@
 </td>
 
 <td metal:define-macro="day_body" class="calendarBody"
-  tal:attributes="height view/height;
-                  width view/width;">
+  tal:attributes="style string:height: ${view/height}px;; width: ${view/width}px;;">
   <div style="position: relative;">
   <!--The hour lines-->
   

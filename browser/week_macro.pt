@@ -88,8 +88,7 @@
 </td>
 
 <td metal:define-macro="week_body" class="calendarBody" 
-  tal:attributes="height view/height;
-                  width view/width;">
+  tal:attributes="style string:height: ${view/height}px;; width: ${view/width}px;;">
   <div style="position: relative;">
   <!--The hour lines-->
   
