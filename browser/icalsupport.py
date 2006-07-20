@@ -26,9 +26,13 @@ class ICalendarImportExportView(BrowserView):
     def importUpdate(self):
         if self.request.form.has_key('SUBMIT_IMPORT'):
             icalendar = self.request.form['file'].read()
+            if icalendar == "":
+                self.request.form['portal_status_message'] = 'Men vafan!'
+                return "a"
             calendar = self._getCalendar()
             calendar.import_(icalendar)
             self.request.form['portal_status_message'] = 'psm_file_uploaded'
+            return "b"
     
     def _getCalendar(self):
         return self.context.aq_inner

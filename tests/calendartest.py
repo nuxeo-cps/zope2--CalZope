@@ -21,7 +21,7 @@ from Testing.ZopeTestCase import folder_name, user_role, standard_permissions
 
 from Products.Five import zcml
 from Products.Five.tests.testing.folder import manage_addFiveTraversableFolder
-from Products.Five.site.interfaces import IFiveUtilityService
+from Products.Five.site.interfaces import IFiveUtilityRegistry
 from Products.Five.site.localsite import enableLocalSiteHook
 
 installProduct('CalCore')
@@ -50,7 +50,7 @@ class CalendarTestCase(ZopeTestCase):
         enableLocalSiteHook(self.folder)
 
         sm = StorageManager('IStorageManager', 'IStorageManager')
-        IFiveUtilityService(self.folder).registerUtility(IStorageManager, sm)
+        IFiveUtilityRegistry(self.folder).registerUtility(IStorageManager, sm)
         asrc = UserFolderAttendeeSource()
-        IFiveUtilityService(self.folder).registerUtility(IZopeAttendeeSource, asrc)
-        IFiveUtilityService(self.folder).registerUtility(IAttendeeSource, asrc)
+        IFiveUtilityRegistry(self.folder).registerUtility(IZopeAttendeeSource, asrc)
+        IFiveUtilityRegistry(self.folder).registerUtility(IAttendeeSource, asrc)

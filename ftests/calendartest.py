@@ -43,7 +43,7 @@ installProduct('CalZope')
 
 from Products.Five import zcml
 from Products.Five.zcml import load_config
-from Products.Five.site.interfaces import IFiveUtilityService
+from Products.Five.site.interfaces import IFiveUtilityRegistry
 from Products.Five.site.localsite import enableLocalSiteHook
 from Products.Five.tests.testing.folder import manage_addFiveTraversableFolder
 
@@ -97,10 +97,10 @@ class CalendarTestCase(FunctionalTestCase):
         enableLocalSiteHook(self.folder)
 
         sm = StorageManager('IStorageManager', 'IStorageManager')
-        IFiveUtilityService(self.folder).registerUtility(IStorageManager, sm)
+        IFiveUtilityRegistry(self.folder).registerUtility(IStorageManager, sm)
         asrc = UserFolderAttendeeSource()
-        IFiveUtilityService(self.folder).registerUtility(IZopeAttendeeSource, asrc)
-        IFiveUtilityService(self.folder).registerUtility(IAttendeeSource, asrc)
+        IFiveUtilityRegistry(self.folder).registerUtility(IZopeAttendeeSource, asrc)
+        IFiveUtilityRegistry(self.folder).registerUtility(IAttendeeSource, asrc)
 
         self.folder.acl_users._doAddUser(
             manager_id, 'secret', ['Manager'], [])

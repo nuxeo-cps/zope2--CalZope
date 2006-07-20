@@ -1,4 +1,4 @@
-<tal:block tal:define="dummy view/importUpdate">
+<tal:block tal:replace="view/importUpdate"/>
 <html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
   <body metal:fill-slot="body">
     <h1 i18n:translate="">Import iCalendar file</h1>
@@ -24,4 +24,3 @@
     </form>
   </body>
 </html>
-</tal:block>

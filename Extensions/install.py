@@ -17,7 +17,7 @@
 #
 # $Id: install.py 30261 2005-12-04 14:03:51Z lregebro $
 
-from zope.app.site.interfaces import ISite
+from zope.app.components.interfaces import ISite
 from zope.app import zapi
 
 from AccessControl import getSecurityManager
@@ -25,7 +25,7 @@ from Products.ExternalMethod.ExternalMethod import manage_addExternalMethod
 
 import Products.Five
 from Products.Five import zcml
-from Products.Five.site.interfaces import IFiveUtilityService
+from Products.Five.site.interfaces import IFiveUtilityRegistry
 from Products.Five.site.localsite import enableLocalSiteHook
 from Products.Five.site.tests.dummy import manage_addDummySite
 
@@ -55,17 +55,17 @@ def install(self):
     # Create tools
     try:
         sm = StorageManager()
-        IFiveUtilityService(site).registerUtility(IStorageManager, sm)
+        IFiveUtilityRegistry(site).registerUtility(IStorageManager, sm)
     except ValueError:
         pass
     
     asrc = UserFolderAttendeeSource()
     try:
-        IFiveUtilityService(site).registerUtility(IAttendeeSource, asrc)
+        IFiveUtilityRegistry(site).registerUtility(IAttendeeSource, asrc)
     except ValueError:
         pass
     try:
-        IFiveUtilityService(site).registerUtility(IZopeAttendeeSource, asrc)
+        IFiveUtilityRegistry(site).registerUtility(IZopeAttendeeSource, asrc)
     except ValueError:
         pass
 
