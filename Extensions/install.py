@@ -17,7 +17,7 @@
 #
 # $Id: install.py 30261 2005-12-04 14:03:51Z lregebro $
 
-from zope.app.components.interfaces import ISite
+from zope.app.component.interfaces import ISite
 from zope.app import zapi
 
 from AccessControl import getSecurityManager
