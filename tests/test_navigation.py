@@ -44,7 +44,7 @@ class TestNavigation(CalendarTestCase):
         source = zapi.getUtility(IZopeAttendeeSource, context=self.folder)
         self.cal.addAttendee(source.getAttendee('testuser'))
         self.attendee = source.getAttendee('testuser')
-        
+
     def test_year(self):
         obj = self.cal.unrestrictedTraverse('2005')
         self.assertEquals(2005, obj.getYear())
@@ -74,7 +74,7 @@ class TestNavigation(CalendarTestCase):
     def test_eventlist(self):
         obj = self.cal.unrestrictedTraverse('event')
         self.assert_(IEventList.providedBy(obj))
-        
+
     def test_event(self):
         event = self.attendee.createEvent(
             dtstart=datetime(2005, 2, 3, 10, 00),
@@ -85,9 +85,9 @@ class TestNavigation(CalendarTestCase):
         self.assertEquals(
             event_id,
             event.unique_id)
-        
+
     # XXX should add tests for illegal year/month/day combinations etc
-    
+
 def test_suite():
     return unittest.TestSuite((
         unittest.makeSuite(TestNavigation),
