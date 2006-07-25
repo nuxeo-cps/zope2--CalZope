@@ -24,13 +24,11 @@ if __name__ == '__main__':
 # a duplication from usecase.txt in CalCore,
 # but hard to reuse doctests in Zope 2 context..
 import unittest
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from zope.app import zapi
 
 from calendartest import CalendarTestCase
-from calcore import cal, recurrent
-from calcore.interfaces import IStorageManager
 from Products.CalZope.interfaces import IZopeAttendeeSource
 
 icalsimple = """BEGIN:VCALENDAR
@@ -137,6 +135,45 @@ class TestiCalendar(CalendarTestCase):
             self.failUnless(cat in catlist, 
                 'Category %s unexpected' % cat)
         self.failUnlessEqual(event.document, None)
+
+    # XXX:fixme the reindexation does not work
+    def broken_test_simpleimport_export_changedate_import(self):
+        # regression test for http://svn.nuxeo.org/trac/pub/ticket/1707
+        calendar = self.folder.martijn_cal
+        calendar.import_(icalsimple)
+        event = calendar.getEvent('simpleevent')
+        self.failUnlessEqual(event.title, 'A simple event.')
+        self.failUnlessEqual(event.document, None)
+
+        # this event is indexed on the 20th of october
+        day_20 = (datetime(2005, 10, 20, 0, 0), datetime(2005, 10, 20, 23, 59))
+        result = calendar.getEvents(period=day_20)
+        self.failUnlessEqual(result, [event])
+
+        # and no event is registered on the 21st
+        day_21 = (datetime(2005, 10, 21, 0, 0), datetime(2005, 10, 21, 23, 59))
+        result = calendar.getEvents(period=day_20)
+        self.failUnlessEqual(result, [])
+
+        # export the calendar, and move the event the next day and reimport it
+        text = calendar.export()
+        changed_text = text.replace('20051020', '20051021')
+        calendar.import_(changed_text)
+
+        # the date of the event has been updated to the 21st of october:
+        self.failUnlessEqual(event.dtstart, datetime(2005, 10, 21, 11, 55))
+        dtend = event.dtstart + event.duration
+        self.failUnlessEqual(dtend, datetime(2005, 10, 21, 12, 55))
+
+        # the event was also reindexed to that date
+        result = calendar.getEvents(period=day_21)
+        self.failUnlessEqual(result, [event])
+
+        # and it's no longer indexed on the 20st
+        result = calendar.getEvents(period=day_20)
+        self.failUnlessEqual(result, [])
+
+
 
 
 def test_suite():
