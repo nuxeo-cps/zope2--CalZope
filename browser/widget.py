@@ -215,7 +215,7 @@ class DivDateWidget(TranslationHook, DateWidget):
         else:
             try:
                 format = self.translate(_(self.time_format))
-                return str2datetime(input, format)
+                return str2datetime(input, format).date()
             except (DateTimeError, ValueError, IndexError), v:
                 raise ConversionError("Invalid datetime data", v)
 
