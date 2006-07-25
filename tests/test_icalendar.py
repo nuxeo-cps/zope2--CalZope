@@ -98,6 +98,7 @@ class TestiCalendar(CalendarTestCase):
         calendar.import_(icalsimple)
         event = calendar.getEvent('simpleevent')
         self.failUnlessEqual(event.title, 'A simple event.')
+        self.failUnlessEqual(event.document, None)
 
     def test_complexImport(self):
         calendar = self.folder.martijn_cal
@@ -114,6 +115,7 @@ class TestiCalendar(CalendarTestCase):
             self.failUnless(cat in event.categories)
         for cat in event.categories:
             self.failUnless(cat in catlist)
+        self.failUnlessEqual(event.document, None)
 
     def test_unicodeImport(self):
         calendar = self.folder.martijn_cal
@@ -134,6 +136,7 @@ class TestiCalendar(CalendarTestCase):
         for cat in event.categories:
             self.failUnless(cat in catlist, 
                 'Category %s unexpected' % cat)
+        self.failUnlessEqual(event.document, None)
 
 
 def test_suite():
