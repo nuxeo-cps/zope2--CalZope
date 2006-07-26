@@ -261,26 +261,28 @@ win_to_latin9 = { # below are cp1252 codes
     0x2026: u'...',  # 0x85 dots in one char
 }
 
+def unicode_to_latin9(value):
+    if isinstance(value, unicode):
+        value = value.translate(win_to_latin9)
+        value = value.encode('iso-8859-15', 'xmlcharrefreplace')
+    return value
+
 
 class ZODBEvent(SimpleItem, cal.EventBase):
     implements(IInvitableCalendarEvent)
-    
+
     meta_type = "CalZope Event"
 
     def __init__(self, event_id, spec):
         for attr in ('title', 'description', 'location'):
             value = getattr(spec, attr, '')
-            if isinstance(value, unicode):
-                value = value.translate(win_to_latin9)
-                value = value.encode('iso-8859-15', 'xmlcharrefreplace')
-                setattr(spec, attr, value)
+            value = unicode_to_latin9(value)
+            setattr(spec, attr, value)
 
         categories = []
         for cat in spec.categories:
-            if isinstance(cat, unicode):
-                cat = cat.translate(win_to_latin9)
-                cat = cat.encode('iso-8859-15', 'xmlcharrefreplace')
-                categories.append(cat)
+            cat = unicode_to_latin9(cat)
+            categories.append(cat)
         spec.categories = categories
 
         cal.EventBase.__init__(self, event_id, spec)
@@ -342,6 +344,6 @@ class ZODBEvent(SimpleItem, cal.EventBase):
         # XXX This causes a key error instead of the standard attribute
         # errror, which is confusing. Fix that!
         return getattr(self.__dict__, name, default)
-    
+
     def Title(self):
         return self.title
