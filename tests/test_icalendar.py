@@ -80,7 +80,7 @@ END:VEVENT
 END:VCALENDAR"""
 
 class TestiCalendar(CalendarTestCase):
-    
+
     def afterSetUp(self):
         CalendarTestCase.afterSetUp(self)
 
@@ -90,7 +90,7 @@ class TestiCalendar(CalendarTestCase):
         source = zapi.getUtility(IZopeAttendeeSource, context=self.folder)
         calendar = self.folder.martijn_cal
         calendar.addAttendee(source.getAttendee('martijn'))
-        
+
     def test_simpleImport(self):
         calendar = self.folder.martijn_cal
         calendar.import_(icalsimple)
@@ -103,7 +103,7 @@ class TestiCalendar(CalendarTestCase):
         calendar.import_(icalcomplex)
         event = calendar.getEvent('complexevent')
         self.failUnlessEqual(event.title, 'A complex, plain text, event.')
-        self.failUnlessEqual(event.description, 
+        self.failUnlessEqual(event.description,
             'This is an event that has loads of features, but all still in '
             'plain text. This should be handled easily, or there is a bug in '
             'the icalendar library.')
@@ -120,7 +120,7 @@ class TestiCalendar(CalendarTestCase):
         calendar.import_(icalunicode)
         event = calendar.getEvent('unicodeevent')
         self.failUnlessEqual(event.title, 'A çömplex, unicöde, évent.')
-        self.failUnlessEqual(event.description, 
+        self.failUnlessEqual(event.description,
             'This is an évènt that has loads of feätures, but all in uniçode. '
             'This should be håndled and cönverted by CalZope, so that strings '
             'with ISO-8559-15 code is used. '
@@ -128,11 +128,11 @@ class TestiCalendar(CalendarTestCase):
         self.failUnlessEqual(event.location, 'In a tëst rünner.')
         catlist = ['this','is','ä','list','öf','çatégories']
         for cat in catlist:
-            self.failUnless(cat in event.categories, 
+            self.failUnless(cat in event.categories,
                 'Expected category %s missing. Found %s' % (
                     cat, str(event.categories)))
         for cat in event.categories:
-            self.failUnless(cat in catlist, 
+            self.failUnless(cat in catlist,
                 'Category %s unexpected' % cat)
         self.failUnlessEqual(event.document, None)
 
