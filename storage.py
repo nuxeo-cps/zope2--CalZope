@@ -33,7 +33,11 @@ from zope.interface import implements
 from zope.app import zapi
 
 from calcore import cal
-from calcore.interfaces import IInvitableCalendarEvent, IAttendeeSource, IStorageManager
+from calcore.interfaces import (
+    IAttendeeSource,
+    IInvitableCalendarEvent,
+    IStorageManager,
+)
 
 from interfaces import IZopeAttendeeSource
 
@@ -244,47 +248,12 @@ class ZopeEventSpecification(cal.EventSpecification):
         self.document = document
 
 
-win_to_latin9 = { # below are cp1252 codes
-    0x201a: u',',    # 0x82 lower single quote
-    0x201e: u'"',    # 0x84 lower double quote (german?)
-    0x02c6: u'^',    # 0x88 small upper ^
-    0x2039: u'<',    # 0x8b small <
-    0x2018: u'`',    # 0x91 single curly backquote
-    0x2019: u"'",    # 0x92 single curly quote
-    0x201c: u'"',    # 0x93 double curly backquote
-    0x201d: u'"',    # 0x94 double curly quote
-    0x2013: u'\xad', # 0x96 small dash
-    0x2014: u'-',    # 0x97 dash
-    0x02dc: u'~',    # 0x98 upper tilda
-    0x203a: u'>',    # 0x9b small >
-    0x00b4: u"'",    # 0xb4 almost horizontal single quote
-    0x2026: u'...',  # 0x85 dots in one char
-}
-
-def unicode_to_latin9(value):
-    if isinstance(value, unicode):
-        value = value.translate(win_to_latin9)
-        value = value.encode('iso-8859-15', 'xmlcharrefreplace')
-    return value
-
-
 class ZODBEvent(SimpleItem, cal.EventBase):
     implements(IInvitableCalendarEvent)
 
     meta_type = "CalZope Event"
 
     def __init__(self, event_id, spec):
-        for attr in ('title', 'description', 'location'):
-            value = getattr(spec, attr, '')
-            value = unicode_to_latin9(value)
-            setattr(spec, attr, value)
-
-        categories = []
-        for cat in spec.categories:
-            cat = unicode_to_latin9(cat)
-            categories.append(cat)
-        spec.categories = categories
-
         cal.EventBase.__init__(self, event_id, spec)
         # zope objects need an id
         self.id = self.unique_id

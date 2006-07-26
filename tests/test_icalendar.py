@@ -25,11 +25,27 @@ if __name__ == '__main__':
 # but hard to reuse doctests in Zope 2 context..
 import unittest
 from datetime import datetime
+from cStringIO import StringIO
 
 from zope.app import zapi
 
 from calendartest import CalendarTestCase
 from Products.CalZope.interfaces import IZopeAttendeeSource
+from Products.CalZope.browser.icalsupport import ICalendarImportExportView
+
+class FakeRequest(dict):
+    def __init__(self):
+        self.form = {}
+        self.RESPONSE = FakeResponse()
+
+class FakeResponse(object):
+    def __init__(self):
+        self.headers = []
+        self.status = None
+    def setHeader(self, key, value):
+        self.headers.append((key, value))
+    def setStatus(self, status):
+        self.status = status
 
 icalsimple = """BEGIN:VCALENDAR
 VERSION:2.0
@@ -69,11 +85,11 @@ DTEND:20051020T105500Z
 UID:unicodeevent
 DESCRIPTION:This is an \xc3\xa9v\xc3\xa8nt that has loads of fe\xc3\xa4ture
  s, but all in uni\xc3\xa7ode. This should be h\xc3\xa5ndled and c\xc3\xb6n
- verted by CalZope, so that strings with ISO-8559-15 code is used. Jour d
- e l\xe2\x80\x99an. Double bar: \xe2\x80\x96.
+ verted by CalZope, so that the resulting data is latin9 friendly: Jour de
+  l\xe2\x80\x99an. Double bar: \xe2\x80\x96.
 SUMMARY:A \xc3\xa7\xc3\xb6mplex, unic\xc3\xb6de, \xc3\xa9vent.
 LOCATION:In a t\xc3\xabst r\xc3\xbcnner.
-CATEGORIES:this,is,\xc3\xa4,list,\xc3\xb6f,\xc3\xa7at\xc3\xa9gories
+CATEGORIES:this,is,a,list,of,categories
 CLASS:PUBLIC
 TRANSP:OPAQUE
 END:VEVENT
@@ -91,42 +107,54 @@ class TestiCalendar(CalendarTestCase):
         calendar = self.folder.martijn_cal
         calendar.addAttendee(source.getAttendee('martijn'))
 
+    def makeRequestAndView(self, string, calendar):
+        request = FakeRequest()
+
+        # z3 style
+        request.form['file'] = StringIO(string)
+        # z2 style DAV support
+        request['BODYFILE'] = StringIO(string)
+
+        view = ICalendarImportExportView(calendar, request)
+        return request, view
+
     def test_simpleImport(self):
         calendar = self.folder.martijn_cal
         calendar.import_(icalsimple)
         event = calendar.getEvent('simpleevent')
-        self.failUnlessEqual(event.title, 'A simple event.')
+        self.failUnlessEqual(event.title, u'A simple event.')
         self.failUnlessEqual(event.document, None)
 
     def test_complexImport(self):
         calendar = self.folder.martijn_cal
         calendar.import_(icalcomplex)
         event = calendar.getEvent('complexevent')
-        self.failUnlessEqual(event.title, 'A complex, plain text, event.')
+        self.failUnlessEqual(event.title, u'A complex, plain text, event.')
         self.failUnlessEqual(event.description,
-            'This is an event that has loads of features, but all still in '
-            'plain text. This should be handled easily, or there is a bug in '
-            'the icalendar library.')
-        self.failUnlessEqual(event.location, 'In a test runner.')
-        catlist = ['this','is','a','list','of','categories']
+            u'This is an event that has loads of features, but all still in '
+            u'plain text. This should be handled easily, or there is a bug in '
+            u'the icalendar library.')
+        self.failUnlessEqual(event.location, u'In a test runner.')
+        catlist = [u'this', u'is', u'a', u'list', u'of', u'categories']
         for cat in catlist:
             self.failUnless(cat in event.categories)
         for cat in event.categories:
             self.failUnless(cat in catlist)
         self.failUnlessEqual(event.document, None)
 
-    def test_unicodeImport(self):
+    def _check_importedUnicode(self):
         calendar = self.folder.martijn_cal
-        calendar.import_(icalunicode)
         event = calendar.getEvent('unicodeevent')
-        self.failUnlessEqual(event.title, 'A çömplex, unicöde, évent.')
+        self.failUnlessEqual(event.title, u'A çömplex, unicöde, évent.')
         self.failUnlessEqual(event.description,
-            'This is an évènt that has loads of feätures, but all in uniçode. '
-            'This should be håndled and cönverted by CalZope, so that strings '
-            'with ISO-8559-15 code is used. '
-            "Jour de l'an. Double bar: &#8214;.")
-        self.failUnlessEqual(event.location, 'In a tëst rünner.')
-        catlist = ['this','is','ä','list','öf','çatégories']
+            u"This is an évènt that has loads of feätures, but all in uniçode. "
+            u"This should be håndled and cönverted by CalZope, so that the "
+            u"resulting data is latin9 friendly: Jour de l'an. "
+            u"Double bar: &#8214;.")
+        self.failUnlessEqual(event.location, u'In a tëst rünner.')
+        # XXX OG: the icalendar does not support non ASCII categories
+        # (not a big deal though)
+        catlist = [u'this', u'is', u'a', u'list', u'of', u'categories']
         for cat in catlist:
             self.failUnless(cat in event.categories,
                 'Expected category %s missing. Found %s' % (
@@ -135,6 +163,30 @@ class TestiCalendar(CalendarTestCase):
             self.failUnless(cat in catlist,
                 'Category %s unexpected' % cat)
         self.failUnlessEqual(event.document, None)
+
+    def test_unicodeImport(self):
+        calendar = self.folder.martijn_cal
+
+        # first import creates new events and check the utf-8 to latin-9
+        # conversion is alright
+        request, view = self.makeRequestAndView(icalunicode, calendar)
+        view.PUT(request, request.RESPONSE)
+        self._check_importedUnicode()
+
+        # second import to check that updated event data is still ok
+        request, view = self.makeRequestAndView(icalunicode, calendar)
+        view.PUT(request, request.RESPONSE)
+        self._check_importedUnicode()
+
+        # now check that the imported events data can be reserialized
+        # back to utf-8 and reimported for sanity check
+        exported_text = view.export()
+        utf8_title = 'A \xc3\xa7\xc3\xb6mplex'
+        self.failUnless(utf8_title in exported_text)
+
+        request, new_view = self.makeRequestAndView(exported_text, calendar)
+        new_view.importUpdate()
+        self._check_importedUnicode()
 
     # XXX:fixme the reindexation does not work
     def broken_test_simpleimport_export_changedate_import(self):
