@@ -157,13 +157,16 @@ class MeetingHelperView(EditView):
     def getFreePeriods(self):
         storage = self._getStorageManager()
         attendees = self.getAttendees()
+        begindate = datetime.combine(self.helper.begindate, time(0,0))
+        enddate = datetime.combine(self.helper.enddate + timedelta(1), 
+                                   time(0,0))
         # getFreePeriods see the end date as not inclusive, but the users
         # expected to be included, so a day is added on here.
-        period = (self.helper.begindate, self.helper.enddate + timedelta(1))
-        time = (self.helper.fromhour, self.helper.tohour)
+        period = (begindate, enddate)
+        t_period = (self.helper.fromhour, self.helper.tohour)
         # XXX it would probably be a good idea to split the periods into 
         # segments that are as long as self.helper.duration
-        self.free_periods = storage.getFreePeriods(attendees, period, time, 
+        self.free_periods = storage.getFreePeriods(attendees, period, t_period, 
                                                    self.helper.duration)
 
     def makeTimeUrl(self, dtstart, duration):
