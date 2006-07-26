@@ -14,3 +14,7 @@ New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - The js widget now uses ILanguageAvailability adapter if one exists to figure 
   out which languages are defined in the site.
+- ZODB storage of events refactoring: event attributes are now natural unicode
+  objects instead of latin9 strings: only the ical view ensure that the import
+  utf8 does not have non latin9 friendly charaters
+  WARNING: we probably need an upgrade step to update existing ZODBEvent instances
