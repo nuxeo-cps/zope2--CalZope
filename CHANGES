@@ -17,4 +17,4 @@ New internal features:
 - ZODB storage of events refactoring: event attributes are now natural unicode
   objects instead of latin9 strings: only the ical view ensure that the import
   utf8 does not have non latin9 friendly charaters
-  WARNING: we probably need an upgrade step to update existing ZODBEvent instances
+  There is also an upgrade method on the ZODBStorage for this.
