@@ -52,6 +52,11 @@ def latin9_friendly_utf8(utf8_string):
 
 
 class ICalendarImportExportView(BrowserView):
+    """Handle ICAL over WebDAV
+
+    Imported events are made latin9 friendly by converting characters that
+    cannot get encoded in iso-8859-15.
+    """
 
     def importUpdate(self):
         if self.request.form.has_key('SUBMIT_IMPORT'):
