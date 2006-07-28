@@ -8,7 +8,7 @@ Bug fixes:
 ~~~~~~~~~~
 - #1668: The jscalendars support for Portugese Brazilian didn't work.
 - #1670: Bugs in event status display.
-- the DibDateWidget actually generate datetime.date instances instead of
+- the DivDateWidget actually generate datetime.date instances instead of
   datetime.datetime instance as previously (fixes a 'until' TypeError)
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
