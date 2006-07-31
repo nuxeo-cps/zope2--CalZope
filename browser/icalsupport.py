@@ -60,30 +60,13 @@ class ICalendarImportExportView(BrowserView):
 
     def importUpdate(self):
         if self.request.form.has_key('SUBMIT_IMPORT'):
-            icalendar = self.request.form['file'].read()
-            icalendar = latin9_friendly_utf8(icalendar)
-            if icalendar == "":
+            ical_text = self.request.form['file'].read()
+            if ical_text == "":
                 self.request.form['portal_status_message'] = 'Men vafan!'
                 return "a"
-            calendar = self._getCalendar()
-            calendar.import_(icalendar)
+            self._import(ical_text)
             self.request.form['portal_status_message'] = 'psm_file_uploaded'
             return "b"
-
-    def _getCalendar(self):
-        return self.context.aq_inner
-
-    def export(self):
-        """
-        Export to icalendar format.
-
-        We cannot export this as an attribute directly, as to support
-        PUT we apparently need to publish as a template.
-        """
-        self.request.RESPONSE.setHeader(
-            'Content-Type', 'text/calendar;charset=utf-8')
-        calendar = self._getCalendar()
-        return calendar.export()
 
     def PUT(self, REQUEST, RESPONSE):
         """This is a PUT method.
@@ -97,12 +80,33 @@ class ICalendarImportExportView(BrowserView):
             'Edit calendar', self.context):
             raise Unauthorized(self.__name__, self.context)
 
-        icalendar = REQUEST['BODYFILE'].read()
-        icalendar = latin9_friendly_utf8(icalendar)
-        calendar = self._getCalendar()
-        calendar.import_(icalendar, synchronize=1)
+        ical_text = REQUEST['BODYFILE'].read()
+        self._import(ical_text, synchronize=1)
         RESPONSE.setStatus(204)
         return RESPONSE
+
+    def _import(self, ical_text, synchronize=1):
+        """Import an ICal string taking care of permissions on events"""
+        ical_text = latin9_friendly_utf8(ical_text)
+        calendar = self._getCalendar()
+        calendar.import_(ical_text)
+
+    def export(self):
+        """Export to ICal format
+
+        We cannot export this as an attribute directly, as to support
+        PUT we apparently need to publish as a template.
+
+        Takes care of hiding private event.
+        """
+        self.request.RESPONSE.setHeader(
+            'Content-Type', 'text/calendar;charset=utf-8')
+        calendar = self._getCalendar()
+        return calendar.export()
+
+    def _getCalendar(self):
+        return self.context.aq_inner
+
 
 class IDateImportExportView(ICalendarImportExportView):
 
