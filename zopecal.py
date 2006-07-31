@@ -21,8 +21,7 @@ from calcore import cal, isoweek
 from calcore.interfaces import IAttendeeSource, IStorageManager
 
 # python
-from random import randrange
-from datetime import datetime, timedelta, date
+from datetime import datetime
 import calendar, icalendar
 
 # zope
@@ -253,6 +252,29 @@ class Calendar(SimpleItem, cal.CalendarBase):
         ical_text = ical.as_string()
         self._logger.debug('export generated ical text: \n\n%s\n\n' % ical_text)
         return ical_text
+
+    def _importNewEvent(self, uid, e):
+        """Import new event only if permission ok"""
+        security = getSecurityManager()
+        if security.checkPermission('Create events', self):
+            cal.CalendarBase._importNewEvent(self, uid, e)
+
+    def _importExistingEvent(self, uid, e):
+        """Update event if permission ok"""
+        event = self.getEvent(uid)
+        security = getSecurityManager()
+        if security.checkPermission('Modify event', event.__of__(self)):
+            cal.CalendarBase._importExistingEvent(self, uid, e)
+
+    def _deleteEvent(self, event):
+        """Delete only if permission ok
+
+        This overrides CalendarBase._deleteEvent method that is only used at
+        ical import time.
+        """
+        security = getSecurityManager()
+        if security.checkPermission('Delete event', event.__of__(self)):
+            cal.CalendarBase._deleteEvent(self, event)
 
 
 class CalendarTraversable(FiveTraversable):
