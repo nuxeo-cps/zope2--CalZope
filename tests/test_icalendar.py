@@ -246,15 +246,15 @@ class TestiCalendar(CalendarTestCase):
         self.login('lennart')
 
         # Lennart has no rights on Martijns calendar, and can not export it
-        self.assertRaises(Unauthorized, calendar.restrictedTraverse, 
+        self.assertRaises(Unauthorized, calendar.restrictedTraverse,
                           'calendar.ics')
-        
+
         # Give Lennart view rights on the calendar:
         calendar.manage_addLocalRoles('lennart', ['AttendeeReader'])
-        
+
         # iCalendar export should not include the data of the private event.
         export = calendar.restrictedTraverse('calendar.ics')()
-        self.failIf(export.find('Private')!=-1, 
+        self.failIf(export.find('Private')!=-1,
                     "Private data visible on export")
 
         # Give Lennart manager rights on the calendar:
@@ -262,7 +262,7 @@ class TestiCalendar(CalendarTestCase):
 
         # iCalendar export should now include the data of the private event.
         export = calendar.restrictedTraverse('calendar.ics')()
-        self.failIf(export.find('Private')==-1, 
+        self.failIf(export.find('Private')==-1,
                     "Private data not visible on export")
 
 
