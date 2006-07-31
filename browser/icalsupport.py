@@ -64,7 +64,7 @@ class ICalendarImportExportView(BrowserView):
             if ical_text == "":
                 self.request.form['portal_status_message'] = 'Men vafan!'
                 return "a"
-            self._import(ical_text)
+            self._import(ical_text, synchronize=0)
             self.request.form['portal_status_message'] = 'psm_file_uploaded'
             return "b"
 
@@ -89,7 +89,7 @@ class ICalendarImportExportView(BrowserView):
         """Import an ICal string taking care of permissions on events"""
         ical_text = latin9_friendly_utf8(ical_text)
         calendar = self._getCalendar()
-        calendar.import_(ical_text)
+        calendar.import_(ical_text, synchronize=synchronize)
 
     def export(self):
         """Export to ICal format
