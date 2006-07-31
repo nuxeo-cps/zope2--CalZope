@@ -89,7 +89,7 @@ DESCRIPTION:This is an \xc3\xa9v\xc3\xa8nt that has loads of fe\xc3\xa4ture
   l\xe2\x80\x99an. Double bar: \xe2\x80\x96.
 SUMMARY:A \xc3\xa7\xc3\xb6mplex, unic\xc3\xb6de, \xc3\xa9vent.
 LOCATION:In a t\xc3\xabst r\xc3\xbcnner.
-CATEGORIES:this,is,a,list,of,categories
+CATEGORIES:this,is,a,list,of,cat\xc3\xa9gories
 CLASS:PUBLIC
 TRANSP:OPAQUE
 END:VEVENT
@@ -152,9 +152,7 @@ class TestiCalendar(CalendarTestCase):
             u"resulting data is latin9 friendly: Jour de l'an. "
             u"Double bar: &#8214;.")
         self.failUnlessEqual(event.location, u'In a tëst rünner.')
-        # XXX OG: the icalendar does not support non ASCII categories
-        # (not a big deal though)
-        catlist = [u'this', u'is', u'a', u'list', u'of', u'categories']
+        catlist = [u'this', u'is', u'a', u'list', u'of', u'catégories']
         for cat in catlist:
             self.failUnless(cat in event.categories,
                 'Expected category %s missing. Found %s' % (
