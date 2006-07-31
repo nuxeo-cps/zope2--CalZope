@@ -24,10 +24,11 @@ if __name__ == '__main__':
 # a duplication from usecase.txt in CalCore,
 # but hard to reuse doctests in Zope 2 context..
 import unittest
-from datetime import datetime
+from datetime import datetime, timedelta
 from cStringIO import StringIO
 
 from zope.app import zapi
+from AccessControl import Unauthorized
 
 from calendartest import CalendarTestCase
 from Products.CalZope.interfaces import IZopeAttendeeSource
@@ -106,6 +107,7 @@ class TestiCalendar(CalendarTestCase):
         source = zapi.getUtility(IZopeAttendeeSource, context=self.folder)
         calendar = self.folder.martijn_cal
         calendar.addAttendee(source.getAttendee('martijn'))
+        self.login('martijn')
 
     def makeRequestAndView(self, string, calendar):
         request = FakeRequest()
@@ -223,7 +225,45 @@ class TestiCalendar(CalendarTestCase):
         result = calendar.getEvents(period=day_20)
         self.failUnlessEqual(result, [])
 
+    def test_export_private(self):
+        # Create some events:
+        calendar = self.folder.martijn_cal
+        calendar.import_(icalsimple)
+        calendar.import_(icalcomplex)
+        calendar.import_(icalunicode)
 
+        calendar.getMainAttendee().createEvent(
+            dtstart=datetime(2005, 4, 10, 16, 00),
+            duration=timedelta(minutes=60),
+            status='TENTATIVE',
+            access='PRIVATE',
+            title="Private Event",
+            description="Private Event Description",
+            categories=['Private','Event','Categories'])
+
+        # New user Lennart:
+        self.folder.acl_users._doAddUser('lennart', 'lennart', [''], [])
+        self.login('lennart')
+
+        # Lennart has no rights on Martijns calendar, and can not export it
+        self.assertRaises(Unauthorized, calendar.restrictedTraverse, 
+                          'calendar.ics')
+        
+        # Give Lennart view rights on the calendar:
+        calendar.manage_addLocalRoles('lennart', ['AttendeeReader'])
+        
+        # iCalendar export should not include the data of the private event.
+        export = calendar.restrictedTraverse('calendar.ics')()
+        self.failIf(export.find('Private')!=-1, 
+                    "Private data visible on export")
+
+        # Give Lennart manager rights on the calendar:
+        calendar.manage_addLocalRoles('lennart', ['AttendeeManager'])
+
+        # iCalendar export should now include the data of the private event.
+        export = calendar.restrictedTraverse('calendar.ics')()
+        self.failIf(export.find('Private')==-1, 
+                    "Private data not visible on export")
 
 
 def test_suite():

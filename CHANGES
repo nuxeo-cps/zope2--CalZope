@@ -10,6 +10,7 @@ Bug fixes:
 - #1670: Bugs in event status display.
 - the DivDateWidget actually generate datetime.date instances instead of
   datetime.datetime instance as previously (fixes a 'until' TypeError)
+- #1718: When exporting as reader, private events was exported in full.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - The js widget now uses ILanguageAvailability adapter if one exists to figure 

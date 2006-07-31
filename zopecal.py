@@ -23,7 +23,7 @@ from calcore.interfaces import IAttendeeSource, IStorageManager
 # python
 from random import randrange
 from datetime import datetime, timedelta, date
-import calendar
+import calendar, icalendar
 
 # zope
 from OFS.SimpleItem import SimpleItem
@@ -236,6 +236,22 @@ class Calendar(SimpleItem, cal.CalendarBase):
 
     def _getAttendeeSource(self):
         return zapi.getUtility(IAttendeeSource, context=self)
+
+    def export(self, period=(None, None), search_criteria=None):
+        """Export calendar data in ICalendar format.
+        """
+        ical = icalendar.Calendar()
+        ical.add('prodid', '-//CPS Shared Calendar//nuxeo.com//')
+        ical.add('version', '1.0')
+
+        security = getSecurityManager()
+        for event in self.getEvents(period, search_criteria):
+            private = not security.checkPermission('View event', event.__of__(self))
+            e = event.export(private)
+            ical.add_component(e)
+        ical_text = ical.as_string()
+        self._logger.debug('export generated ical text: \n\n%s\n\n' % ical_text)
+        return ical_text
 
 
 class CalendarTraversable(FiveTraversable):
