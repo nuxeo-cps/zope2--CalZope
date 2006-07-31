@@ -48,9 +48,9 @@ _ = MessageFactory("calendar")
 class CalendarTool(Folder):
     # Deprecated, but needs to stay for upgrade. Can be removed only when we
     # decide that upgrade directly from 1.x isn't supported anymore.
-    
+
     meta_type = 'Calendar Tool'
-        
+
 InitializeClass(CalendarTool)
 
 def manage_addCalendarTool(context, REQUEST=None):
@@ -71,7 +71,7 @@ class StorageManager(SimpleItem, cal.StorageManagerBase):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Storage Manager'
-    
+
     def __init__(self, id='IStorageManager', title=''):
         StorageManager.inheritedAttribute('__init__')(self)
         self.id = id
@@ -84,9 +84,9 @@ class StorageManager(SimpleItem, cal.StorageManagerBase):
 
     def notifyOnEventModification(self, event):
         self._storage.reindexEvent(event.unique_id, event)
-                                  
+
     def createEvent(self, unique_id=None, **kw):
-        return self._storage.createEvent(unique_id, 
+        return self._storage.createEvent(unique_id,
                                          storage.ZopeEventSpecification(**kw))
 
 InitializeClass(StorageManager)
@@ -110,17 +110,17 @@ class UserFolderAttendeeSource(SimpleItem):
     meta_type = 'Calendar Attendee Source (User Folder)'
 
     implements(IZopeAttendeeSource)
-    
+
     def __init__(self, id='IAttendeeSource', title=''):
         self.id = id
         self.title = title
 
     def getMainCalendarForAttendeeId(self, attendee_id):
         # This should be overridden in more advance portal implementations.
-        # This implementation knows nothing about home calendars for 
+        # This implementation knows nothing about home calendars for
         # individuals and it only knows about individuals. So there ya go.
         return None
-        
+
     def getAttendeeTypes(self):
         return ['INDIVIDUAL']
 
@@ -135,7 +135,7 @@ class UserFolderAttendeeSource(SimpleItem):
 
     def getCurrentUserAttendee(self):
         return self.getAttendee(getSecurityManager().getUser().getId())
-        
+
     def findByName(self, query_str, attendee_type=None):
         # don't deal with anything but individuals
         if attendee_type is not None and attendee_type != 'INDIVIDUAL':
@@ -146,7 +146,7 @@ class UserFolderAttendeeSource(SimpleItem):
                 continue
             result.append(self.getAttendee(userid))
         return result
-    
+
     def getAttendeesOfType(self, attendee_type):
         result = []
         if attendee_type != 'INDIVIDUAL':
@@ -176,13 +176,13 @@ class Attendee(SimpleItem, cal.AttendeeBase):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Attendee'
-    
+
     def __init__(self, attendee_id, name, attendee_type, on_invite=None):
         Attendee.inheritedAttribute('__init__')(
             self, attendee_id, name, attendee_type, on_invite)
         self.id = attendee_id
         self.title = name
-    
+
     def _getStorageManager(self):
         #return self.portal_calendar.storage_manager
         return zapi.getUtility(IStorageManager, context=self)
@@ -202,7 +202,7 @@ class Calendar(SimpleItem, cal.CalendarBase):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar'
-    
+
     def __init__(self, id, title='', description=''):
         Calendar.inheritedAttribute('__init__')(self)
         self.id = id
@@ -230,7 +230,7 @@ class Calendar(SimpleItem, cal.CalendarBase):
 
     def getYear(self):
         return datetime.today().year
-    
+
     def _getStorageManager(self):
         return zapi.getUtility(IStorageManager, context=self)
 
@@ -246,7 +246,8 @@ class Calendar(SimpleItem, cal.CalendarBase):
 
         security = getSecurityManager()
         for event in self.getEvents(period, search_criteria):
-            private = not security.checkPermission('View event', event.__of__(self))
+            private = not security.checkPermission('View event',
+                                                   event.__of__(self))
             e = event.export(private)
             ical.add_component(e)
         ical_text = ical.as_string()
@@ -280,7 +281,7 @@ class CalendarTraversable(FiveTraversable):
             # XXX Special hack I don't understand.
             # Maybe I can get rid of it now when I use Traversal adapters?
             return getattr(self._subject, name)
-        
+
         return FiveTraversable.traverse(self, name, furtherPath)
 
 
@@ -303,7 +304,7 @@ class Year(SimpleItem):
     meta_type = 'Calendar Year'
 
     implements(IYear)
-    
+
     def __init__(self, year):
         self.id = str(year)
         self.title = self.id
@@ -316,7 +317,7 @@ class Year(SimpleItem):
         return range(1, 13)
 
 class YearTraversable(FiveTraversable):
-    
+
     def traverse(self, name, furtherPath):
         try:
             month = int(name)
@@ -325,7 +326,7 @@ class YearTraversable(FiveTraversable):
             pass
         return FiveTraversable.traverse(self, name, furtherPath)
 
-            
+
 InitializeClass(Year)
 
 class Month(SimpleItem):
@@ -334,7 +335,7 @@ class Month(SimpleItem):
     meta_type = 'Calendar Month'
 
     implements(IMonth)
-    
+
     def __init__(self, year, month):
         self.id = str(month)
         self.title = self.id
@@ -372,7 +373,7 @@ class Day(SimpleItem):
     meta_type = 'Calendar Day'
 
     implements(IDay)
-    
+
     def __init__(self, year, month, day):
         self.id = str(day)
         self.title = self.id
@@ -388,7 +389,7 @@ class Day(SimpleItem):
 
     def getDay(self):
         return self._day
-    
+
 InitializeClass(Day)
 
 class EventList(SimpleItem):
@@ -397,14 +398,14 @@ class EventList(SimpleItem):
     meta_type = 'Calendar Event List'
 
     implements(IEventList)
-    
+
     def __init__(self):
         self.id = 'event'
         self.title = _(self.id)
-        
+
     def Title(self):
         return self.title
-        
+
 
 class EventListTraversable(FiveTraversable):
 
@@ -432,15 +433,15 @@ class WeekList(SimpleItem):
     meta_type = 'Calendar Week List'
 
     implements(IWeekList)
-    
+
     def __init__(self):
         self.id = 'week'
         self.title = _(self.id)
-        
+
     def Title(self):
         """Return a translated title for the breadcrumb"""
         return self.title
-        
+
 
 class WeekListTraversable(FiveTraversable):
 
@@ -469,7 +470,7 @@ class WeekYear(SimpleItem):
 
     def getWeeks(self):
         return range(1, isoweek.getWeeksInYear(self._year) + 1)
-    
+
 class WeekYearTraversable(FiveTraversable):
 
     def traverse(self, name, furtherPath):
@@ -488,7 +489,7 @@ class Week(SimpleItem):
     meta_type = 'Calendar Week'
 
     implements(IWeek)
-    
+
     def __init__(self, year, week_nr):
         self.id = str(week_nr)
         self.title = _("Week ${week}", mapping={'week': self.id})
@@ -516,19 +517,19 @@ class WeekTraversable(FiveTraversable):
         except ValueError:
             pass
         return FiveTraversable.traverse(self, name, furtherPath)
-    
+
 InitializeClass(Week)
 
 from zope.schema.interfaces import ValidationError
 from zope.i18n import translate
 
 class BusyUsersError(ValidationError):
-    
+
     def __init__(self, users):
         self.users = ', '.join(users)
-        
+
     def doc(self):
-        return translate(_("Some attendees are busy during the selected period: ${users}", 
+        return translate(_("Some attendees are busy during the selected period: ${users}",
                 mapping={'users': self.users}))
 
 class BusyUserError(ValidationError):
@@ -536,12 +537,12 @@ class BusyUserError(ValidationError):
 
 
 class BaseBusyChecker(object):
-    
+
     implements(IBusyChecker)
     def _isManager(self, calendar):
         user = getSecurityManager().getUser()
         return user.has_permission('Manage participation status', calendar)
-    
+
     def check(self, dtstart, dtend):
         from calcore.cal import SearchCriteria
         storage = zapi.getUtility(IStorageManager, context=self.context)
@@ -557,7 +558,7 @@ class BaseBusyChecker(object):
                 event.getId() in self.ignore_events):
                 continue
             busy.extend(event.getAttendeeIds(participation_status='ACCEPTED'))
-                    
+
         users = []
         for attendeeid in busy:
             maincal = asrc.getMainCalendarForAttendeeId(attendeeid)
@@ -576,13 +577,13 @@ class BaseBusyChecker(object):
                     users.append(title)
         if users:
             raise BusyUsersError(users)
-        
+
         # All is well
         return
-            
+
 class AddBusyChecker(BaseBusyChecker):
     """A busy checker for add-views"""
-    
+
     def __init__(self, addview):
         self.context = addview.context
         session = addview.request.get('SESSION', {})
@@ -596,7 +597,7 @@ class AddBusyChecker(BaseBusyChecker):
             self.ignore_events = [addview._event_unique_id]
         else:
             self.ignore_events = []
-        
+
 class EventBusyChecker(BaseBusyChecker):
     """A busy checker for events"""
     def __init__(self, event):
