@@ -237,9 +237,9 @@ class TestiCalendar(CalendarTestCase):
             duration=timedelta(minutes=60),
             status='TENTATIVE',
             access='PRIVATE',
-            title="Private Event",
-            description="Private Event Description",
-            categories=['Private','Event','Categories'])
+            title="Secret title",
+            description="Secret event description",
+            categories=['Secret','Event','Categories'])
 
         # New user Lennart:
         self.folder.acl_users._doAddUser('lennart', 'lennart', [''], [])
@@ -254,16 +254,14 @@ class TestiCalendar(CalendarTestCase):
 
         # iCalendar export should not include the data of the private event.
         export = calendar.restrictedTraverse('calendar.ics')()
-        self.failIf(export.find('Private')!=-1,
-                    "Private data visible on export")
+        self.failIf('Secret' in export, "Private data visible on export")
 
         # Give Lennart manager rights on the calendar:
         calendar.manage_addLocalRoles('lennart', ['AttendeeManager'])
 
         # iCalendar export should now include the data of the private event.
         export = calendar.restrictedTraverse('calendar.ics')()
-        self.failIf(export.find('Private')==-1,
-                    "Private data not visible on export")
+        self.failUnless('Secret' in export, "Private data not visible on export")
 
 
 def test_suite():
