@@ -30,7 +30,7 @@ _ = MessageFactory("calendar")
 
 from Products.CalZope.interfaces import IZopeAttendeeSource
 
-from displaytable import DayGrid, Cell
+from displaytable import Cell
 from interfaces import IEventDisplay
 
 
