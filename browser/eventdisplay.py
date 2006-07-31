@@ -44,7 +44,7 @@ def checkPermission(permission, object):
 class EventDisplay(Cell):
     """Adapts en event to IEventDisplay
     """
-    
+
     implements(IEventDisplay)
 
     def __init__(self, occurrence, view):
@@ -52,7 +52,7 @@ class EventDisplay(Cell):
 
         self.event = event = occurrence.original
         self.view = view
-        
+
         # Check permissions
         # We must check the permission in the right context.
         # This means that for multiple attendees, we must check the permission
@@ -68,7 +68,7 @@ class EventDisplay(Cell):
             current_attendee_id = None
         else:
             current_attendee_id = current_attendee.getAttendeeId()
-            
+
         allowed = 0
         for attendee_id in cal_attendees:
             if attendee_id not in event_attendees:
@@ -76,9 +76,9 @@ class EventDisplay(Cell):
             calendar = asrc.getMainCalendarForAttendeeId(attendee_id)
             # An attendee that has no home calendar is assumed to have no
             # real privacy.
-            if ((calendar is None and (event.access == 'PUBLIC' or 
-                                       attendee_id == current_attendee_id)) or 
-                (calendar is not None and 
+            if ((calendar is None and (event.access == 'PUBLIC' or
+                                       attendee_id == current_attendee_id)) or
+                (calendar is not None and
                  checkPermission('View event', event.__of__(calendar)))):
                 allowed = 1
                 break
@@ -96,27 +96,27 @@ class EventDisplay(Cell):
 
         event_begins = occurrence.dtstart
         event_ends = occurrence.dtstart + occurrence.duration
-        self.title_and_time = "%s %02d:%02d - %02d:%02d" % (self.title, 
-                                        event_begins.hour,event_begins.minute, 
+        self.title_and_time = "%s %02d:%02d - %02d:%02d" % (self.title,
+                                        event_begins.hour,event_begins.minute,
                                         event_ends.hour, event_ends.minute)
 
 
 class PositionedEventDisplay(EventDisplay):
-    
+
     def __init__(self, occurrence, view):
         """Creates and calculates render information, like dimensions etc.
 
         View must be a IPositionedView.
         """
         EventDisplay.__init__(self, occurrence, view)
-                              
+
         event_begins = occurrence.dtstart
         event_ends = occurrence.dtstart + occurrence.duration
-        
+
         first_day = view.first_day
         if isinstance(first_day, datetime):
             first_day = first_day.date()
-            
+
         if view.from_hour != 0:
             day_begins = datetime.combine(event_begins.date(), time(view.from_hour - 1))
         else:
@@ -125,7 +125,7 @@ class PositionedEventDisplay(EventDisplay):
         if view.to_hour != 24:
             day_ends = datetime.combine(event_begins.date(), time(view.to_hour + 1))
         else:
-            day_ends = event_begins.date() + timedelta(1) 
+            day_ends = event_begins.date() + timedelta(1)
 
         start_delta = event_begins - day_begins
         if start_delta < timedelta(0):
@@ -153,14 +153,14 @@ class PositionedEventDisplay(EventDisplay):
             if margin < 20:
                 self.top = self.top - (20 - margin)
             self.height = 20
-                
+
         day = (event_begins.date() - first_day).days
         self.left = day * view.day_width
         self.width = view.day_width
 
         # Set Cell properties. These gets changed later when the Grid gets flatten()ed.
         Cell.__init__(self, self.top, 0, self.top + self.height, 1)
-        
+
     def getCssPositionString(self):
         """Returns a properly formatted css-style position string.
 
@@ -168,22 +168,22 @@ class PositionedEventDisplay(EventDisplay):
           tal:attributes="style event_render_info/getCssPositionString"
         """
         return "top:%spx;left:%0.1f%%;height:%spx;width:%.1f%%;"%(
-            self.getFirstRow(), 
+            self.getFirstRow(),
             self.getFirstCol()*100.0/self.view.width,
-            self.getLastRow() - self.getFirstRow(), 
+            self.getLastRow() - self.getFirstRow(),
             (self.getLastCol() - self.getFirstCol())*100.0/self.view.width)
-    
+
     def getCssStatusClass(self):
         """Returns a CSS class name according to the status of this event
         for the current user attendee (if there is one). Possible classes are:
-            
+
             need-action
             accepted
             declined
             tentative
             delegated
             <empty>
-            
+
         It is up to the actuall stylesheet to do something with this class.
         """
         event = self.event
@@ -197,10 +197,10 @@ class PositionedEventDisplay(EventDisplay):
         if status is None:
             return ''
         return status.lower()
-        
+
     def getCssEventClass(self):
         """Returns the type of event for CSS selection
-        
+
         Possible types are:
             public
             private
