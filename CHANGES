@@ -11,6 +11,9 @@ Bug fixes:
 - the DivDateWidget actually generate datetime.date instances instead of
   datetime.datetime instance as previously (fixes a 'until' TypeError)
 - #1718: When exporting as reader, private events was exported in full.
+- the ical view does not export event that comes from other calendars
+  (i.e. do not have it's main attendee as organizer) since ical client have
+  already have the ability to subscribe to those calendars directly
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - The js widget now uses ILanguageAvailability adapter if one exists to figure 

@@ -238,6 +238,12 @@ class Calendar(SimpleItem, cal.CalendarBase):
 
     def export(self, period=(None, None), search_criteria=None):
         """Export calendar data in ICalendar format.
+
+        Only event organized on this calendar are exported (no those from other
+        calendars registered thanks to the multi view feature).
+
+        Private events' content (title, description, location, ...) is hidden but
+        the event dates are always exported.
         """
         ical = icalendar.Calendar()
         ical.add('prodid', '-//CPS Shared Calendar//nuxeo.com//')
@@ -245,6 +251,13 @@ class Calendar(SimpleItem, cal.CalendarBase):
 
         security = getSecurityManager()
         for event in self.getEvents(period, search_criteria):
+            # do not export events that comes from other calendars (multi
+            # view feature) that conflicts with the ability of ical clients to
+            # subscribe directly to other calendars)
+            if self.getMainAttendee().getAttendeeId() != event.getOrganizerId():
+                continue
+
+            # hide the content of private event
             private = not security.checkPermission('View event',
                                                    event.__of__(self))
             e = event.export(private)
