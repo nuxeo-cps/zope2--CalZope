@@ -650,7 +650,6 @@ class AttendeeBusyChecker(BaseBusyChecker):
         self.ignore_events = []
 
 # Event support
-from zope.app.component.metaconfigure import subscriber
 
 def handleEventEvent(event):
     # Call both the storage manager and attendee source here.
