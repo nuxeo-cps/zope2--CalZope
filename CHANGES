@@ -14,6 +14,9 @@ Bug fixes:
 - the ical view does not export event that comes from other calendars
   (i.e. do not have it's main attendee as organizer) since ical client have
   already have the ability to subscribe to those calendars directly
+- #1719: The rights you have on an event is now extended with the rights
+  you have on the attendees. This fixes a permission problem when 
+  using calendars stacking.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - The js widget now uses ILanguageAvailability adapter if one exists to figure 

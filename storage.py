@@ -308,8 +308,12 @@ class ZODBEvent(SimpleItem, cal.EventBase):
         # Check through the attendees to see if they are participating:
         event_attendees = self.getAttendeeIds()
         for id in attendees:
-            if id in event_attendees and 'EventParticipant' not in roles:
+            if id in event_attendees:
                 roles.append('EventParticipant')
+        
+        for id in event_attendees:
+            roles.extend(current_user.getRolesInContext(
+                attendee_src.getMainCalendarForAttendeeId(id)))
 
         return {current_user.getId(): list(roles)}
 
