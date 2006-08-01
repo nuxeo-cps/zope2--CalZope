@@ -16,9 +16,7 @@
 # 02111-1307, USA.
 #
 # $Id$
-"""
-  eventposition.py
-"""
+"""Occurence rendering logic"""
 from datetime import timedelta, datetime, time
 from AccessControl import getSecurityManager
 
