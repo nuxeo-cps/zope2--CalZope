@@ -656,7 +656,11 @@ def handleEventEvent(event):
     # Call both the storage manager and attendee source here.
     # The attendee source doesn't actually care about events, 
     # but might want to care in the future.
-    storage = zapi.getUtility(IZopeStorageManager)
+    
+    # BBB We should really look for IZopeStorageManager here, but to keep
+    # Five 1.3 compatibility, we look for IStorageManager. This will
+    # fixed when we drop Zope 2.9 support.
+    storage = zapi.getUtility(IStorageManager)
     storage.notifyEventEvent(event)
     att_src = zapi.getUtility(IZopeAttendeeSource)
     att_src.notifyEventEvent(event)

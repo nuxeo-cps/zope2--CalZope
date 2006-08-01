@@ -30,7 +30,7 @@ installProduct('CalZope')
 installProduct('Five')
 
 from calcore.interfaces import IStorageManager, IAttendeeSource
-from Products.CalZope.interfaces import IZopeAttendeeSource, IZopeStorageManager
+from Products.CalZope.interfaces import IZopeAttendeeSource
 from Products.CalZope.zopecal import UserFolderAttendeeSource, StorageManager
 
 class CalendarTestCase(ZopeTestCase):
@@ -50,11 +50,7 @@ class CalendarTestCase(ZopeTestCase):
 </configure>""")
         enableLocalSiteHook(self.folder)
 
-        sm = StorageManager('IZopeStorageManager', 'IZopeStorageManager')
-        # In Five 1.3 you need to register every utility for all interfaces
-        # used. This will go away in Five 1.5, where you can just register
-        # the topmost interface.
-        IFiveUtilityRegistry(self.folder).registerUtility(IZopeStorageManager, sm)
+        sm = StorageManager('IStorageManager', 'IStorageManager')
         IFiveUtilityRegistry(self.folder).registerUtility(IStorageManager, sm)
         asrc = UserFolderAttendeeSource()
         IFiveUtilityRegistry(self.folder).registerUtility(IZopeAttendeeSource, asrc)
