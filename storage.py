@@ -230,16 +230,11 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
         # Moves all events in the storage from Latin-9 to unicode.
         all = self.getEvents((None,None),None)
         for event in all:
-            if not isinstance(event.title, unicode):
-                event.title = event.title.decode('iso-8859-15', 
-                                                 'xmlcharrefreplace')
-            if not isinstance(event.description, unicode):
-                event.description = event.description.decode('iso-8859-15', 
-                                                             'xmlcharrefreplace')
-            if not isinstance(event.location, unicode):
-                event.location = event.location.decode('iso-8859-15', 
-                                                       'xmlcharrefreplace')
-
+            for attr in ('title', 'description', 'location'):
+                value = getattr(event, attr, u'')
+                if not isinstance(value, unicode):
+                    value = value.decode('iso-8859-15', 'xmlcharrefreplace')
+                    setattr(event, attr, value)
 
 class ZopeEventSpecification(cal.EventSpecification):
 
