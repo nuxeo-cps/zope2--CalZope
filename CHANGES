@@ -1,6 +1,6 @@
 Requires:
 ~~~~~~~~~
--
+- CalCore 2.1
 New features:
 ~~~~~~~~~~~~~
 -
@@ -22,3 +22,4 @@ New internal features:
   objects instead of latin9 strings: only the ical view ensure that the import
   utf8 does not have non latin9 friendly charaters
   There is also an upgrade method on the ZODBStorage for this.
+- Now uses events to handle indexing and similar.

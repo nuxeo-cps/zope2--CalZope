@@ -18,7 +18,8 @@
 # $Id$
 
 from calcore import cal, isoweek
-from calcore.interfaces import IAttendeeSource, IStorageManager
+from calcore.interfaces import IAttendeeSource, IStorageManager, \
+     IEventModifiedEvent
 
 # python
 from datetime import datetime
@@ -36,7 +37,7 @@ import helpers
 import storage
 from interfaces import IYear, IMonth, IDay
 from interfaces import IEventList, IWeekList, IWeekYear, IWeek
-from interfaces import IZopeAttendeeSource, IBusyChecker
+from interfaces import IZopeAttendeeSource, IBusyChecker,IZopeStorageManager
 from zope.interface import implements
 from zope.app import zapi
 from Products.Five.traversable import  FiveTraversable
@@ -69,6 +70,8 @@ def manage_addCalendarTool(context, REQUEST=None):
 class StorageManager(SimpleItem, cal.StorageManagerBase):
     security = ClassSecurityInfo()
 
+    implements(IZopeStorageManager)
+    
     meta_type = 'Calendar Storage Manager'
 
     def __init__(self, id='IStorageManager', title=''):
@@ -78,16 +81,17 @@ class StorageManager(SimpleItem, cal.StorageManagerBase):
         # simple ZODB storage hardcoded in for now
         self.setStorage(storage.ZODBStorage('storage'))
 
-    def notifyOnStatusChange(self, attendee, event, old_status, new_status):
-        self._storage.reindexEvent(event.unique_id, event)
-
-    def notifyOnEventModification(self, event):
-        self._storage.reindexEvent(event.unique_id, event)
-
     def createEvent(self, unique_id=None, **kw):
         return self._storage.createEvent(unique_id,
                                          storage.ZopeEventSpecification(**kw))
 
+    def notifyEventEvent(self, event):
+        # On event modification, reindex event:
+        if IEventModifiedEvent.providedBy(event):
+            self._storage.reindexEvent(event.event.unique_id, event.event)
+        # (Reindex on adding and deleting is handled elsewhere).
+    
+    
 InitializeClass(StorageManager)
 
 manage_addStorageManagerForm = PageTemplateFile(
@@ -158,6 +162,10 @@ class UserFolderAttendeeSource(SimpleItem):
         id = vcaladdress.decode()
         return self._attendees.get(id, None)
 
+    def notifyEventEvent(self, event):
+        # I don't need to do anything in this implementation.
+        pass
+
 InitializeClass(UserFolderAttendeeSource)
 
 manage_addUserFolderAttendeeSourceForm = PageTemplateFile(
@@ -176,21 +184,15 @@ class Attendee(SimpleItem, cal.AttendeeBase):
 
     meta_type = 'Calendar Attendee'
 
-    def __init__(self, attendee_id, name, attendee_type, on_invite=None):
+    def __init__(self, attendee_id, name, attendee_type):
         Attendee.inheritedAttribute('__init__')(
-            self, attendee_id, name, attendee_type, on_invite)
+            self, attendee_id, name, attendee_type)
         self.id = attendee_id
         self.title = name
 
     def _getStorageManager(self):
         #return self.portal_calendar.storage_manager
         return zapi.getUtility(IStorageManager, context=self)
-
-    def on_status_change(self, event, old_status, new_status):
-        # This is called also on invites, so overriding on_invite
-        # is not needed.
-        self._getStorageManager().notifyOnStatusChange(
-            self, event, old_status, new_status)
 
     def getUserId(self):
         return self.id
@@ -646,3 +648,15 @@ class AttendeeBusyChecker(BaseBusyChecker):
         self.context = attendee
         self.attendees = [attendee.getAttendeeId()]
         self.ignore_events = []
+
+# Event support
+from zope.app.component.metaconfigure import subscriber
+
+def handleEventEvent(event):
+    # Call both the storage manager and attendee source here.
+    # The attendee source doesn't actually care about events, 
+    # but might want to care in the future.
+    storage = zapi.getUtility(IZopeStorageManager)
+    storage.notifyEventEvent(event)
+    att_src = zapi.getUtility(IZopeAttendeeSource)
+    att_src.notifyEventEvent(event)

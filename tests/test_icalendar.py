@@ -189,7 +189,7 @@ class TestiCalendar(CalendarTestCase):
         self._check_importedUnicode()
 
     # XXX:fixme the reindexation does not work
-    def broken_test_simpleimport_export_changedate_import(self):
+    def test_simpleimport_export_changedate_import(self):
         # regression test for http://svn.nuxeo.org/trac/pub/ticket/1707
         calendar = self.folder.martijn_cal
         calendar.import_(icalsimple)
@@ -204,7 +204,7 @@ class TestiCalendar(CalendarTestCase):
 
         # and no event is registered on the 21st
         day_21 = (datetime(2005, 10, 21, 0, 0), datetime(2005, 10, 21, 23, 59))
-        result = calendar.getEvents(period=day_20)
+        result = calendar.getEvents(period=day_21)
         self.failUnlessEqual(result, [])
 
         # export the calendar, and move the event the next day and reimport it
@@ -232,6 +232,7 @@ class TestiCalendar(CalendarTestCase):
         calendar.import_(icalcomplex)
         calendar.import_(icalunicode)
 
+        self.login('martijn')
         calendar.getMainAttendee().createEvent(
             dtstart=datetime(2005, 4, 10, 16, 00),
             duration=timedelta(minutes=60),

@@ -35,6 +35,10 @@
            for="calcore.interfaces.IAttendee"
            provides=".interfaces.IBusyChecker" />
            
+  <subscriber 
+      for="calcore.interfaces.IEventEvent"
+      handler=".zopecal.handleEventEvent"
+      />
    
   <!-- five:localsite class="OFS.Folder.Folder" /-->
   <!-- five:traversable class="OFS.Folder.Folder" /-->

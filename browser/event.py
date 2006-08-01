@@ -36,9 +36,11 @@ from zope.app.location.interfaces import ILocation
 from zope.app.location import LocationProxy
 from zope.app.form.utility import setUpEditWidgets, applyWidgetsChanges
 from zope.app import zapi
+from zope.event import notify
 
 from calcore.interfaces import IDailyRecurrenceRule, IWeeklyRecurrenceRule, \
      IMonthlyRecurrenceRule, IYearlyRecurrenceRule, IStorageManager
+from calcore.events import EventModifiedEvent
 from calcore.recurrent import DailyRecurrenceRule, WeeklyRecurrenceRule, \
      MonthlyRecurrenceRule, YearlyRecurrenceRule
 
@@ -427,7 +429,7 @@ class RecurrenceView(EditView):
             self.context.recurrence = rtype()
         # Set up the widgets again.
         sm = zapi.getUtility(IStorageManager, context=self.context)
-        sm.notifyOnEventModification(self.context)            
+        notify(EventModifiedEvent(self.context))
         self._setUpWidgets()
 
     def _setUpWidgets(self):

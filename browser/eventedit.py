@@ -23,9 +23,11 @@ combine = datetime.combine
 from AccessControl import Unauthorized
 from zope.interface import implements
 from zope.app import zapi
+from zope.event import notify
 
 from Products.CalZope.browser.interfaces import IEventEditSchema
 from calcore.interfaces import IStorageManager
+from calcore.events import EventModifiedEvent
 
 class EventEdit(object):
     """An adapter used to present a different edit form for events.
@@ -102,6 +104,5 @@ class EventEditSaver:
                 self.context.dtstart +
                 self.context.duration - timedelta(minutes=5))
         
-        zapi.getUtility(IStorageManager, context=self.context
-                        ).notifyOnEventModification(self.context)
-
+        notify(EventModifiedEvent(self.context))
+        

@@ -20,7 +20,7 @@
 from zope.interface import Interface
 from zope.schema import Text, TextLine, Datetime
 from calcore.schema import Timedelta
-from calcore.interfaces import IAttendeeSource
+from calcore.interfaces import IAttendeeSource, IStorageManager
 from datetime import datetime
 
 class IDate(Interface):
@@ -105,13 +105,24 @@ class IDay(IDate):
         """Get the day this object is representing.
         """
 class IZopeAttendeeSource(IAttendeeSource):
-    """Extends AttendeeSource with things made to support Zope security"""
+    """Extends AttendeeSource with things made to support Zope"""
     
     def getMainCalendarForAttendeeId(id):
         """Returns the main calendar for the attendee id
         
         This is used to fetch security settings, which are set on the calendar.
         """
+        
+    def notifyEventEvent(event):
+        """The method that gets called when an event event happens"""
+
+
+class IZopeStorageManager(IStorageManager):
+    """Extends StorageManager with things made to support Zope"""
+        
+    def notifyEventEvent(event):
+        """The method that gets called when an event event happens"""
+        
         
 class IBusyChecker(Interface):
     """These components are used to check if some attendees are busy
