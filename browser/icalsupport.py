@@ -75,11 +75,9 @@ class ICalendarImportExportView(BrowserView):
         reasons, otherwise the PUT method will not be found.
         This is because PUT is not called through Five directly,
         but through the Zope 2 Publisher.
-        """
-        if not getSecurityManager().checkPermission(
-            'Edit calendar', self.context):
-            raise Unauthorized(self.__name__, self.context)
 
+        Permission is managed on a per event bases by the importer.
+        """
         ical_text = REQUEST['BODYFILE'].read()
         self._import(ical_text, synchronize=1)
         RESPONSE.setStatus(204)
