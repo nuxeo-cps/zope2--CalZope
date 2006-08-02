@@ -444,7 +444,7 @@ msgstr "Acesta este un eveniment zilnic"
 #: from ../skins/event.pt
 #, fuzzy
 msgid "transparent_description"
-msgstr "Vous êtes disponible sûr cette événement."
+msgstr "Vous êtes disponible sûr cette évènement."
 
 #.   <block>you have</block>
 #: from ../skins/calendar.pt
@@ -467,7 +467,7 @@ msgstr "Organisateur d'événements"
 
 #, fuzzy
 msgid "EventReader"
-msgstr "Lecteur de l'événement"
+msgstr "Lecteur de l'évènement"
 
 # Event status
 msgid "CANCELED"
@@ -664,14 +664,14 @@ msgstr "Categorii"
 
 #, fuzzy
 msgid "Categories for this event"
-msgstr "Catégories de l'événement"
+msgstr "Catégories de l'évènement"
 
 msgid "Access"
 msgstr ""
 
 #, fuzzy
 msgid "Edit event"
-msgstr "Modifier l'événement"
+msgstr "Modifier l'évènement"
 
 # Error messages:
 msgid "Required input is missing."

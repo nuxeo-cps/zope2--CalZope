@@ -57,12 +57,12 @@ msgstr ", jusqu'au ${date}"
 #.             </a>
 #: from ../skins/day.pt ../skins/month.pt ../skins/week_macro.pt
 msgid "Add event"
-msgstr "Ajouter un événement"
+msgstr "Ajouter un évènement"
 
 #.   <h1>Do you want to delete this event?</h1>
 #: from ../skins/eventdelete.pt
 msgid "Do you want to delete this event?"
-msgstr "Souhaitez-vous supprimer cet événement?"
+msgstr "Souhaitez-vous supprimer cet évènement?"
 
 #.   <span>Edit calendar</span>
 #: from ../skins/calendar_edit.pt
@@ -224,7 +224,7 @@ msgstr "Catégories"
 #.             Add event</a>
 #: from ../skins/meetinghelper.pt
 msgid "label_add_event"
-msgstr "Ajouter un événement"
+msgstr "Ajouter un évènement"
 
 #.   <h3>Current attendees</h3>
 #: from ../skins/meetinghelper.pt
@@ -411,7 +411,7 @@ msgstr "Evénements à traiter"
 #.   <block>.</block>
 #: from ../skins/attendees.pt ../skins/event.pt
 msgid "message_see_this_events_postfix"
-msgstr " de cet événement."
+msgstr " de cet évènement."
 
 #.   <block>see this event's</block>
 #: from ../skins/attendees.pt ../skins/event.pt
@@ -430,14 +430,14 @@ msgstr "Sélectionner le statut"
 #.                   </b>
 #: from ../skins/event.pt
 msgid "message_this_is_an_all_day_event"
-msgstr "Evénement du jour entier"
+msgstr "Evènement du jour entier"
 
 #.   <b>
 #.                 You can be invited to meetings during this event.
 #.               </b>
 #: from ../skins/event.pt
 msgid "transparent_description"
-msgstr "Vous restez disponible pendant cet événement."
+msgstr "Vous restez disponible pendant cet évènement."
 
 #.   <block>you have</block>
 #: from ../skins/calendar.pt
@@ -452,13 +452,13 @@ msgid "AttendeeReader"
 msgstr "Lecteur de l'agenda"
 
 msgid "EventParticipant"
-msgstr "Participant à l'événement"
+msgstr "Participant à l'évènement"
 
 msgid "EventOrganizer"
-msgstr "Organisateur de l'événement"
+msgstr "Organisateur de l'évènement"
 
 msgid "EventReader"
-msgstr "Lecteur de l'événement"
+msgstr "Lecteur de l'évènement"
 
 # Event status
 msgid "CANCELED"
@@ -555,7 +555,7 @@ msgid "Stop search at this hour"
 msgstr "Arrêter la recherche à cette heure"
 
 msgid "The expected duration of the event"
-msgstr "Durée prévue de l'événement"
+msgstr "Durée prévue de l'évènement"
 
 msgid "Width"
 msgstr "Largeur"
@@ -597,69 +597,69 @@ msgid "Title"
 msgstr "Intitulé"
 
 msgid "The title of the event."
-msgstr "Intitulé de l'événement"
+msgstr "Intitulé de l'évènement"
 
 msgid "Description"
 msgstr "Description"
 
 msgid "A description of the event."
-msgstr "Description de l'événement"
+msgstr "Description de l'évènement"
 
 msgid "Starts"
 msgstr "Début"
 
 msgid "Date and time when this event starts."
-msgstr "Date et heure du début de l'événement"
+msgstr "Date et heure du début de l'évènement"
 
 msgid "Ends"
 msgstr "Fin"
 
 msgid "Date and time when this event ends."
-msgstr "Date et heure de la fin de l'événement"
+msgstr "Date et heure de la fin de l'évènement"
 
 msgid "Takes all day"
 msgstr "Jour entier"
 
 msgid "Check this box if the event goes on all day"
-msgstr "Cocher cette case si l'événement dure toute la journée"
+msgstr "Cocher cette case si l'évènement dure toute la journée"
 
 msgid "Not busy"
 msgstr "Disponible"
 
 msgid "This event should not appear as busy time in the meeting helper."
 msgstr ""
-"Cet événement n'apparaît pas comme plage horaire occupée lors de "
+"Cet évènement n'apparaît pas comme plage horaire occupée lors de "
 "l'organisation de réunion "
 
 msgid "Location"
 msgstr "Lieu"
 
 msgid "The location where this event takes place."
-msgstr "Lieu de l'événement"
+msgstr "Lieu de l'évènement"
 
 msgid "Status"
 msgstr "Statut"
 
 msgid "The status of the event."
-msgstr "Statut de l'événement"
+msgstr "Statut de l'évènement"
 
 msgid "Document"
 msgstr "Document"
 
 msgid "A document related to this event."
-msgstr "Document lié à l'événement"
+msgstr "Document lié à l'évènement"
 
 msgid "Categories"
 msgstr "Catégories"
 
 msgid "Categories for this event"
-msgstr "Catégories de l'événement"
+msgstr "Catégories de l'évènement"
 
 msgid "Access"
 msgstr "Visibilité"
 
 msgid "Edit event"
-msgstr "Modifier l'événement"
+msgstr "Modifier l'évènement"
 
 # Error messages:
 msgid "Required input is missing."
@@ -796,7 +796,7 @@ msgid "Date selector"
 msgstr "Choisir la date"
 
 msgid "Selects the recurrence rule for the object"
-msgstr "Choisir le type de récurrence pour l'événement"
+msgstr "Choisir le type de récurrence pour l'évènement"
 
 # Yes, we would really like to use a short ID here,
 # but we can't do that until Five 1.2, unfortunately.
@@ -806,7 +806,7 @@ msgid ""
 "        For example, to indicate that an event occurs every second day,\n"
 "        you would create a DailyRecurrenceRule witl interval equal to 2."
 msgstr ""
-"Intervalle de récurrence:  Pour indiquer qu'un événement a lieu tous les "
+"Intervalle de récurrence:  Pour indiquer qu'un évènement a lieu tous les "
 "deux jours, créer par exemple une règle de récurrence quotidienne avec un "
 "intervalle de 2."
 
@@ -818,9 +818,9 @@ msgid ""
 "        until must be None.  If both count and until are None the\n"
 "        event repeats forever."
 msgstr ""
-"Nombre de fois que l'événement se répète:  Peut être laissé vide ou être un "
+"Nombre de fois que l'évènement se répète:  Peut être laissé vide ou être un "
 "nombre entier. Si ce champ est renseigné, le champ <<jusqu'à>> doit être "
-"vide. Si les deux sont vides, l'événement se répète indéfiniment."
+"vide. Si les deux sont vides, l'évènement se répète indéfiniment."
 
 msgid ""
 "The date of the last recurrence of the event.\n"
@@ -829,9 +829,9 @@ msgid ""
 "        then count must be None.  If both count and until are None the\n"
 "        event repeats forever."
 msgstr ""
-"La date de dernière occurrence de cet événement.  Peut être laissé vide. Si "
+"La date de dernière occurrence de cet évènement.  Peut être laissé vide. Si "
 "ce champ est renseigné, le champ <<nombre de répétitions>> doit être vide. "
-"Si les deux sont vides, l'événement se répète indéfiniment."
+"Si les deux sont vides, l'évènement se répète indéfiniment."
 
 msgid ""
 "A set of weekdays when this event occurs.\n"
@@ -842,7 +842,7 @@ msgid ""
 "        The event repeats on the weekday of the first occurence even\n"
 "        if that weekday is not in this set."
 msgstr ""
-"Choisir les jours de la semaine où cet événement a lieu.  L'événement se "
+"Choisir les jours de la semaine où cet évènement a lieu.  L'évènement se "
 "reproduit le même jour que la première occurrence, même  s'il ne figure pas "
 "dans la sélection."
 
@@ -865,8 +865,8 @@ msgid ""
 "                      end of month (e.g. 2nd last Friday of a month)."
 msgstr ""
 "Comportement de la récurrence mensuelle:  <<jour du mois>> indique que "
-"l'événement se produit le même jour du mois, par exemple le 25 du mois. "
-"<<jour de la semaine>> indique que l'événement se produit le même jour de la "
+"l'évènement se produit le même jour du mois, par exemple le 25 du mois. "
+"<<jour de la semaine>> indique que l'évènement se produit le même jour de la "
 "même semaine, par exemple le troisième vendredi du mois. <<de la fin du "
 "mois>> est similaire mais en comptant de la  fin du mois, par exemple "
 "l'avant-dernier vendredi du mois."
@@ -884,7 +884,7 @@ msgid "Updated on %(date_time)s"
 msgstr "Dernière mise à jour: %(date_time)s"
 
 msgid "No events to list"
-msgstr "Pas d'événement."
+msgstr "Pas d'évènement."
 
 msgid "days"
 msgstr "jours"
@@ -935,7 +935,7 @@ msgid "Every ${count} years"
 msgstr "Tous les ${count} ans"
 
 msgid "Who has access to this event."
-msgstr "Qui a accès à cet événement."
+msgstr "Qui a accès à cet évènement."
 
 # # Dates
 msgid "calendar_month_1"

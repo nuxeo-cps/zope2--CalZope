@@ -31,6 +31,8 @@ Bug fixes:
 - #1719: The rights you have on an event is now extended with the rights
   you have on the attendees. This fixes a permission problem when 
   using calendars stacking.
+- Changed the orthography in French from "événement" to "évènement".
+  http://atilf.atilf.fr/dendien/scripts/generic/affiche.exe?29;s=1955308380;d=1;f=1;t=1;r=3;
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 - The js widget now uses ILanguageAvailability adapter if one exists to figure 
