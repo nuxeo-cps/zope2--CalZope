@@ -5,28 +5,27 @@
     />
 </metal:block>
 <metal:block fill-slot="body" tal:define="dummy view/calcInfo">
-  <h2>
-    <tal:block replace="view/year"/> - 
-    <a tal:attributes="href string:${view/getCalendarUrl}/${view/year}/${view/month}">
-    <tal:block content="string:calendar_month_${view/month}" 
-      i18n:translate="" />
-    </a> -
-    <a tal:attributes="href string:${view/getCalendarUrl}/week/${view/year}/${view/week}"
-      i18n:translate="">
-      Week <tal:block replace="view/week" i18n:name="week" />
-    </a>
-  </h2>
+  <span tal:replace="structure view/makeCalendarJs"/>
   <div metal:use-macro="template/macros/day_view"/>
 </metal:block>
 </html>
 
 <tal:block condition="nothing">
 
+    <a tal:attributes="href string:${view/getCalendarUrl}/week/${view/year}/${view/week}"
+      i18n:translate="">
+      Week <tal:block replace="view/week" i18n:name="week" />
+    </a>
+
 <table metal:define-macro="day_view" class="calendarMain">
+  <tr><td colspan="2">
+   <div tal:define="calendar context/getCalendar"
+         tal:content="structure calendar/@@event_header.html" />
+  </td></tr>
   <tr>
-    <td class="calendarMain" colspan="2">
-      <div metal:use-macro="template/macros/day_navigation" />
-    </td>
+    <td/>
+    <td class="calendarHeader"
+        tal:content="structure view/context/@@navigation_tabs.html"/>
   </tr>
   <tr>
     <td class="hourLabels" />
@@ -40,21 +39,6 @@
     <td class="hourLabels" />
   </tr>
 </table>
-
-<div metal:define-macro="day_navigation" i18n:domain="calendar">
-  <a
-    tal:attributes="href view/getPrevDayUrl">
-    &lt;&lt;
-  </a>&nbsp;
-  <a tal:define="today view/getTodayInfo"
-    tal:attributes="href string:${view/getCalendarUrl}/${today/year}/${today/month}/${today/day}"
-    i18n:translate="label_today" >
-    Today
-  </a>&nbsp;
-  <a tal:attributes="href view/getNextDayUrl">
-    &gt;&gt;
-  </a>
-</div>
 
 <td metal:define-macro="day_labels" class="dayLabels inCalendar" i18n:domain="calendar">
   <div style="position: relative;">

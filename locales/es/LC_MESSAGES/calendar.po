@@ -972,3 +972,17 @@ msgstr "Do"
 msgid "event"
 msgstr "evento"
 
+#, fuzzy
+msgid "label_current_year"
+msgstr "Este Año"
+
+#, fuzzy
+msgid "label_current_month"
+msgstr "Este Mes"
+
+#, fuzzy
+msgid "label_current_week"
+msgstr "Este Semana"
+
+msgid "label_current_day"
+msgstr "Hoy"

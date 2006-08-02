@@ -34,6 +34,8 @@ class CalendarEventAdding(ContentAdding):
         # AddingHelper to be able to construct an URL to the newly
         # created event
         self._event_unique_id = content.unique_id
+        # Set the new default date for the view.
+        self.request.SESSION['calzope_view_date'] = content.dtstart.date()
         return content
 
 def EventFactory(view, id, title, dtstart, dtend, allday=False):

@@ -29,24 +29,22 @@ from AccessControl import getSecurityManager
 
 from interfaces import IUnPositionedView, IEventDisplay
 
-# Some default "constants" for rendering:
-CALENDAR_WIDTH = 650
-DAY_HEIGHT = 100
+from calview import CalendarView
+from widget import make_calendar_js
 
-class MonthView:
+class MonthView(CalendarView):
     """Holds the rendering information for month views"""
 
     implements(IUnPositionedView)
 
     def calcInfo(self):
         """Calculates all the information necessary for display"""
+        self.calendar = self.context.getCalendar()
         self.year = self.context.getYear()
         self.month = self.context.getMonth()
 
         # store the start date of the month
         self.monthstart = date(self.year, self.month, 1)
-        # store a date in the last month
-        self.prevmonth = self.monthstart - timedelta(days=1)
         # calculate the start date of the next month
         weekday, days_in_month = calendar.monthrange(self.year, self.month)
         self.nextmonth = self.monthstart + timedelta(days=days_in_month)
@@ -58,43 +56,36 @@ class MonthView:
         # amount of weeks to display
         self.weeks = int(((self.ends - self.begins).days + 1) / 7)
 
-        # calculate width and height
-        self.day_width = CALENDAR_WIDTH / 7
-        self.calendar_width = self.day_width * 7
-
-        self.day_height = DAY_HEIGHT
-        self.calendar_height = self.day_height * self.weeks
         self.first_week = self.begins.isocalendar()[1]
-        
-    def getNextMonthUrl(self):
-        cal = self.context.getCalendar()
-        return "%s/%s/%s" % (
-            cal.absolute_url(), self.nextmonth.year, self.nextmonth.month)
-
-    def getPrevMonthUrl(self):
-        calendar = self.context.getCalendar()
-        return "%s/%s/%s" % (
-            calendar.absolute_url(), self.prevmonth.year, self.prevmonth.month)
-    
+            
     def getDateForWeekDay(self, week, weekday):
         return self.begins + timedelta(week * 7 + weekday - 1)
 
-    def getOccurrences(self, day):
-        occurrences = self.context.getCalendar().getOccurrencesInDay(day)
+    def getOccurrenceDisplays(self, day):
+        occurrences = self.calendar.getOccurrencesInDay(day)
         displays = [getMultiAdapter([occurrence, self], IEventDisplay) for
                     occurrence in occurrences]
         return displays
 
-
-    def getCalendarUrl(self):
-        return self.context.getCalendar().absolute_url()
-
     def getTodayInfo(self):
         today = date.today()
-        return {'year': today.year, 'month': today.month, 'day': today.day}
-   
-    def checkPermission(self, permission, object=None):
-        if object is None: # Default to the event
-            object = self.context
-        user = getSecurityManager().getUser()
-        return user.has_permission(permission, object)
+        if today.year == self.year and today.month == self.month:
+            istoday = True
+        else:
+            istoday = False
+        return {'year': today.year, 
+                'month': today.month, 
+                'day': today.day,
+                'istoday': istoday}
+    
+    def getClassForDate(self, dt):
+        if dt.month == self.context.getMonth():
+            class_ = 'thisMonth'
+        else:
+            class_ = 'otherMonth'
+        if len(self.calendar.getOccurrencesInDay(dt)) != 0:
+            class_ += 'HasEvent'
+        else:
+            class_ += 'NoEvent'
+        return class_
+        

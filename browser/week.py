@@ -20,7 +20,7 @@
   week.py
 """
 
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, date
 
 from AccessControl import getSecurityManager
 
@@ -28,6 +28,7 @@ from zope.interface import implements
 from zope.app.zapi import getMultiAdapter
 
 from calcore import isoweek
+from calview import CalendarView
 from displaytable import DayGrid
 from interfaces import IPositionedView, IEventDisplay
 
@@ -38,7 +39,7 @@ _ = MessageFactory("calendar")
 HOUR_HEIGHT = 30 # Two minutes per pixel
 CALENDAR_WIDTH = 650
 
-class WeekView:
+class WeekView(CalendarView):
     """Holds the rendering information for week views"""
     
     implements(IPositionedView)
@@ -50,6 +51,7 @@ class WeekView:
         return isoweek.weeknr2datetime(self.year, self.week, weekday)
     
     def calcInfo(self):
+        self.calendar = self.context.getCalendar()
         self.week = self.context.getWeekNr()
         self.year = self.context.getYear()
         self.first_day = self.getDateForWeekday(1)
@@ -77,49 +79,11 @@ class WeekView:
             self.height = self.height  + self.hour_height 
         if self.to_hour != 24:
             self.height = self.height  + self.hour_height 
-            
-
-    def getCurrentWeekInfo(self):
-        today = datetime.today()
-        year = today.year
-        weeknr = today.isocalendar()[1]
-        return year, weeknr
-    
-    def getNextWeekUrl(self):
-        nextweek = self.week + 1
-        if nextweek > isoweek.getWeeksInYear(self.year):
-            nextweek = 1
-            nextyear = self.year + 1
-        else:
-            nextyear = self.year    
-
-        calendar = self.context.getCalendar()
-        if (nextyear, nextweek) == self.getCurrentWeekInfo():
-            return calendar.absolute_url()
-        return "%s/week/%s/%s" % (
-            calendar.absolute_url(), nextyear, nextweek)
-
-    def getPrevWeekUrl(self):
-        prevweek = self.week - 1
-        if prevweek < 1:
-            prevyear = self.year - 1
-            prevweek = isoweek.getWeeksInYear(prevyear)
-        else:
-            prevyear = self.year
-            
-        calendar = self.context.getCalendar()
-        if (prevyear, prevweek) == self.getCurrentWeekInfo():
-            return calendar.absolute_url()
-        return "%s/week/%s/%s" % (
-            calendar.absolute_url(), prevyear, prevweek)
 
     def getDays(self):
         return [self.getDateForWeekday(d) 
                 for d in self.getWeekdays()]
-    
-    def getOccurrencesInDay(self, day):
-        return self.context.getCalendar().getOccurrencesInDay(day)
-        
+            
     def getEventDisplays(self):        
         all_displays = []
         for d in self.context.getWeekdays():
@@ -138,20 +102,15 @@ class WeekView:
             
         return all_displays
 
-    def getCalendarUrl(self):
-        return self.context.getCalendar().absolute_url()
-
     def getTodayInfo(self):
-        today = datetime.today()
-        return {'year': today.year, 'month': today.month, 'day': today.day}
-
-    def getShortDate(self, date):
-        format = _('%d/%m')            
-        return date.strftime(str(format))
+        today = date.today()
+        if (today >= self.first_day.date() and 
+            today < (self.first_day + timedelta(7)).date()):
+            istoday = True
+        else:
+            istoday = False
+        return {'year': today.year, 
+                'month': today.month, 
+                'day': today.day,
+                'istoday': istoday}
  
-    def checkPermission(self, permission, object=None):
-        if object is None: # Default to the event
-            object = self.context
-        user = getSecurityManager().getUser()
-        return user.has_permission(permission, object)
-

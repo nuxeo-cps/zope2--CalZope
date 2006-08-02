@@ -234,7 +234,6 @@ class EventView(BrowserView):
     
     def duration(self):
         if self.allday():
-            start = self.context.dtstart
             duration = self.context.duration - timedelta(days=1)
             duration = str(duration)
             return duration.split(',')[0]
@@ -297,7 +296,6 @@ class AttendeeManagementView(BrowserView):
     use_query = ''
     
     def update(self):
-        attendee_source = self._getAttendeeSource()
         form = self.request.form
         
         # First fetch the search query:

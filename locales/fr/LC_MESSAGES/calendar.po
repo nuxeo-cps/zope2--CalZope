@@ -998,3 +998,15 @@ msgstr "Di"
 # breadcrumbs
 msgid "event"
 msgstr "événements"
+
+msgid "label_current_year"
+msgstr "Cette Anné"
+
+msgid "label_current_month"
+msgstr "Cette Mois"
+
+msgid "label_current_week"
+msgstr "Cette Semaine"
+
+msgid "label_current_day"
+msgstr "Aujourd'hui"

@@ -1,0 +1,50 @@
+<div i18n:domain="calendar" class="dayTab"
+     tal:define="calendar_url view/getCalendarUrl;">
+  <span id="dateTabsStart">&nbsp;</span><span id="dateTabsMid">
+      <span tal:content="view/year"/>
+      <span tal:content="string:calendar_month_${view/month}" i18n:translate=""/>
+      <span tal:content="view/day"/>
+      <span tal:content="structure context/@@navigation_calendar.html"/>
+  </span>
+  <span id="dateTabsEnd">&nbsp;</span>
+</div>
+<div i18n:domain="calendar" class="navigationTabs"
+     tal:define="calendar_url view/getCalendarUrl">
+  <span tal:attributes="class view/yearTabClass">
+    <li><a tal:attributes="href string:${calendar_url}/${view/year}" 
+           i18n:translate="">Year</a></li>
+  </span>
+  <span tal:attributes="class view/monthTabClass">
+    <li><a tal:attributes="href string:${calendar_url}/${view/year}/${view/month}" 
+           i18n:translate="">Month</a></li>
+  </span>
+  <span tal:attributes="class view/weekTabClass">
+    <li><a tal:attributes="href string:${calendar_url}/week/${view/week_year}/${view/week}" 
+           i18n:translate="">Week</a></li>
+  </span>
+  <span tal:attributes="class view/dayTabClass">
+    <li><a tal:attributes="href string:${calendar_url}/${view/year}/${view/month}/${view/day}" 
+           i18n:translate="">Day</a></li>
+  </span>
+  &nbsp;&nbsp;&nbsp;
+  <span class="unselected">
+    <li><a
+      tal:attributes="href view/getPrevViewUrl">
+      &lt;&lt;</a>
+    </li>
+  </span>
+  <span tal:define="today view/getTodayInfo;"
+        tal:attributes="class view/todayTabClass">
+    <li>
+      <a tal:attributes="href view/getTodayViewUrl"
+         i18n:translate="" 
+         tal:content="string: label_current_${view/view_type}" />
+    </li>
+  </span>
+  <span class="unselected">
+    <li>
+      <a tal:attributes="href view/getNextViewUrl">
+        &gt;&gt;</a>
+    </li>
+  </span>
+</div>

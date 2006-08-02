@@ -35,6 +35,8 @@ from zope.app.form.interfaces import ConversionError, WidgetInputError
 from zope.app.form.interfaces import InputErrors
 from zope.schema.interfaces import ValidationError
 
+from Products.CalZope.interfaces import IBusyChecker
+
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory("calendar")
 
@@ -324,7 +326,7 @@ calendar_js_scripts = """\
 calendar_js_template = """%s
 <script type="text/javascript">
 Calendar.setup({inputField: "%s", ifFormat: "%s", showsTime: %s,
-                button: "%s", singleClick: true});
+                button: "%s", singleClick: true, firstDay: 1});
 </script>"""
 
 def make_calendar_widget(request,
@@ -342,11 +344,14 @@ def make_calendar_widget(request,
     showsTime = showsTime and "true" or "false"
     result = calendar_js_template % (
         image_tag, field_id, format, showsTime, image_id)
-    if not getattr(request, '_jscalendar_scripts_included', 0):
-        request._jscalendar_scripts_included = 1
-        lang = getattr(request, 'jscalendar_language', 'en')
-        result = (calendar_js_scripts % lang)+ result
-    return result
+    return make_calendar_js(request) + result
+
+def make_calendar_js(request):
+    if getattr(request, '_jscalendar_scripts_included', 0):
+        return ''
+    lang = getattr(request, 'jscalendar_language', 'en')
+    request._jscalendar_scripts_included = 1
+    return calendar_js_scripts % lang
 
 def str2datetime(string, format=None):
     if format is None:
@@ -427,7 +432,6 @@ class EndDateWidget(DivDatetimeWidget):
         if self.request.form.get('field.transparent') == u'on':
             # Transparent events should not be checked for conflicts.
             return value
-        from Products.CalZope.interfaces import IBusyChecker
         checker = IBusyChecker(self.context.context)
         try:
             checker.check(startvalue, value)

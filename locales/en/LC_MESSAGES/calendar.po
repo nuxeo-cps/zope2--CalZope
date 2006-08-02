@@ -970,3 +970,14 @@ msgstr "Su"
 msgid "event"
 msgstr ""
 
+msgid "label_current_year"
+msgstr "This Year"
+
+msgid "label_current_month"
+msgstr "This Month"
+
+msgid "label_current_week"
+msgstr "This Week"
+
+msgid "label_current_day"
+msgstr "Today"

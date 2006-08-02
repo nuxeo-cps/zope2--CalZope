@@ -7,10 +7,8 @@
     <tal:block repeat="weekday python:range(1,8)">
       <td tal:define="day python:view.getDateForWeekDay(week, weekday);
                       dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};"
-          tal:attributes="class python:day.month == context.getMonth() and 
-                                'dayInThisMonth' or 'dayNotInThisMonth'">
-        <a tal:attributes="href dayurl;
-                           class python:view.getOccurrences(day) and 'hasEvent' or 'noEvent'"
+          tal:attributes="class python:view.getClassForDate(day)">
+        <a tal:attributes="href dayurl;"
            tal:content="day/day" />
        </td>
      </tal:block>

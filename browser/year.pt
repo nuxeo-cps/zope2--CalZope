@@ -5,24 +5,20 @@
     />
 </div>
 <body metal:fill-slot="body">
-  <h2>
-    <a class="prevnext"
-      tal:attributes="href python:'../' + str(context.getYear() -1)">
-      &lt;&lt;
-    </a>
-
-    <tal:block i18n:translate="">Year</tal:block>
-    <span tal:replace="context/getYear">year</span>
-    
-    <a class="prevnext"
-      tal:attributes="href python:'../' + str(context.getYear() +1)">
-      &gt;&gt;
-    </a>
-  </h2>
-
-  <table>
+  <span tal:replace="structure view/makeCalendarJs"/>
+  <table class="calendarMain">
+    <tr><td colspan="4">
+      <div tal:define="calendar context/getCalendar"
+           tal:content="structure calendar/@@event_header.html" />
+    </td></tr>
+    <tr>
+      <td class="calendarHeader" colspan="4"
+          tal:content="structure context/@@navigation_tabs.html"/>
+    </tr>
+    <tr><td class="yearViewHeader" colspan="4">&nbsp;</td></tr>
     <tr tal:repeat="row python:(0, 1, 2)">
-      <td tal:repeat="col python:(1, 2, 3, 4)">
+      <td tal:repeat="col python:(1, 2, 3, 4)"
+           style="vertical-align: top;">
         <span tal:define="month python:str(row*4+col);
                           month_object context/?month"
           tal:content="structure month_object/@@thumbnail.html" />

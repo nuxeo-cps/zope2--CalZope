@@ -965,3 +965,17 @@ msgstr "Dom"
 msgid "event"
 msgstr "evento"
 
+#, fuzzy
+msgid "label_current_year"
+msgstr "Este Ano"
+
+#, fuzzy
+msgid "label_current_month"
+msgstr "Este Mês"
+
+#, fuzzy
+msgid "label_current_week"
+msgstr "Este Semana"
+
+msgid "label_current_day"
+msgstr "Hoje"

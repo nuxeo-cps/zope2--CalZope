@@ -17,14 +17,43 @@
 #
 # $Id$
 
-from Products.Five import BrowserView
-from calcore import cal
 from datetime import datetime
-from Products.CalZope.browser.week import WeekView
-from AccessControl import getSecurityManager
-from calcore.interfaces import IAttendeeSource, IStorageManager
 from zope.app import zapi
 
+from AccessControl import getSecurityManager
+from Products.Five import BrowserView
+
+from calcore import cal
+from calcore.interfaces import IAttendeeSource, IStorageManager
+
+from widget import make_calendar_js
+
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory("calendar")
+
+class CalendarView:
+    """Abstract base class for day, week, month and year views"""
+
+    def getOccurrencesInDay(self, day):
+        return self.context.getCalendar().getOccurrencesInDay(day)
+    
+    def checkPermission(self, permission, object=None):
+        if object is None:
+            object = self.context
+        user = getSecurityManager().getUser()
+        return user.has_permission(permission, object)
+
+    def makeCalendarJs(self):
+        return make_calendar_js(self.request)
+
+    def getCalendarUrl(self):
+        return self.context.getCalendar().absolute_url()
+
+    def getShortDate(self, date):
+        format = _('%d/%m')            
+        return date.strftime(str(format))
+
+    
 class CalendarEditView:
     """View to edit the calendar"""
     
@@ -124,7 +153,8 @@ class CalendarEditView:
         return user.has_permission(permission, object)
 
 
-class CalendarView(BrowserView, WeekView):
+class CalendarEventInfoView(BrowserView, CalendarView):
+    
     def getNeedsActionAmount(self):
         """Get all events that need action for attendees.
         """
@@ -139,12 +169,6 @@ class CalendarView(BrowserView, WeekView):
         """
         calendar = self.context.getCalendar()
         return len(getOrganizedEvents(calendar))
-    
-    def getWeekUrl(self):
-        today = datetime.today()
-        year = today.year
-        weeknr = today.isocalendar()[1]
-        return '%s/week/%s/%s' % (self.context.absolute_url(), year, weeknr)
         
     def displayEventLists(self):
         if not self.checkPermission('Manage participation status'):
@@ -152,14 +176,7 @@ class CalendarView(BrowserView, WeekView):
         return (self.getNeedsActionAmount() or
                 self.getAttendedAmount() or
                 self.getOrganizedAmount()) != 0
-
-class GotoCalendarView(BrowserView):
     
-    def __call__(self):
-        calendar = self.context.getCalendar()
-        url = calendar.absolute_url()
-        response = self.request.RESPONSE
-        response.redirect(url)
     
 class EventsView(BrowserView):
     def _getEvents(self):

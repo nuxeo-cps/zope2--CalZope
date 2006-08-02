@@ -1026,3 +1026,18 @@ msgstr "Du"
 
 msgid "event"
 msgstr ""
+
+#, fuzzy
+msgid "label_current_year"
+msgstr "Aceasta Án"
+
+#, fuzzy
+msgid "label_current_month"
+msgstr "Aceasta Luna"
+
+#, fuzzy
+msgid "label_current_week"
+msgstr "Aceasta Saptamana"
+
+msgid "label_current_day"
+msgstr "Azi"

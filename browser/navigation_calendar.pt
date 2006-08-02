@@ -1,0 +1,18 @@
+<img src="++resource++jscalendar.gif" id="goto_image" 
+  style="cursor: pointer;" title="" 
+  onmouseover="this.style.background='black';"
+  onmouseout="this.style.background=''"/>
+<script type="text/javascript" tal:content="string:
+function gotoDate(cal) {
+  var url = '${view/calendar/absolute_url}';
+  if (cal.dateClicked) {
+    url = url + '?date=' + cal.date.print('%Y-%m-%d');
+    document.location.href = url;
+  }
+}
+
+var date = new Date(${view/year}, ${view/month}-1, ${view/day});
+Calendar.setup({ifFormat: '${view/getDateFormat}', showsTime: false, 
+                firstDay: 1, button: 'goto_image', singleClick: true, 
+                onSelect: gotoDate, date: date});"
+/>

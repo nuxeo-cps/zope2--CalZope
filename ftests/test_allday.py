@@ -47,7 +47,8 @@ class testAccessControl(CalendarTestCase):
                             'field.access': 'PRIVATE',
                             'field.allday': 'on',
                             'field.allday.used': '',
-                            'UPDATE_SUBMIT': 'Add'}})
+                            'UPDATE_SUBMIT': 'Add'},
+                    'SESSION': {}})
         self.assertResponse(response, 302) # This add form redirects if it works
         
         events = self.folder.user_cal.getEvents(

@@ -1,0 +1,33 @@
+<tal:block define="needs_action_amount view/getNeedsActionAmount;
+                   organized_amount view/getOrganizedAmount;
+                   attended_amount view/getAttendedAmount;
+                   display_event_lists view/displayEventLists;"
+  >
+  <div style="padding: 8px;">
+    <div class="contextlinks" style="float: right; text-align: right;">
+      <tal:block 
+        condition="python:display_event_lists">
+        <tal:block i18n:translate="">you have</tal:block>
+        <tal:block condition="needs_action_amount">
+          <a href="action_needed_events.html" i18n:translate="">
+            <span tal:replace="needs_action_amount" i18n:name="amount">
+              amount
+            </span> events that need action</a></tal:block><tal:block 
+          condition="python:needs_action_amount and organized_amount">,
+        </tal:block>
+        <tal:block condition="organized_amount">
+          <a href="organized_events.html" i18n:translate="">
+            <span tal:replace="organized_amount" i18n:name="amount">
+              amount
+            </span> events you organize</a></tal:block><tal:block 
+          condition="python:organized_amount and attended_amount">, 
+        </tal:block>
+        <tal:block condition="attended_amount">
+          <a href="attended_events.html" i18n:translate="">
+            <span tal:replace="attended_amount" i18n:name="amount">
+              amount
+            </span> 
+            events you attend</a></tal:block>.
+      </tal:block>
+    </div>
+</tal:block>

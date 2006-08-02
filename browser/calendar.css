@@ -1,4 +1,7 @@
-<tal:block define="dummy python:request.response.setHeader('content-type', 'text/css;; charset= iso-8859-15')" />
+/* By commenting this out, editors with CSS syntax coloring does not get confused.
+<tal:block define="dummy python:request.response.setHeader('content-type', 'text/css;; charset= iso-8859-15')" /> */
+
+/* Generic stuff */
 
 table.calendarMain {
   border-collapse: collapse;
@@ -6,13 +9,152 @@ table.calendarMain {
   padding: 0;
 }
 
+td.calendarBody {
+  vertical-align: top;
+  padding: 0;
+}
+
+td.calendarMain {
+  padding: 0;
+  /*vertical-align: top;*/
+}
+
+.inCalendar a:link {
+  color: #002244;
+}
+
+.inCalendar a:hover {
+  color: #004488;
+}
+
+.inCalendar a:visited {
+  color: #002244;
+}
+
+
+.calendarMain thead tr {
+  background-color: rgb(231,231,231);
+}
+
+.calendarMain tr.even {
+  background-color: transparent;
+}
+
+.calendarMain tr.odd {
+  background-color: rgb(231,231,231);
+}
+
+.calendarMain th.checkbox {
+  width: 5%;
+}
+
+/* Navigation tabs */
+
+td.calendarHeader {
+  padding: 0px 5px 0px 0px;
+}
+
+div.dayTab {
+  float:left;
+  padding: 2px 0px 0px 0px;
+  height: 0px; /* Needed to get rid of small white line in Firefox. */
+}
+
+div.navigationTabs {
+  float:right;
+  padding: 2px 0px 0px 0px;
+}
+
+ul.navigationTabs { /* needed? */
+  padding: 1px;
+}
+
+div.navigationTabs span.unselected li {
+  display: inline; 
+  padding: 2px 0px 0px 5px;
+  background: url(++resource++tab_unselected_left.png) top left no-repeat;
+}
+  
+div.navigationTabs span.unselected a {
+  padding: 2px 5px 0px 0px; 
+  background: url(++resource++tab_unselected_right.png) top right no-repeat;
+  margin: -2px 0px 0px 0px;
+}
+
+div.navigationTabs span.selected li {
+  display: inline; 
+  padding: 2px 0px 0px 5px;
+  background: url(++resource++tab_selected_left.png) top left no-repeat;
+}
+  
+div.navigationTabs span.selected a {
+  padding: 2px 5px 0px 0px; 
+  background: url(++resource++tab_selected_right.png) top right no-repeat;
+  margin: -2px 0px 0px 0px;
+}
+
+#dateTabsStart {
+  padding: 2px 0px 0px 1px;
+  background: url(++resource++tab_selected_left.png) top left no-repeat;
+}
+
+#dateTabsMid {
+  padding: 2px 0px 0px 0px;
+  background: url(++resource++tab_selected_mid.png) top;
+  font-weight: bold;
+}
+
+#dateTabsEnd {
+  display: inline; 
+  padding: 2px 0px 0px 1px;
+  background: url(++resource++tab_selected_right.png) top right no-repeat;
+}
+
+/* Year views */
+
+table.yearView {
+  padding: 0;
+}
+
+td.yearViewHeader {
+  background-color: #9999ff;
+}
+
 table.calendarThumbnail td {
   padding: 1px;
 }
 
-.calendarThumbnail a.hasEvent {
+.calendarThumbnail td.thisMonthHasEvent {
   font-weight: bold;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #aaaaff;
+  text-align: center;
 }
+
+.calendarThumbnail td.thisMonthNoEvent {
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #eeeeff;
+  text-align: center;
+}
+
+.calendarThumbnail td.otherMonthHasEvent {
+  overflow: hidden;
+  border-width: 0px;
+  text-align: center;
+}
+
+.calendarThumbnail td.otherMonthNoEvent {
+  overflow: hidden;
+  border-width: 0px;
+  text-align: center;
+}
+
 
 td.weekThumbnailDay {
   border-width: 1px;
@@ -39,14 +181,51 @@ td.weekThumbnailWeekNo {
   text-align: right;
 }
 
-td.calendarBody {
-  vertical-align: top;
-  padding: 0;
+
+/* Month view */
+
+.dayInThisMonth {
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #eeeeff;
 }
 
-td.calendarMain {
-  padding: 0;
+.dayNotInThisMonth {
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #6666aa;
+  background: #cccccc;
 }
+
+div.monthDayHeader {
+  background: #9999ff;
+  border-width: 1px 1px 0px 1px;
+  border-style: solid;
+  border-color: #6666aa;
+}
+
+td.monthDay {
+  padding: 2px;
+  height: 80px;
+  width: 90px;
+}
+
+div.monthEvent {
+  overflow: hidden;
+  margin: 1px;
+  border-width: 0px;
+  border-style: solid;
+  border-color: #666666;
+  background: #aaaaff;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+
+/* Week and Day views */
 
 td.hourLabels {
   vertical-align: top;
@@ -58,14 +237,16 @@ td.dayLabels {
   vertical-align: top;
   height: 20px;
   background: #9999ff;
+  padding-left:6px;
 }
 
 td.dayFooter {
-  vertical-align: top;
+  /*vertical-align: top;*/
   height: 40px;
 }
 
 td.weekHeader {
+  /*vertical-align: top;*/
   padding-right: 7px;
 }
 
@@ -125,81 +306,15 @@ div.unauthorizedEvent {
   -moz-box-sizing: border-box;
 }
 
-.needs-action {
-  color: Red;
-}
-
-.tentative {
-  color: #ffa500;
-}
-
-td.dayInThisMonth {
+div.confidentialEvent {
+  position: absolute;
   overflow: hidden;
   border-width: 1px;
   border-style: solid;
   border-color: #6666aa;
-  background: #eeeeff;
-  vertical-align: top;
-  padding: 0;
-}
-
-td.dayNotInThisMonth {
-  overflow: hidden;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #6666aa;
-  background: #cccccc;
-  vertical-align: top;
-  padding: 0;
-}
-
-div.dayHeader {
-  background: #9999ff;
-  padding: 0px 2px;
-  link-color: #FF0000;
-}
-
-.inCalendar a:link {
-  color: #002244;
-}
-
-.inCalendar a:hover {
-  color: #004488;
-}
-
-.inCalendar a:visited {
-  color: #002244;
-}
-
-div.monthEvent {
-  overflow: hidden;
-  padding: 0px 2px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #6666aa;
-  background: #aaaaff;
+  background: #ffffff;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-}
-
-td {
-  vertical-align: top;
-}
-
-thead tr {
-  background-color: rgb(231,231,231);
-}
-
-tr.even {
-  background-color: transparent;
-}
-
-tr.odd {
-  background-color: rgb(231,231,231);
-}
-
-th.checkbox {
-  width: 5%;
 }
 
 a.addEventShortcut {
@@ -241,12 +356,26 @@ div.eventDescription table {
 
 div.eventDescription table td {
   text-align: left;
+  /*vertical-align: top;*/
 }
 
 div.eventDescription table th {
   text-align: left;
+  /*vertical-align: top;*/
 }
 
 td.rowlabel {
   text-align: right;
+  /*vertical-align: top;*/
+}
+
+/* XXX I think these next two styles are not used. However, we should probably use them,
+   or start displaying this info with smallish icons or something. */
+   
+.needs-action {
+  color: Red;
+}
+
+.tentative {
+  color: #ffa500;
 }

@@ -73,17 +73,19 @@ class testUseCase(CalendarTestCase):
                             'field.title': "Florent's Meeting",
                             'field.status': 'TENTATIVE',
                             'field.access': 'PUBLIC',
-                            'UPDATE_SUBMIT': 'Add'}})
+                            'UPDATE_SUBMIT': 'Add'},
+                    'SESSION': {},})
         self.assertResponse(response, 302) # This add form redirects if it works
         
         event_id = self.folder.florent.getEvents((
             datetime(year, month ,01), datetime(year, month, 01)+timedelta(32)
             ))[0].getId()
         
-        # When Florent now checks his events for april, he'll see the meeting::
+        # When Florent now checks his events, he'll see the meeting::
         response = self.publish(
             '%s/florent/%s/%s' % (self.folderpath, year, month),
-            basic='florent:secret')
+            basic='florent:secret',
+            extra={'SESSION':{}})
         self.assertResponse(response, 200)
         self.assert_("Florent's Meeting" in response.getBody(),
                          'Event not found in month-view')
@@ -98,7 +100,8 @@ class testUseCase(CalendarTestCase):
         for uid in ('martijn', 'bob'):
             response = self.publish(
                 '%s/%s/%s/%s' % (self.folderpath, uid, year, month),
-                basic='%s:secret' % uid) 
+                basic='%s:secret' % uid,
+                extra={'SESSION':{}})
             self.assertResponse(response, 200)
             self.assert_("Florent's Meeting" not in response.getBody(), 
                          'Event found in month-view although not invited')
@@ -110,7 +113,8 @@ class testUseCase(CalendarTestCase):
                 basic='florent:secret',
                 extra={'form': {'add_martijn':'on',
                                 'add_bob':'on',
-                                'UPDATE_ADD': 'Add'}}) 
+                                'UPDATE_ADD': 'Add'},
+                       'SESSION':{}})
 
         self.assertResponse(response, 200)
 
@@ -118,7 +122,8 @@ class testUseCase(CalendarTestCase):
         for uid in ('martijn', 'bob'):
             response = self.publish(
                 '%s/%s/%s/%s' % (self.folderpath, uid, year, month),
-                basic='%s:secret' % uid) 
+                basic='%s:secret' % uid,
+                extra={'SESSION':{}})
             self.assertResponse(response, 200)
             self.assert_("Florent's Meeting" in response.getBody(), 
                          'Event not found in month-view although invited')
@@ -196,7 +201,8 @@ class testUseCase(CalendarTestCase):
         for uid in ('florent', 'martijn', 'bob'):
             response = self.publish(
                 '%s/%s/%s/%s' % (self.folderpath, uid, year, month),
-                basic='%s:secret' % uid) 
+                basic='%s:secret' % uid,
+                extra={'SESSION':{}})
             self.assertResponse(response, 200)
             self.assert_("Florent's Meeting" not in response.getBody(), 
                          'Deleted event shows up.')

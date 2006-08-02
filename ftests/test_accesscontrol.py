@@ -173,7 +173,8 @@ class testAccessControl(CalendarTestCase):
                             'field.title': 'testevent',
                             'field.status': 'CONFIRMED',
                             'field.access': 'PRIVATE',
-                            'UPDATE_SUBMIT': 'Add'}})
+                            'UPDATE_SUBMIT': 'Add'},
+                    'SESSION':{}})
         self.assertResponse(response, 302) # This add form redirects if it works
         
         event = self.folder.user_cal.getEvents(
@@ -201,7 +202,8 @@ class testAccessControl(CalendarTestCase):
                             'field.title': 'testevent',
                             'field.status': 'CONFIRMED',
                             'field.access': 'PUBLIC',
-                            'UPDATE_SUBMIT': 'Add'}})
+                            'UPDATE_SUBMIT': 'Add'},
+                    'SESSION': {}})
         self.assertResponse(response, 302) # This add form redirects if it works
 
         # Find the event id
@@ -247,7 +249,8 @@ class testAccessControl(CalendarTestCase):
                             'field.title': 'testevent',
                             'field.status': 'CONFIRMED',
                             'field.access': 'PUBLIC',
-                            'UPDATE_SUBMIT': 'Add'}})
+                            'UPDATE_SUBMIT': 'Add'},
+                    'SESSION':{}}) # SESSION is used by the meetinghelper.
         self.assertResponse(response, 302) # This add form redirects if it works
 
         # Find the event id

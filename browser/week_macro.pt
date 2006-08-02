@@ -1,31 +1,12 @@
 <metal:block define-macro="week_view" i18n:domain="calendar">
-  <h2>
-    <tal:block replace="view/year"/>
-    - 
-    <a tal:attributes="href string:${view/getCalendarUrl}/${view/year}/${view/month}">
-      <tal:block content="string:calendar_month_${view/month}" 
-      i18n:translate="" />
-    </a>
-    -
-    <a
-      tal:attributes="href view/getPrevWeekUrl">
-      &lt;&lt;
-    </a>
-    <!-- a tal:attributes="href string:${view/getCalendarUrl}/week/${view/year}/${view/week}" -->
-      <tal:block i18n:translate="" >
-        Week <tal:block replace="view/week" i18n:name="week"/>
-      </tal:block>
-    <!-- /a /-->
-    <a tal:attributes="href view/getNextWeekUrl">
-      &gt;&gt;
-    </a>
-  </h2>
-  
   <table class="calendarMain">
+    <tr><td colspan="2">
+      <div tal:content="structure view/calendar/@@event_header.html" />
+    </td></tr>
     <tr>
-      <td class="calendarMain" colspan="2">
-        <div metal:use-macro="context/week_macro/macros/week_navigation" />
-      </td>
+      <td class="hourLabels" />
+      <td class="calendarHeader"
+          tal:content="structure view/context/@@navigation_tabs.html"/>
     </tr>
     <tr>
       <td class="hourLabels" />
@@ -41,18 +22,10 @@
   </table>
 </metal:block>
 
-<span metal:define-macro="week_navigation">
-  <a tal:define="today view/getTodayInfo"
-    tal:attributes="href string:${view/getCalendarUrl}/${today/year}/${today/month}/${today/day}"
-    i18n:translate="label_today" >
-    Today
-  </a>
-</span>
-
 <td metal:define-macro="day_labels" class="dayLabels inCalendar">
   <div style="position: relative;">
     <tal:block repeat="day view/getDays">
-      <div class="dayLabel dayHeader"
+      <div class="dayLabel"
         tal:define="dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};"
         tal:attributes="style python:'left:%.1f%%;;' % (repeat['day'].index * view.day_width*100.0/view.width)" 
         >

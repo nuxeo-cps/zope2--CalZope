@@ -5,6 +5,7 @@
     />
 </metal:block>
 <metal:block metal:fill-slot="body" tal:define="dummy view/calcInfo">
+  <span tal:replace="structure view/makeCalendarJs"/>
   <div metal:use-macro="context/week_macro/macros/week_view"/>
 </metal:block>
 </html>

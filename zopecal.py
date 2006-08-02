@@ -375,7 +375,7 @@ class Month(SimpleItem):
 
     def __init__(self, year, month):
         self.id = str(month)
-        self.title = self.id
+        self.title = _('calendar_month_%s' % self.id)
         self._year = year
         self._month = month
 
@@ -538,9 +538,6 @@ class Week(SimpleItem):
 
     def getWeekNr(self):
         return self._week_nr
-
-##     def getWeekdays(self):
-##         return range(1, 8)
 
     def getDateForWeekday(self, weekday):
         return isoweek.weeknr2datetime(self._year, self._week_nr, weekday)

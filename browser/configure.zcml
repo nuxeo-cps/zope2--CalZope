@@ -72,46 +72,39 @@
 
   <browser:page
     for="calcore.interfaces.ICalendar"
-    template="calendar.css"
-    name="calendar.css"
-    permission="zope.Public"
+    name="event_header.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.calview.CalendarEventInfoView"
+    template="event_header.pt"
     />
 
   <browser:page
-    for="calcore.interfaces.ICalendarEvent"
-    class=".browser.calview.GotoCalendarView"
+    for="calcore.interfaces.ICalendar"
+    class=".browser.navigation.RedirectToLastView"
     name="calendar.html"
     permission="calendar.ViewCalendar"
   />
 
   <browser:page
     for=".interfaces.IWeekList"
-    class=".browser.calview.GotoCalendarView"
+    class=".browser.navigation.RedirectToLastView"
     name="calendar.html"
     permission="calendar.ViewCalendar"
   />
 
   <browser:page
     for=".interfaces.IWeekYear"
-    class=".browser.calview.GotoCalendarView"
+    class=".browser.navigation.RedirectToLastView"
     name="calendar.html"
     permission="calendar.ViewCalendar"
   />
   
   <browser:page
     for=".interfaces.IDate"
-    class=".browser.calview.GotoCalendarView"
+    class=".browser.navigation.RedirectToLastView"
     name="calendar.html"
     permission="calendar.ViewCalendar"
   />
-
-  <browser:page
-    for="calcore.interfaces.ICalendar"
-    class=".browser.calview.CalendarView"
-    template="calendar.pt"
-    name="calendar.html"
-    permission="calendar.ViewCalendar"
-    />
 
   <browser:page
     for="calcore.interfaces.ICalendar"
@@ -201,6 +194,7 @@
     template="year.pt"
     name="year.html"
     permission="calendar.ViewCalendar"
+    class=".browser.year.YearView"
     />
 
   <browser:defaultView
@@ -387,6 +381,38 @@
   <browser:resource
     template="calendar.css"
     name="calendar.css"
+    permission="zope.Public" 
+    />
+
+  <!-- tab images -->
+  <browser:resource
+    image="tab_selected_left.png"
+    name="tab_selected_left.png"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    image="tab_selected_mid.png"
+    name="tab_selected_mid.png"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    image="tab_selected_right.png"
+    name="tab_selected_right.png"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    image="tab_unselected_left.png"
+    name="tab_unselected_left.png"
+    permission="zope.Public" 
+    />
+
+  <browser:resource
+    image="tab_unselected_right.png"
+    name="tab_unselected_right.png"
+    permission="zope.Public" 
     />
 
   <!-- for the javascript calendar -->
@@ -610,5 +636,79 @@
   <vocabulary name="RecurrenceVocabulary"
     factory=".browser.event.RecurrenceVocabulary"
     />
+    
+  <!-- Navigation /-->
+  
+  <browser:page
+    for="Products.CalZope.interfaces.IYear"
+    name="navigation_tabs.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.navigation.YearNavigationView"
+    template="navigation_tabs.pt"
+    />
 
+  <browser:page
+    for="Products.CalZope.interfaces.IMonth"
+    name="navigation_tabs.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.navigation.MonthNavigationView"
+    template="navigation_tabs.pt"
+    />
+
+  <browser:page
+    for="Products.CalZope.interfaces.IWeek"
+    name="navigation_tabs.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.navigation.WeekNavigationView"
+    template="navigation_tabs.pt"
+    />
+
+  <browser:page
+    for="Products.CalZope.interfaces.IDay"
+    name="navigation_tabs.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.navigation.DayNavigationView"
+    template="navigation_tabs.pt"
+    />
+
+  <browser:page
+    for="calcore.interfaces.ICalendar"
+    name="navigation_tabs.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.navigation.WeekNavigationView"
+    template="navigation_tabs.pt"
+    />
+  
+  <browser:page
+    for="Products.CalZope.interfaces.IYear"
+    name="navigation_calendar.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.navigation.YearNavigationView"
+    template="navigation_calendar.pt"
+    />
+
+  <browser:page
+    for="Products.CalZope.interfaces.IMonth"
+    name="navigation_calendar.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.navigation.MonthNavigationView"
+    template="navigation_calendar.pt"
+    />
+
+  <browser:page
+    for="Products.CalZope.interfaces.IWeek"
+    name="navigation_calendar.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.navigation.WeekNavigationView"
+    template="navigation_calendar.pt"
+    />
+
+  <browser:page
+    for="Products.CalZope.interfaces.IDay"
+    name="navigation_calendar.html"
+    permission="calendar.ViewCalendar"
+    class=".browser.navigation.DayNavigationView"
+    template="navigation_calendar.pt"
+    />
+    
 </configure>

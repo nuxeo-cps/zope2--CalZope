@@ -87,8 +87,6 @@ class MeetingHelperView(EditView):
     
     def update(self):
         applyWidgetsChanges(self, IMeetingHelper, self.helper)
-        
-        attendee_source = self._getAttendeeSource()
         form = self.request.form
         
         # First fetch the search query:
@@ -183,5 +181,5 @@ class MeetingHelperView(EditView):
     def date2str(self, date):
         return date.strftime(str(self.getDateFormat()))
 
-    def datetime2str(self, datetime):
-        return datetime.strftime(str(self.getDateFormat() + ' %H:%M'))
+    def datetime2str(self, date_time):
+        return date_time.strftime(str(self.getDateFormat() + ' %H:%M'))

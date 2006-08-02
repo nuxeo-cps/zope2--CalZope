@@ -21,7 +21,7 @@
 """
 
 from datetime import timedelta, date
-from calendar import monthrange
+
 from zope.interface import implements
 from zope.app.zapi import getMultiAdapter
 
@@ -29,6 +29,8 @@ from AccessControl import getSecurityManager
 
 from displaytable import DayGrid
 from interfaces import IPositionedView, IEventDisplay
+from widget import make_calendar_js
+from calview import CalendarView
 
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory("calendar")
@@ -37,7 +39,7 @@ _ = MessageFactory("calendar")
 HOUR_HEIGHT = 30 # Two minutes per pixel
 CALENDAR_WIDTH = 650
 
-class DayView:
+class DayView(CalendarView):
     """Holds the rendering information for day views"""
     
     implements(IPositionedView)
@@ -67,36 +69,6 @@ class DayView:
         if self.to_hour != 24:
             self.height = self.height  + self.hour_height 
 
-    def getNextDayUrl(self):
-        calendar = self.context.getCalendar()
-        day = self.day + 1
-        month = self.month
-        year = self.year
-        if day > monthrange(year, month)[1]:
-            day = 1
-            month += 1
-        if month > 12:
-            month = 1
-            year += 1
-        
-        return "%s/%s/%s/%s" % (
-            calendar.absolute_url(), year, month, day)
-
-    def getPrevDayUrl(self):
-        calendar = self.context.getCalendar()
-        day = self.day - 1
-        month = self.month
-        year = self.year
-        if day < 1:
-            month -= 1
-            if month < 1:
-                month = 12
-                year -= 1
-            day = monthrange(year, month)[1]
-        
-        return "%s/%s/%s/%s" % (
-            calendar.absolute_url(), year, month, day)
-
     def getDate(self):
         return self.first_day
     
@@ -114,19 +86,14 @@ class DayView:
         
         return daygrid
 
-    def getCalendarUrl(self):
-        return self.context.getCalendar().absolute_url()
-
     def getTodayInfo(self):
         today = date.today()
-        return {'year': today.year, 'month': today.month, 'day': today.day}
- 
-    def getShortDate(self, date):
-        format = _('%d/%m')            
-        return date.strftime(str(format))
-
-    def checkPermission(self, permission, object=None):
-        if object is None: # Default to the event
-            object = self.context
-        user = getSecurityManager().getUser()
-        return user.has_permission(permission, object)
+        if today == self.first_day:
+            istoday = True
+        else:
+            istoday = False
+        return {'year': today.year, 
+                'month': today.month, 
+                'day': today.day,
+                'istoday': istoday}
+     

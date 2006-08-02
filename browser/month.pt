@@ -5,21 +5,7 @@
     />
 </metal:block>
 <metal:block fill-slot="body" tal:define="dummy view/calcInfo">
-  <h2>
-    <tal:block replace="view/year"/>
-    - 
-    <a class="prevnext"
-      tal:attributes="href python:view.getPrevMonthUrl()">
-      &lt;&lt;
-    </a>
-    <!--a tal:attributes="href string:${view/getCalendarUrl}/${view/year}/${view/month}"-->
-      <tal:block content="string:calendar_month_${view/month}" i18n:translate="" />
-    <!--/a-->
-    <a class="prevnext"
-      tal:attributes="href python:view.getNextMonthUrl()">
-      &gt;&gt;
-    </a>
-  </h2>
+  <span tal:replace="structure view/makeCalendarJs"/>
   <div metal:use-macro="template/macros/month_view"/>
 </metal:block>
 </html>
@@ -27,14 +13,19 @@
 <tal:block condition="nothing">
 <table metal:define-macro="month_view" class="calendarMain" 
        i18n:domain="calendar">
+  <tr><td colspan="8">
+    <div tal:content="structure view/calendar/@@event_header.html" />
+  </td></tr>
   <tr>
-    <td class="calendarMain" colspan="2">
-      <div metal:use-macro="template/macros/month_navigation" />
-    </td>
+    <td/>
+    <td class="calendarHeader" colspan="7"    
+      tal:content="structure view/context/@@navigation_tabs.html"/>
   </tr>
+    <tr><td/><td class="yearViewHeader" colspan="7">&nbsp;</td></tr>
   <tr tal:repeat="week python:range(view.weeks)" class="inCalendar">
-    <td class="weekHeader" tal:define="weekstart python:view.getDateForWeekDay(week, 1);
-                                      thisweek python:weekstart.isocalendar()[1]">
+    <td class="weekHeader" 
+        tal:define="weekstart python:view.getDateForWeekDay(week, 1);
+                    thisweek python:weekstart.isocalendar()[1]">
       <a tal:attributes="href string:${view/getCalendarUrl}/week/${weekstart/year}/${thisweek}">
         <tal:block i18n:translate="">
           Week <tal:block replace="thisweek" i18n:name="week"/>
@@ -43,13 +34,9 @@
     </td>
     <tal:block repeat="weekday python:range(1,8)">
       <td tal:define="day python:view.getDateForWeekDay(week, weekday)"
-          tal:attributes="height view/day_height;
-                          width view/day_width;
-                          class python:day.month == context.getMonth() and 
-                                'dayInThisMonth' or 'dayNotInThisMonth'">
-        <div class="dayHeader"
-          tal:define="dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};"
-          >
+          class="monthDay">
+        <div class="monthDayHeader"
+          tal:define="dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};">
           <a tal:attributes="href dayurl"
              tal:content="day/day"
           />
@@ -62,25 +49,22 @@
             +
           </a>
         </div>
-        <tal:block repeat="display python:view.getOccurrences(day)">
-          <div class="monthEvent" tal:attributes="title display/title_and_time">
-            <a tal:attributes="href display/url"
-               tal:condition="display/viewable">
-                <tal:block replace="display/title" />
-            </a>
-            <tal:block replace="display/title" tal:condition="not:display/viewable"/>
-          </div>
-        </tal:block>
+        <div tal:attributes="class python:day.month == context.getMonth() and 
+                             'dayInThisMonth' or 'dayNotInThisMonth'"
+             style="height: 100%">
+          <tal:block repeat="display python:view.getOccurrenceDisplays(day)">
+            <div class="monthEvent" tal:attributes="title display/title_and_time">
+              <a tal:attributes="href display/url"
+                 tal:condition="display/viewable">
+                  <tal:block replace="display/title" />
+              </a>
+              <tal:block replace="display/title" tal:condition="not:display/viewable"/>
+            </div>
+          </tal:block>
+        </div>
       </td>
     </tal:block>
   </tr>
 </table>
 
-<metal:block define-macro="month_navigation" i18n:domain="calendar">
-  <a tal:define="today view/getTodayInfo"
-    tal:attributes="href string:${view/getCalendarUrl}/${today/year}/${today/month}/${today/day}"
-    i18n:translate="label_today">
-    Today
-  </a>
-</metal:block>
 </tal:block>
