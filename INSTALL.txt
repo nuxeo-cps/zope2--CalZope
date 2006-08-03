@@ -3,9 +3,9 @@ Requirements
 
 * Zope 2.9.1
 
-* CalCore 2.0.1
+* CalCore 2.1.0
 
-* iCalendar 0.10 
+* iCalendar 1.0
 
 About
 =====
