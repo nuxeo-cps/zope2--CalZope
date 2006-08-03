@@ -346,7 +346,7 @@
 
   <browser:defaultView
     for=".interfaces.IWeekYear"
-    name="weekyear.html"
+    name="calendar.html"
     />
   
   <browser:page

@@ -3,10 +3,11 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
--
+
 Bug fixes:
 ~~~~~~~~~~
--
+- The default week per year view now redirects to the main calendar view.
+  The old week per year view is still avaiable as "weekyear.html".
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
