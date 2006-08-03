@@ -3,26 +3,10 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
-- Many user interface improvements:
-  - Everything is much prettier.
-  - The month is displayed as text in the breadcrumbs and not just a number.
-  - The pending/organized event are now shown on all calendar views.
-  - Week views now have the calendar title as page title (instead of "week").
-  - The javascript drop down now has monday as first day of the week 
-    independant of locale. This is to be consistent with CalZope.
-- Major rewrite of the navigation:
-  - It now uses tabs to switch between year/month/week/day views.
-  - It remembers the last selected date, so you can switch back and forth
-    between day/week/month and year view without changing the date shown.
-  - The calendar will now redirect to the last viewed view and the last 
-    viewed date (when you create an event, the start date is seen as the new
-    last viewed date).
-  - A calendar drop down to quickly navigate to a specific date.
+-
 Bug fixes:
 ~~~~~~~~~~
 -
-- Changed the orthography in French from "événement" to "évènement".
-  http://atilf.atilf.fr/dendien/scripts/generic/affiche.exe?29;s=1955308380;d=1;f=1;t=1;r=3;
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
