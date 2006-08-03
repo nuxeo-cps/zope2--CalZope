@@ -1,6 +1,6 @@
 Requires:
 ~~~~~~~~~
-- CalCore 2.1
+-
 New features:
 ~~~~~~~~~~~~~
 - Many user interface improvements:
@@ -20,25 +20,9 @@ New features:
   - A calendar drop down to quickly navigate to a specific date.
 Bug fixes:
 ~~~~~~~~~~
-- #1668: The jscalendars support for Portugese Brazilian didn't work.
-- #1670: Bugs in event status display.
-- the DivDateWidget actually generate datetime.date instances instead of
-  datetime.datetime instance as previously (fixes a 'until' TypeError)
-- #1718: When exporting as reader, private events was exported in full.
-- the ical view does not export event that comes from other calendars
-  (i.e. do not have it's main attendee as organizer) since ical client have
-  already have the ability to subscribe to those calendars directly
-- #1719: The rights you have on an event is now extended with the rights
-  you have on the attendees. This fixes a permission problem when 
-  using calendars stacking.
+-
 - Changed the orthography in French from "événement" to "évènement".
   http://atilf.atilf.fr/dendien/scripts/generic/affiche.exe?29;s=1955308380;d=1;f=1;t=1;r=3;
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
-- The js widget now uses ILanguageAvailability adapter if one exists to figure 
-  out which languages are defined in the site.
-- ZODB storage of events refactoring: event attributes are now natural unicode
-  objects instead of latin9 strings: only the ical view ensure that the import
-  utf8 does not have non latin9 friendly charaters
-  There is also an upgrade method on the ZODBStorage for this.
-- Now uses events to handle indexing and similar.
+-

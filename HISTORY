@@ -1,4 +1,35 @@
 *******************************************
+** CalZope V2.5.0 [R1 build 2006/08/03-09:22 by fermigier]
+** SVN URL: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk Revision: 47779
+Requires:
+~~~~~~~~~
+- CalCore 2.1
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- #1668: The jscalendars support for Portugese Brazilian didn't work.
+- #1670: Bugs in event status display.
+- the DivDateWidget actually generate datetime.date instances instead of
+  datetime.datetime instance as previously (fixes a 'until' TypeError)
+- #1718: When exporting as reader, private events was exported in full.
+- the ical view does not export event that comes from other calendars
+  (i.e. do not have it's main attendee as organizer) since ical client have
+  already have the ability to subscribe to those calendars directly
+- #1719: The rights you have on an event is now extended with the rights
+  you have on the attendees. This fixes a permission problem when 
+  using calendars stacking.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- The js widget now uses ILanguageAvailability adapter if one exists to figure 
+  out which languages are defined in the site.
+- ZODB storage of events refactoring: event attributes are now natural unicode
+  objects instead of latin9 strings: only the ical view ensure that the import
+  utf8 does not have non latin9 friendly charaters
+  There is also an upgrade method on the ZODBStorage for this.
+- Now uses events to handle indexing and similar.
+*******************************************
 ** CalZope V2.4.0 [R1 build 2006/05/19-13:23 by fermigier]
 ** SVN URL: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk Revision: 45805
 Requires:
