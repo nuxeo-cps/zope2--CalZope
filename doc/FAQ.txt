@@ -2,7 +2,7 @@
 User Interface Questions and Answers
 ====================================
 
-:Revision: $Id: ui_qa.txt 30205 2005-12-01 19:53:43Z dkuhlman $
+:Revision: $Id$
 
 
 
