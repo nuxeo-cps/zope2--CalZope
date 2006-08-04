@@ -36,6 +36,8 @@ from Testing.ZopeTestCase import FunctionalTestCase, installProduct
 from Testing.ZopeTestCase import folder_name, user_role, standard_permissions
 from Testing.ZopeTestCase.functional import ResponseWrapper
 from zope.app import zapi
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+from zope.interface import alsoProvides
 
 installProduct('CalCore')
 installProduct('Five')
@@ -198,6 +200,9 @@ class CalendarTestCase(FunctionalTestCase):
         for k,v in extra.items():
             setattr(request, k, v)
 
+        if not IDefaultBrowserLayer.providedBy(request):
+            alsoProvides(request, IDefaultBrowserLayer)
+            
         publish_module('Zope2', response=response, stdin=stdin, environ=env, request=request)
 
         # Restore security manager
