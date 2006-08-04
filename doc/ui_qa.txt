@@ -8,178 +8,75 @@ User Interface Questions and Answers
 
 1. **Q:** How do I see a list of events that I need to act upon?
 
-   **A:** There should be an overview of them all within easy
-   reach once you're in the calendar.
-
    **A:** On the main calendar screen, it should say prominently
    'there are n events that need action' (but only if there are
    any). There is a link to the more complete overview of all
-   action-needed events, sorted by start date-time. (done, though
-   rough)
- 
-   The overview should link to the event screens of all the events
-   that need action. (done)
+   action-needed events, sorted by start date-time.
 
-2. **Q:** How do I find out more about events that need action?
-
-   **A:** The overview should give at least information like:
-
-   - when is this event (done)
-
-   - title of the event (done)
-
-   But also a link to the event itself, which gives more complete
-   information and further options. (done)
-
-   **A:** The event detail screen gives full information about the event,
-   when, what, where, who.
-
-3. **Q:** How do I see the when, what, where, and who of the event?
+2. **Q:** How do I see the when, what, where, and who of the event?
 
    **A:** You go to the event detail screen, and you see the event
-   title (what/done), date, time, duration (when/done), organizer
-   (who), then a summary (what/done), also the location
-   (where/done).
+   title (what), date, time, duration (when), organizer (who), 
+   then a summary (what), also the location (where).
 
    You also see your status, like 'action needed' or 'accepted'.
 
-4. **Q:** How do I accept an event I've been invited for?
+3. **Q:** How do I accept an event I've been invited for?
 
    **A:** In the overview screen, you see your event status
    (action needed, etc) behind each event in a drop down box. You
    can select 'accepted' there and press submit, changing your
-   status of that event. (done)
+   status of that event.
 
-   **A:** Alternatively, on the event screen, you'll see your
-   status too, like 'action needed' in a drop down box. You can
-   select 'accepted' there and submit.
+   Alternatively, on the event screen, you'll see your status too, 
+   like 'action needed' in a drop down box. You can select 
+   'accepted' there and submit.
 
-5. **Q:** How do I find a list of events I've accepted?
+4. **Q:** How do I find a list of events I've accepted?
 
-   **A:** Also the main calendar screen, it says prominently
-   'There are n events you are planning to attend' (but only if
-   any such events are planned in the future). Clicking on it
-   presents with a list of these events, sorted by start date-time.
-   (done)
+   **A:** Also the main calendar screen, it says 'There are n events 
+   you are planning to attend' (but only if any such events are planned 
+   in the future). Clicking on it presents with a list of these events, 
+   sorted by start date-time.
 
-6. **Q:** How do I organize an event myself?
-
-   **A:** On the main calendar screen, there is a prominent link
-   'Add event'.  Clicking this brings you to the add screen for an
-   event. Once you fill in all the details, you are brought to the
-   'events I organize' overview, with the event you just created
-   selected in the checkbox. (done)
-
-7. **Q:** How do I find out which events I'm organizing?
+5. **Q:** How do I find out which events I'm organizing?
 
    **A:** On the main calendar screen, there is a prominent link
    'Events I'm organizing'. Clicking this brings you tot he
    'events I organize' overview. (done)
 
-8. **Q:** How do I invite someone to an event I'm organizing?
+6. **Q:** How do I organize an event myself?
 
-   **A:** In the 'events I'm organizing' overview, you can select
-   one or more events using a checkbox in front. In the area
-   below, you can 'look up a user to invite'. Once the user is
-   found, select the user, select the events you want to invite
-   him for, and press the 'invite' button. This user will then be
-   invite for the event(s).
+   **A:** On the main calendar screen, there is a link 'Meeting Helper'.  
+   Clicking this brings you to a screen where you can invite people and
+   book resources. To search for people and resources, you type in a part
+   of their name in the search box and press search. If you type in an
+   asterisk (*) you will get a list of all users and calendars. This can
+   take a very long time on a big system, so it's better to type some text.
+   After getting a list of persons and calendars, you can select which you
+   want to invite. You can do as many of these searches and invites as you
+   want. 
+   
+   When you have added everybody, you can enter the start and end times for
+   which you want to look for free times. You can enter for example the
+   24st of July 2007 to the 31st of July, between 14:00 and 17:00. A search
+   for free time will then return a list of free times between 2p, and 5pm for
+   these dates. You can then click on the time slot you want to use, and you
+   will go to the event creation form. 
+   
+   When you have filled in the form and clicked "Add", all the persons and
+   resources will be invited to your event, and if email notification has been
+   set up, they will all receive an email notifying them about the meeting.
+   
+7. **Q:** How do I invite someone to an event I'm organizing?
 
-   **A:** Clicking on an event in the 'events I'm organizing'
-   overview brings you to the event screen. If you are the
-   organizer, there will be an 'look up a user to invite' search
-   area visible. Once you have found a user, you can select this
-   user and press the 'invite' button. This user will then be
-   invited.
+   **A:** When viewing an event, you will have a link "Attendees".
+   This link will bring you to the overview of persons and resources that
+   attend the meeting. Here you can invite, remove and change the status of
+   the attendees.
 
-9. **Q:** How do I see who I already have invited for an event?
+8. **Q:** I want to see the events in a particulardate. How do I go there?
 
-   **A:** There is a list of everybody you invited already on the
-   event detail screen.
-
-   **A:** In the events I'm organizing overview screen, there is a
-   list of the names of people invited visible in the overview. If
-   this is too many names, there will be a "...". You can click
-   the event to go to the event detail screen to get the full
-   overview.
-
-10. **Q:** How do I cancel an invitation?
-
-    **A:** It is possible to select people on the list of invitees
-    in the event detail screen, and 'cancel invitation'.
-
-11. **Q:** How do I delete an event I already have created?
-
-    **A:** There is a 'remove this event' button on the event
-    overview screen.
-
-    **A:** On the events I organize overview screen, you can
-    select the event(s) you want to delete, and click the 'remove
-    these events' button.
-
-12. **Q:** What if I don't want to remove the event but cancel it?
-
-    **A:** There should also be a 'cancel this event' option, in
-    which case the event remains but gets a 'canceled' status.
-
-13. **Q:** How do I see the events coming up this week?
-
-    **A:** The main calendar view shows this week, and all the
-    events for it. (done)
-
-14. **Q:** How do I see the events coming up this month?
-
-    **A:** The week view shows the month the week is in, such as
-    'March'. This is a link you can click to get to the month
-    view. (done)
-
-15. **Q:** How do I see the events of today?
-
-    **A:** The week view shows a link to 'today', which you can
-    click to get the day view. (done)
-
-16. **Q:** How do I get back to the week view from any of this?
-
-    **A:** Click 'my calendar' again in the left sidebar. (done)
-    Alternatively, in the breadcrumb trail you can click
-    'Calendar'. (nope, security problem)
-
-17. **Q:** I want to see the events in week 15, 2007. How do I go
-    there?
-
-    **A:** There is a 'goto' link prominently on every calendar
-    screen.  Click this to get an entry box where you can select a
-    date in the week where you want to go. Also select 'week view'
-    from a drop down box, and click 'goto'.
-
-18. **Q:** I want to see the events in month 11, 2008, how do I
-    got there?
-
-    **A:** Very similarly; select a date in the month where you
-    want to go, and select 'month view' from the drop down box,
-    and click 'goto'.
-
-19. **Q:** I want to make a recurrent event. How do I do that?
-
-    **A:** Make an existing event recurrent. Go to an already
-    created event and click on 'recurrence'. This shows you a drop
-    down list of which recurrence rule to use. Select one and
-    click 'make recurrent'. The user interface will change to one
-    where you can fill in the recurrent rule details.
-
-    **A:** (Probably need a way to *add* a new recurrent event)
-
-20. **Q:** I want to change the recurrent rule of an event?
-
-    **A:** If you don't want to change the type of rule, just go
-    to 'recurrence' of an event, and change the details.
-
-    **A:** If you do want to change the type of rule, again go to
-    'recurrence', select the type of rule you want from the drop
-    down list on top, and press 'change recurrence rule'.
-
-21. **Q:** When I'm looking at an event, how can I see the day, week or month
-    it is in?
-
-    **A:** The event detail screen has links to 'day', 'week' and
-    'month' views. (done)
+   **A:** There is a small calendar icon on every calendar screen.  
+   Click this to get an calendar popup where you can select a
+   date in the week where you want to go.
