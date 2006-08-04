@@ -36,6 +36,7 @@ from Products.CalZope.zopecal import BaseBusyChecker
 from Products.CalZope.zopecal import BusyUsersError, BusyUserError
 
 class TestBusyChecker(CalendarTestCase):
+    
     def afterSetUp(self):
         CalendarTestCase.afterSetUp(self)
         source = zapi.getUtility(IZopeAttendeeSource, context=self.folder)
@@ -46,14 +47,6 @@ class TestBusyChecker(CalendarTestCase):
             'testuser', 'testuser', [], [])
         self.testmgr = source.getAttendee('testmgr')
         self.testuser = source.getAttendee('testuser')
-        #self.folder.manage_addProduct['CalZope'].manage_addCalendar(
-            #'mgrcal', 'Calendar')
-        #self.mgrcal = self.folder.mgrcal
-        #self.mgrcal.addAttendee(source.getAttendee('testmgr'))
-        #self.folder.manage_addProduct['CalZope'].manage_addCalendar(
-            #'usercal', 'Calendar')
-        #self.usercal = self.folder.usercal
-        #self.usercal.addAttendee(source.getAttendee('testuser'))
         self.testmgr.createEvent(
             dtstart=datetime(2005, 4, 10, 10, 00),
             duration=timedelta(minutes=60),
@@ -125,7 +118,36 @@ class TestBusyChecker(CalendarTestCase):
         self.login('testmgr')
         checker.check(datetime(2005, 4, 10, 15, 00), 
                       datetime(2005, 4, 10, 16, 00))
+
+    def test_recurringblock(self):
+        # Recurring events with no end date caused the BusyChecker
+        # to block EVERYTHING after the start of that event.
+        self.login('testmgr')
         
+        checker = BaseBusyChecker()
+        checker.context = self.folder
+        checker.attendees = [self.testmgr.getAttendeeId()]
+        checker.ignore_events = []
+
+        self.testmgr.createEvent(
+            dtstart=datetime(2006, 4, 10, 10, 00),
+            duration=timedelta(minutes=60),
+            status='CONFIRMED',
+            title="Recurring event will block only during the event",
+            recurrence=recurrent.DailyRecurrenceRule())
+
+        # Not busy the day before:
+        checker.check(datetime(2006, 4, 9, 10, 00), 
+                      datetime(2006, 4, 9, 11, 00))
+        # Not busy in the afternoons:
+        checker.check(datetime(2006, 4, 15, 14, 00), 
+                      datetime(2006, 4, 15, 15, 00))
+        
+        # Is busy when it happens:
+        self.assertRaises(BusyUserError, checker.check,
+                          datetime(2006, 4, 16, 10, 00), 
+                          datetime(2006, 4, 16, 11, 00))
+
 
 def test_suite():
     return unittest.TestSuite((

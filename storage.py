@@ -189,14 +189,21 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
             end = end.utctimetuple()
         result = []
         for event_ids in rows:
-            event = self._eventValidate(event_ids, end, search_criteria)
-            result.extend(event)
+            events = self._eventValidate(event_ids, end, search_criteria)
+            result.extend(events)
 
         # Include open ended events:
         if index.has_key(None):
             events = self._eventValidate(index[None], end, search_criteria)
-            result.extend(events)
-
+            # Open ended recurring events will this far match if the period is
+            # between the first event and the last event. But we need to match
+            # only if the event is actually occuring during the period.
+            for event in events:
+                for occurrence in event.expand(period):
+                    if cal.inPeriod(occurrence, period):
+                        # There is a match:
+                        result.append(event)
+                        break
         return result
 
     def _eventValidate(self, event_ids, end, search_criteria):

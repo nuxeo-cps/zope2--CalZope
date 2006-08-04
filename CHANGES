@@ -6,7 +6,8 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
-- 
+- Recurring events without end date would foil the BusyChecker into thinking
+  that all times after the first event where busy.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
