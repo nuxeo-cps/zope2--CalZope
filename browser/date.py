@@ -35,3 +35,6 @@ class DateView(BrowserView):
     
     def meetingHelper(self):
         self.request.response.redirect(self.getCalendarUrl() + '/meetinghelper.html')
+
+    def calendarEdit(self):
+        self.request.response.redirect(self.getCalendarUrl() + '/edit.html')

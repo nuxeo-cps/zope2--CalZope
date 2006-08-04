@@ -114,6 +114,14 @@
     class=".browser.calview.CalendarEditView"
     />
 
+  <browser:page
+    for=".interfaces.IDate"
+    attribute="calendarEdit"
+    name="edit.html"
+    permission="calendar.EditCalendar"
+    class=".browser.date.DateView"
+    />
+
   <browser:defaultView
     for="calcore.interfaces.ICalendar"
     name="calendar.html"
@@ -180,6 +188,23 @@
     name="import.html"
     permission="calendar.CreateEvents"
     />
+
+  <browser:page
+    for=".interfaces.IDate"
+    class=".browser.icalsupport.IDateImportExportView"
+    template="icalexport.pt"
+    name="calendar.ics"
+    permission="calendar.ViewCalendar"
+    />
+
+  <browser:page
+    for=".interfaces.IDate"
+    class=".browser.icalsupport.IDateImportExportView"
+    template="ical_import.pt"
+    name="import.html"
+    permission="calendar.CreateEvents"
+    />
+
 
   <browser:page
     for=".interfaces.IDate"
