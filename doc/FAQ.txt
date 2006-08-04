@@ -75,8 +75,15 @@ User Interface Questions and Answers
    attend the meeting. Here you can invite, remove and change the status of
    the attendees.
 
-8. **Q:** I want to see the events in a particulardate. How do I go there?
+8. **Q:** I want to see the events in a particular date. How do I go there?
 
    **A:** There is a small calendar icon on every calendar screen.  
    Click this to get an calendar popup where you can select a
    date in the week where you want to go.
+   
+9. **Q:** What it the URL used for iCalendar access from for example
+   Mozilla calendars or other WebDAV capable iCalendar clients?
+   
+   **A:** It's <path to calendar>/calendar.ics?disable_cookie_login__=1
+   For example: http://www.nuxeo.com/members/john/calendar/calendar.ics?disable_cookie_login__=1
+   
