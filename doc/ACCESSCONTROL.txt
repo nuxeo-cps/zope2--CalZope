@@ -2,7 +2,7 @@
 Access control (permissions and roles)
 ======================================
 
-:Revision: $Id: ACCESSCONTROL.txt 30205 2005-12-01 19:53:43Z dkuhlman $
+:Revision: $Id$
 
 .. sectnum::    :depth: 4
 .. contents::   :depth: 4
