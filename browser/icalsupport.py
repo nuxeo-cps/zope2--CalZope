@@ -21,6 +21,9 @@ from Products.Five import BrowserView
 from AccessControl import getSecurityManager
 from AccessControl import Unauthorized
 
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory("calendar")
+
 win_to_latin9 = { # below are cp1252 codes
     0x201a: u',',    # 0x82 lower single quote
     0x201e: u'"',    # 0x84 lower double quote (german?)
@@ -62,11 +65,14 @@ class ICalendarImportExportView(BrowserView):
         if self.request.form.has_key('SUBMIT_IMPORT'):
             ical_text = self.request.form['file'].read()
             if ical_text == "":
-                self.request.form['portal_status_message'] = 'Men vafan!'
-                return "a"
+                # Workaround for weird CPSSkins behaviour.
+                # CPSSkins will for some reason render this page twice. 
+                # It seems to do this with ALL pages, but in this case
+                # it will cause problems.
+                return
             self._import(ical_text, synchronize=0)
             self.request.form['portal_status_message'] = 'psm_file_uploaded'
-            return "b"
+            return
 
     def PUT(self, REQUEST, RESPONSE):
         """This is a PUT method.
