@@ -1,4 +1,23 @@
 *******************************************
+** CalZope V2.6.1 [R1 build 2006/08/07-16:33 by fermigier]
+** SVN URL: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk Revision: 48074
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Recurring events without end date would foil the BusyChecker into thinking
+  that all times after the first event where busy.
+- The calendar edit, import and export links are active in date views, but
+  didn't work from there.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CalZope V2.6.0 [R1 build 2006/08/03-09:24 by fermigier]
 ** SVN URL: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk Revision: 47849
 Requires:
