@@ -1,4 +1,21 @@
 *******************************************
+** CalZope V2.6.2 [R1 build 2006/08/08-15:51 by lregebro]
+** SVN URL: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk Revision: 48198
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- iCalendar import works again.
+- Got rid of an ZCML i18n warning.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CalZope V2.6.1 [R1 build 2006/08/07-16:33 by fermigier]
 ** SVN URL: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk Revision: 48074
 Requires:
