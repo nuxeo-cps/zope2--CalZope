@@ -7,6 +7,7 @@ New features:
 Bug fixes:
 ~~~~~~~~~~
 - iCalendar import works again.
+- Got rid of an ZCML i18n warning.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
