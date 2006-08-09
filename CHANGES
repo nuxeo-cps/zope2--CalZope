@@ -6,10 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
-- The iCalendar export now only exports events concerning the main attendee
-  of a calendar. This is because exporting all attendees confused iCalendar
-  clients if you used the client to view the same attendee through several
-  calendars.
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
