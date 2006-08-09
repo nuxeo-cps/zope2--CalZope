@@ -252,13 +252,7 @@ class Calendar(SimpleItem, cal.CalendarBase):
         ical.add('version', '1.0')
 
         security = getSecurityManager()
-        for event in self.getEvents(period, search_criteria):
-            # do not export events that comes from other calendars (multi
-            # view feature) that conflicts with the ability of ical clients to
-            # subscribe directly to other calendars)
-            if self.getMainAttendee().getAttendeeId() != event.getOrganizerId():
-                continue
-
+        for event in self.getMainAttendee().getEvents(period, search_criteria):
             # hide the content of private event
             private = not security.checkPermission('View event',
                                                    event.__of__(self))
