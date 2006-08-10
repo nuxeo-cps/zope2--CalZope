@@ -6,10 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
-- The change on ortography didn't happen because I forgot to 
-  compile the po-files.
-- Searching with open ended periods failed after the fix for 
-  the busy checker.
+-
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
