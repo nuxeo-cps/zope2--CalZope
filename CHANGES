@@ -6,7 +6,8 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- The change on ortography didn't happen because I forgot to 
+  compile the po-files.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
