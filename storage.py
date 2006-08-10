@@ -198,12 +198,16 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
             # Open ended recurring events will this far match if the period is
             # between the first event and the last event. But we need to match
             # only if the event is actually occuring during the period.
-            for event in events:
-                for occurrence in event.expand(period):
-                    if cal.inPeriod(occurrence, period):
-                        # There is a match:
-                        result.append(event)
-                        break
+            if period[1] is None:
+                # Open ended events and open ended period: Add all.
+                result.expand(events)
+            else:
+                for event in events:
+                    for occurrence in event.expand(period):
+                        if cal.inPeriod(occurrence, period):
+                            # There is a match:
+                            result.append(event)
+                            break
         return result
 
     def _eventValidate(self, event_ids, end, search_criteria):
