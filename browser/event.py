@@ -205,7 +205,7 @@ class EventView(BrowserView):
             return
     
     def xlate(self, str):
-        return translate(_(str))
+        return translate(_(str),context=self.request)
 
     def starttime(self):
         start = self.context.dtstart
