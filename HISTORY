@@ -1,4 +1,20 @@
 *******************************************
+** CalZope V2.6.5 [R1 build 2006/08/11-09:34 by lregebro]
+** SVN URL: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk Revision: 48299
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+-
+Bug fixes:
+~~~~~~~~~~
+- Added some missing translations.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+-
+
+*******************************************
 ** CalZope V2.6.4 [R1 build 2006/08/10-17:39 by lregebro]
 ** SVN URL: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk Revision: 48282
 Requires:
