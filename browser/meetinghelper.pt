@@ -166,7 +166,8 @@
 </metal:block>
 
 <div metal:define-macro="list_matches" i18n:domain="calendar">
-  <table>
+  <table tal:define="calendar context/getCalendar;
+                     cal_url calendar/absolute_url;">
     <tr>
       <th i18n:translate="label_starts">Starts</th>
       <th i18n:translate="label_ends">Ends</th></tr>
@@ -177,9 +178,9 @@
                          timeurl python:view.makeTimeUrl(dtstart, duration);">
         <td tal:content="python:view.datetime2str(dtstart)" />
         <td tal:content="python:view.datetime2str(dtstop)" />
-        <td><a tal:attributes="href string:+/addmeeting.html?${timeurl}"
+        <td><a tal:attributes="href string:${cal_url}/+/addmeeting.html?${timeurl}"
               i18n:translate="label_add_event">
-          Add event</a>
+	    </a>
         </td>
       </tal:block>
     </tr>

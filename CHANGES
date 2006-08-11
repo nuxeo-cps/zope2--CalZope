@@ -6,7 +6,10 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- The date format was not translated in the event view.
+- The link to the create form in the meetinghelper didn't
+  work in CalCMF. Made it more explicit.
+- I didn't set up the correct language for the jscalendar in the navigation.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -

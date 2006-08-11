@@ -26,7 +26,7 @@ from Products.Five import BrowserView
 from calcore import cal
 from calcore.interfaces import IAttendeeSource, IStorageManager
 
-from widget import make_calendar_js
+from widget import make_calendar_js, setupLanguage
 
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory("calendar")
@@ -44,6 +44,7 @@ class CalendarView:
         return user.has_permission(permission, object)
 
     def makeCalendarJs(self):
+        setupLanguage(self.context, self.request)
         return make_calendar_js(self.request)
 
     def getCalendarUrl(self):

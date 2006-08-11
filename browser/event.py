@@ -48,6 +48,7 @@ from Products.CalZope.interfaces import IZopeAttendeeSource
 from Products.CalZope.interfaces import IBusyChecker
 from Products.CalZope.zopecal import BusyUserError, BusyUsersError
 
+from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory("calendar")
 
@@ -204,7 +205,7 @@ class EventView(BrowserView):
             return
     
     def xlate(self, str):
-        return _(str)
+        return translate(_(str))
 
     def starttime(self):
         start = self.context.dtstart
