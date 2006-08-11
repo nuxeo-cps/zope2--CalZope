@@ -244,6 +244,9 @@ msgstr "Data"
 msgid "day"
 msgstr "dia"
 
+msgid "Day"
+msgstr "Dia"
+
 #.   <label for="desc_field">label_description</label>
 #.   <b>
 #.               Description:
@@ -293,6 +296,9 @@ msgstr "Ajudante para Encontros"
 #: from ../skins/attendees.pt ../skins/event.pt
 msgid "month"
 msgstr "mês"
+
+msgid "Month"
+msgstr "Mês"
 
 #.   <h3>
 #.             Multiple calendar view
@@ -774,6 +780,9 @@ msgstr "D"
 
 msgid "week"
 msgstr "semana"
+
+msgid "Week"
+msgstr "Semana"
 
 msgid "psm_file_uploaded"
 msgstr "Arquivo enviado"

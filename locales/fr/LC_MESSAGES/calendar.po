@@ -247,6 +247,9 @@ msgstr "Date"
 msgid "day"
 msgstr "jour"
 
+msgid "Day"
+msgstr "Jour"
+
 #.   <label for="desc_field">label_description</label>
 #.   <b>
 #.               Description:
@@ -296,6 +299,9 @@ msgstr "Organiser une réunion"
 #: from ../skins/attendees.pt ../skins/event.pt
 msgid "month"
 msgstr "mois"
+
+msgid "Month"
+msgstr "Mois"
 
 #.   <h3>
 #.             Multiple calendar view
@@ -782,6 +788,9 @@ msgstr "D"
 
 msgid "week"
 msgstr "semaine"
+
+msgid "Week"
+msgstr "Semaine"
 
 msgid "year"
 msgstr "année"

@@ -242,6 +242,9 @@ msgstr "Fecha"
 #.   <a attributes="href view/getDayUrl">day</a>
 #: from ../skins/attendees.pt ../skins/event.pt
 msgid "day"
+msgstr "día"
+
+msgid "Day"
 msgstr "Día"
 
 #.   <label for="desc_field">label_description</label>
@@ -292,6 +295,9 @@ msgstr "Organizar una reunión"
 #.   <a attributes="href view/getMonthUrl">month</a>
 #: from ../skins/attendees.pt ../skins/event.pt
 msgid "month"
+msgstr "mes"
+
+msgid "Month"
 msgstr "Mes"
 
 #.   <h3>
@@ -777,6 +783,9 @@ msgstr "D"
 
 msgid "week"
 msgstr "semana"
+
+msgid "Week"
+msgstr "Semana"
 
 msgid "year"
 msgstr "Año"

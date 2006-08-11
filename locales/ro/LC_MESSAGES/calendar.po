@@ -256,6 +256,9 @@ msgstr "Data"
 msgid "day"
 msgstr "zi"
 
+msgid "Day"
+msgstr "Zi"
+
 #.   <label for="desc_field">label_description</label>
 #.   <b>
 #.               Description:
@@ -305,6 +308,9 @@ msgstr "Asistent intalniri"
 #: from ../skins/attendees.pt ../skins/event.pt
 msgid "month"
 msgstr "luna"
+
+msgid "Month"
+msgstr "Luna"
 
 #.   <h3>
 #.             Multiple calendar view
@@ -805,6 +811,9 @@ msgstr "D"
 
 msgid "week"
 msgstr "saptamana"
+
+msgid "Week"
+msgstr "Saptamana"
 
 msgid "psm_file_uploaded"
 msgstr ""
