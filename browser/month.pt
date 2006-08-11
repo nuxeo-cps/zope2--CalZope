@@ -34,12 +34,14 @@
     </td>
     <tal:block repeat="weekday python:range(1,8)">
       <td tal:define="day python:view.getDateForWeekDay(week, weekday)"
-          class="monthDay">
+          class="monthDay inCalendar">
         <div class="monthDayHeader"
           tal:define="dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};">
-          <a tal:attributes="href dayurl"
-             tal:content="day/day"
-          />
+          <a tal:attributes="href dayurl">
+            <tal:block content="string:calendar_day_${day/weekday}" 
+              i18n:translate="" />
+              <tal:block replace="python:view.getShortDate(day)"/>
+          </a>
           <a class="addEventShortcut"
             title="Add event"
             i18n:attributes="title"

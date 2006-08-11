@@ -2,7 +2,7 @@
                    organized_amount view/getOrganizedAmount;
                    attended_amount view/getAttendedAmount;
                    display_event_lists view/displayEventLists;"
-  >
+    i18n:domain="calendar">
   <div style="padding: 8px;">
     <div class="contextlinks" style="float: right; text-align: right;">
       <tal:block 
