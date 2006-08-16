@@ -1009,13 +1009,13 @@ msgid "event"
 msgstr "événements"
 
 msgid "label_current_year"
-msgstr "Cette Anné"
+msgstr "Cette année"
 
 msgid "label_current_month"
-msgstr "Cette Mois"
+msgstr "Ce mois"
 
 msgid "label_current_week"
-msgstr "Cette Semaine"
+msgstr "Cette semaine"
 
 msgid "label_current_day"
 msgstr "Aujourd'hui"
