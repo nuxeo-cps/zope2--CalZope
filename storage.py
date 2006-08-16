@@ -200,7 +200,7 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
             # only if the event is actually occuring during the period.
             if period[1] is None:
                 # Open ended events and open ended period: Add all.
-                result.expand(events)
+                result.extend(events)
             else:
                 for event in events:
                     for occurrence in event.expand(period):
