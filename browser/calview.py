@@ -36,7 +36,7 @@ class CalendarView:
 
     def getOccurrencesInDay(self, day):
         return self.context.getCalendar().getOccurrencesInDay(day)
-    
+
     def checkPermission(self, permission, object=None):
         if object is None:
             object = self.context
@@ -51,24 +51,24 @@ class CalendarView:
         return self.context.getCalendar().absolute_url()
 
     def getShortDate(self, date):
-        format = _('%d/%m')            
+        format = _('%d/%m')
         return date.strftime(str(format))
 
-    
+
 class CalendarEditView:
     """View to edit the calendar"""
-    
+
     def update(self):
         request = self.request
         context = self.context
         form = request.form
 
-        self.title = (form.has_key('title') and form['title'] 
+        self.title = (form.has_key('title') and form['title']
                       or context.title)
-        self.description = (form.has_key('description') and form['description'] 
+        self.description = (form.has_key('description') and form['description']
                             or context.description)
-        self.attendee_type = (form.has_key('attendee_type') and 
-                              form['attendee_type'] or 
+        self.attendee_type = (form.has_key('attendee_type') and
+                              form['attendee_type'] or
                               getattr(context, '_attendee_type', ''))
 
         # Set up the possible attendee_types in the select-box
@@ -95,10 +95,10 @@ class CalendarEditView:
 
             if changed:
                 self.request.form['portal_status_message'] = 'psm_content_changed'
-        
+
         attendee_source = self._getAttendeeSource()
         form = self.request.form
-        
+
         # First fetch the search query:
         if 'UPDATE_USER_SEARCH' in form: # New search performed
             self.use_query = form['search_query']
@@ -106,7 +106,7 @@ class CalendarEditView:
             self.use_query = form['use_query']
         else:
             self.use_query = ''
-        
+
         # Do any actions
         if 'UPDATE_REMOVE' in form:
             for key in form.keys():
@@ -155,7 +155,7 @@ class CalendarEditView:
 
 
 class CalendarEventInfoView(BrowserView, CalendarView):
-    
+
     def getNeedsActionAmount(self):
         """Get all events that need action for attendees.
         """
@@ -164,21 +164,21 @@ class CalendarEventInfoView(BrowserView, CalendarView):
 
     def getAttendedAmount(self):
         return len(getAttendedEvents(self.context.getCalendar()))
-    
+
     def getOrganizedAmount(self):
         """Get all events in the future that attendees organized.
         """
         calendar = self.context.getCalendar()
         return len(getOrganizedEvents(calendar))
-        
+
     def displayEventLists(self):
         if not self.checkPermission('Manage participation status'):
             return 0
         return (self.getNeedsActionAmount() or
                 self.getAttendedAmount() or
                 self.getOrganizedAmount()) != 0
-    
-    
+
+
 class EventsView(BrowserView):
     def _getEvents(self):
         raise NotImplementedError
@@ -193,7 +193,7 @@ class EventsView(BrowserView):
         attendee = zapi.getUtility(IAttendeeSource, context=self
                                    ).getCurrentUserAttendee()
         return event.getParticipationStatus(attendee)
-        
+
 class NeedsActionEventsView(EventsView):
     def updateParticipationStatus(self):
         if not self.request.has_key('update_participation_status'):
@@ -216,11 +216,11 @@ class NeedsActionEventsView(EventsView):
 class AttendedEventsView(NeedsActionEventsView):
     def _getEvents(self):
         return getAttendedEvents(self.context.getCalendar())
-    
+
 class OrganizedEventsView(EventsView):
     def _getEvents(self):
         return getOrganizedEvents(self.context.getCalendar())
-    
+
 def getNeedsActionEvents(calendar):
     """Get all the events in the future that need action.
     """
@@ -245,4 +245,4 @@ def getOrganizedEvents(calendar):
             cal.SearchCriteria(organizer=attendee)))
     return events
 
-    
+
