@@ -24,14 +24,14 @@ from AccessControl import getSecurityManager
 from Products.Five import BrowserView
 
 from calcore import cal
-from calcore.interfaces import IAttendeeSource, IStorageManager
+from calcore.interfaces import IAttendeeSource, ICalendar
 
 from widget import make_calendar_js, setupLanguage
 
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory("calendar")
 
-class CalendarView:
+class CalendarView(BrowserView):
     """Abstract base class for day, week, month and year views"""
 
     def getOccurrencesInDay(self, day):
@@ -48,7 +48,16 @@ class CalendarView:
         return make_calendar_js(self.request)
 
     def getCalendarUrl(self):
-        return self.context.getCalendar().absolute_url()
+        calendar = self.context.getCalendar()
+        try:
+           return calendar.absolute_url()
+        except AttributeError:
+            # XXX: hack to workaround aquisition problem with multiple view
+            # classes (with no getPhysicalPath)
+            calendar = calendar.aq_inner.aq_parent
+            while not ICalendar.providedBy(calendar):
+                calendar = calendar.aq_parent
+            return calendar.absolute_url()
 
     def getShortDate(self, date):
         format = _('%d/%m')
@@ -154,7 +163,7 @@ class CalendarEditView:
         return user.has_permission(permission, object)
 
 
-class CalendarEventInfoView(BrowserView, CalendarView):
+class CalendarEventInfoView(CalendarView):
 
     def getNeedsActionAmount(self):
         """Get all events that need action for attendees.
