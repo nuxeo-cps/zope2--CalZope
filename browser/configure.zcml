@@ -4,7 +4,7 @@
            xmlns:i18n="http://namespaces.zope.org/i18n"
            i18n_domain="calendar">
 
-  
+
   <five:traversable class=".zopecal.StorageManager" />
   <five:traversable class=".zopecal.Attendee" />
 
@@ -50,7 +50,7 @@
       factory=".zopecal.WeekYearTraversable"
       provides="zope.app.traversing.interfaces.ITraversable"
       />
-  
+
   <five:traversable class=".zopecal.Week" />
   <five:defaultViewable class=".zopecal.Week" />
   <adapter
@@ -98,7 +98,7 @@
     name="calendar.html"
     permission="calendar.ViewCalendar"
   />
-  
+
   <browser:page
     for=".interfaces.IDate"
     class=".browser.navigation.RedirectToLastView"
@@ -126,7 +126,7 @@
     for="calcore.interfaces.ICalendar"
     name="calendar.html"
   />
-  
+
   <browser:page
     for="calcore.interfaces.ICalendar"
     template="week_macro.pt"
@@ -325,7 +325,7 @@
     permission="zope.Public"
     class=".browser.event.AttendeeManagementView"
   />
-  
+
   <browser:page
     for="calcore.interfaces.IInvitableCalendarEvent"
     template="attendees.pt"
@@ -347,7 +347,7 @@
     template="eventdelete.pt"
     name="delete.html"
     permission="zope.Public"
-    class=".browser.event.EventView" 
+    class=".browser.event.EventView"
     />
 
   <browser:page
@@ -373,7 +373,7 @@
     for=".interfaces.IWeekYear"
     name="calendar.html"
     />
-  
+
   <browser:page
     for=".interfaces.IWeek"
     template="week_macro.pt"
@@ -406,38 +406,38 @@
   <browser:resource
     template="calendar.css"
     name="calendar.css"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <!-- tab images -->
   <browser:resource
     image="tab_selected_left.png"
     name="tab_selected_left.png"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     image="tab_selected_mid.png"
     name="tab_selected_mid.png"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     image="tab_selected_right.png"
     name="tab_selected_right.png"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     image="tab_unselected_left.png"
     name="tab_unselected_left.png"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     image="tab_unselected_right.png"
     name="tab_unselected_right.png"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <!-- for the javascript calendar -->
@@ -445,29 +445,29 @@
   <browser:resource
     file="jscalendar/calendar-win2k-1.css"
     name="calendar-win2k-1.css"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     file="jscalendar/calendar.js"
     name="calendar.js"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     file="jscalendar/calendar-setup.js"
     name="calendar-setup.js"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     file="jscalendar/img.gif"
     name="jscalendar.gif"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
-  <!-- Adding the language files for languages we and jscalendar support. 
-       That means no Euskera (eu), no malagasy (mg) and standard 
+  <!-- Adding the language files for languages we and jscalendar support.
+       That means no Euskera (eu), no malagasy (mg) and standard
        portugese (pt) instead of Brazilian Portugese (pt_Br).
 
        There is a list of supported languages in widget.py that needs to
@@ -476,51 +476,51 @@
   <browser:resource
     file="jscalendar/lang/calendar-de.js"
     name="calendar-de.js"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     file="jscalendar/lang/calendar-en.js"
     name="calendar-en.js"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     file="jscalendar/lang/calendar-es.js"
     name="calendar-es.js"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     file="jscalendar/lang/calendar-fr.js"
     name="calendar-fr.js"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     file="jscalendar/lang/calendar-it.js"
     name="calendar-it.js"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     file="jscalendar/lang/calendar-nl.js"
     name="calendar-mg.js"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
-  <!-- jscalendar calles Brazilian 'br' which is really Breton. 
+  <!-- jscalendar calles Brazilian 'br' which is really Breton.
        We "rename" it to it's proper 'pt-br' name here: /-->
   <browser:resource
     file="jscalendar/lang/calendar-br.js"
     name="calendar-pt-br.js"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <browser:resource
     file="jscalendar/lang/calendar-ro.js"
     name="calendar-ro.js"
-    permission="zope.Public" 
+    permission="zope.Public"
     />
 
   <!-- event display-->
@@ -643,27 +643,27 @@
     permission="zope.Public"
     class=".browser.event.WeeklyRecurrenceRuleView"
   />
-  
+
   <browser:page
     for="calcore.interfaces.IMonthlyRecurrenceRule"
     name="recurrencerule"
     permission="zope.Public"
     class=".browser.event.MonthlyRecurrenceRuleView"
   />
-  
+
   <browser:page
     for="calcore.interfaces.IYearlyRecurrenceRule"
     name="recurrencerule"
     permission="zope.Public"
     class=".browser.event.YearlyRecurrenceRuleView"
   />
-  
+
   <vocabulary name="RecurrenceVocabulary"
     factory=".browser.event.RecurrenceVocabulary"
     />
-    
+
   <!-- Navigation /-->
-  
+
   <browser:page
     for="Products.CalZope.interfaces.IYear"
     name="navigation_tabs.html"
@@ -703,7 +703,7 @@
     class=".browser.navigation.WeekNavigationView"
     template="navigation_tabs.pt"
     />
-  
+
   <browser:page
     for="Products.CalZope.interfaces.IYear"
     name="navigation_calendar.html"
@@ -735,5 +735,5 @@
     class=".browser.navigation.DayNavigationView"
     template="navigation_calendar.pt"
     />
-    
+
 </configure>
