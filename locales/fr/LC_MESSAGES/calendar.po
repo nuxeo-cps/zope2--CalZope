@@ -20,24 +20,29 @@ msgstr ""
 "Domain: calendar\n"
 "X-Generator: KBabel 1.3.1\n"
 
+# note to french translators about the évènement / événement debate:
+# évènement is the offically recommended spelling and should thus be used
+# http://www.orthographe-recommandee.info/orth.htm
+# http://atilf.atilf.fr/dendien/scripts/generic/affiche.exe?29;s=2640447480;d=1;f=1;t=1;r=1
+
 #.   <a href="action_needed_events.html">
 #.                 ${amount (tal replace="needs_action_amount")} events that need action</a>
 #: from ../skins/calendar.pt
 msgid "${amount} events that need action"
-msgstr "avez ${amount} événements en attente"
+msgstr "avez ${amount} évènements en attente"
 
 #.   <a href="attended_events.html">
 #.                 ${amount (tal replace="attended_amount")} 
 #.                 events you attend</a>
 #: from ../skins/calendar.pt
 msgid "${amount} events you attend"
-msgstr "participez à ${amount} événements"
+msgstr "participez à ${amount} évènements"
 
 #.   <a href="organized_events.html">
 #.                 ${amount (tal replace="organized_amount")} events you organize</a>
 #: from ../skins/calendar.pt
 msgid "${amount} events you organize"
-msgstr "organisez ${amount} événements"
+msgstr "organisez ${amount} évènements"
 
 #.   <block condition="recurrence/count">, for ${count (tal content="recurrence/count")} times</block>
 #: from ../skins/event.pt
@@ -77,12 +82,12 @@ msgstr "Editez quelque chose"
 #.   <h1>Events you are attending</h1>
 #: from ../skins/attended_events.pt
 msgid "Events you are attending"
-msgstr "Événements auxquels vous participez"
+msgstr "Évènements auxquels vous participez"
 
 #.   <h1>Events you organized</h1>
 #: from ../skins/organized_events.pt
 msgid "Events you organized"
-msgstr "Événements que vous organisez"
+msgstr "Évènements que vous organisez"
 
 #.   <h1>Import iCalendar file</h1>
 #: from ../skins/ical_import.pt
@@ -178,7 +183,7 @@ msgstr "Soumettre"
 #: from ../skins/calendar_edit.pt
 msgid "description_multiple_calendar_view"
 msgstr ""
-"Grâce à la vue multiple de calendriers, vous pouvez voir les événements de "
+"Grâce à la vue multiple de calendriers, vous pouvez voir les évènements de "
 "plusieurs calendriers en un seul."
 
 #.   <label for="file_field">
@@ -412,7 +417,7 @@ msgstr "Année"
 #.       </h1>
 #: from ../skins/action_needed_events.pt
 msgid "message_events_action_is_needed_for"
-msgstr "Evénements à traiter"
+msgstr "Evènements à traiter"
 
 #.   <block>.</block>
 #: from ../skins/attendees.pt ../skins/event.pt
@@ -1006,7 +1011,7 @@ msgstr "Di"
 
 # breadcrumbs
 msgid "event"
-msgstr "événements"
+msgstr "évènements"
 
 msgid "label_current_year"
 msgstr "Cette année"
