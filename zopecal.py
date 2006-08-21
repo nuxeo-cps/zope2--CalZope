@@ -336,7 +336,6 @@ class Year(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Year'
-    portal_type = meta_type
 
     implements(IYear)
 
@@ -371,7 +370,6 @@ class Month(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Month'
-    portal_type = meta_type
 
     implements(IMonth)
 
@@ -413,7 +411,6 @@ class Day(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Day'
-    portal_type = meta_type
 
     implements(IDay)
 
@@ -442,7 +439,6 @@ class EventList(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Event List'
-    portal_type = meta_type
 
     implements(IEventList)
 
@@ -480,7 +476,6 @@ class WeekList(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Week List'
-    portal_type = meta_type
 
     implements(IWeekList)
 
@@ -510,7 +505,6 @@ InitializeClass(WeekList)
 
 class WeekYear(SimpleItem):
     meta_type = 'Calendar Week Year'
-    portal_type = meta_type
 
     implements(IWeekYear)
 
@@ -544,7 +538,6 @@ class Week(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Week'
-    portal_type = meta_type
 
     implements(IWeek)
 
