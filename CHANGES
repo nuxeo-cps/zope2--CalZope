@@ -6,9 +6,9 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
-- fixed some french translations
-- fixed bug on open ended recurrent event (s/expand/extend/)
-- fixed broken links for calendar info view
+- Fixed some french translations.
+- Fixed bug on open ended recurrent event (s/expand/extend/).
+- Fixed broken links for calendar info view.
 - Main view redirect to last view now preserves portal_status_message.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
