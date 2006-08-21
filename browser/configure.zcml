@@ -205,7 +205,6 @@
     permission="calendar.CreateEvents"
     />
 
-
   <browser:page
     for=".interfaces.IDate"
     class=".browser.date.DateView"

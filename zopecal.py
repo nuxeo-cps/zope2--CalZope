@@ -285,6 +285,9 @@ class Calendar(SimpleItem, cal.CalendarBase):
         if security.checkPermission('Delete event', event.__of__(self)):
             cal.CalendarBase._deleteEvent(self, event)
 
+    def getCalendarUrl(self):
+        return self.getCalendar().absolute_url()
+
 
 class CalendarTraversable(FiveTraversable):
 
@@ -333,6 +336,7 @@ class Year(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Year'
+    portal_type = meta_type
 
     implements(IYear)
 
@@ -346,6 +350,9 @@ class Year(SimpleItem):
 
     def getMonths(self):
         return range(1, 13)
+
+    def getCalendarUrl(self):
+        return self.getCalendar().absolute_url()
 
 class YearTraversable(FiveTraversable):
 
@@ -364,6 +371,7 @@ class Month(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Month'
+    portal_type = meta_type
 
     implements(IMonth)
 
@@ -386,6 +394,9 @@ class Month(SimpleItem):
     def getDateForDay(self, day):
         return datetime(self._year, self._month, day)
 
+    def getCalendarUrl(self):
+        return self.getCalendar().absolute_url()
+
 class MonthTraversable(FiveTraversable):
 
     def traverse(self, name, furtherPath):
@@ -402,6 +413,7 @@ class Day(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Day'
+    portal_type = meta_type
 
     implements(IDay)
 
@@ -421,12 +433,16 @@ class Day(SimpleItem):
     def getDay(self):
         return self._day
 
+    def getCalendarUrl(self):
+        return self.getCalendar().absolute_url()
+    
 InitializeClass(Day)
 
 class EventList(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Event List'
+    portal_type = meta_type
 
     implements(IEventList)
 
@@ -437,6 +453,8 @@ class EventList(SimpleItem):
     def Title(self):
         return self.title
 
+    def getCalendarUrl(self):
+        return self.getCalendar().absolute_url()
 
 class EventListTraversable(FiveTraversable):
 
@@ -462,6 +480,7 @@ class WeekList(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Week List'
+    portal_type = meta_type
 
     implements(IWeekList)
 
@@ -472,6 +491,9 @@ class WeekList(SimpleItem):
     def Title(self):
         """Return a translated title for the breadcrumb"""
         return self.title
+
+    def getCalendarUrl(self):
+        return self.getCalendar().absolute_url()
 
 
 class WeekListTraversable(FiveTraversable):
@@ -488,6 +510,7 @@ InitializeClass(WeekList)
 
 class WeekYear(SimpleItem):
     meta_type = 'Calendar Week Year'
+    portal_type = meta_type
 
     implements(IWeekYear)
 
@@ -501,6 +524,9 @@ class WeekYear(SimpleItem):
 
     def getWeeks(self):
         return range(1, isoweek.getWeeksInYear(self._year) + 1)
+
+    def getCalendarUrl(self):
+        return self.getCalendar().absolute_url()
 
 class WeekYearTraversable(FiveTraversable):
 
@@ -518,6 +544,7 @@ class Week(SimpleItem):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar Week'
+    portal_type = meta_type
 
     implements(IWeek)
 
@@ -535,6 +562,9 @@ class Week(SimpleItem):
 
     def getDateForWeekday(self, weekday):
         return isoweek.weeknr2datetime(self._year, self._week_nr, weekday)
+
+    def getCalendarUrl(self):
+        return self.getCalendar().absolute_url()
 
 class WeekTraversable(FiveTraversable):
 

@@ -31,6 +31,12 @@ class IDate(Interface):
         """Get events for the period this object represents.
         """
         pass
+
+    def getCalendarUrl():
+        """Get the URL to the calendar (typically through Acquicision).
+        
+        Useful for actions in CMF.
+        """        
     
 class IYear(IDate):
     def getYear():
@@ -104,6 +110,7 @@ class IDay(IDate):
     def getDay():
         """Get the day this object is representing.
         """
+                
 class IZopeAttendeeSource(IAttendeeSource):
     """Extends AttendeeSource with things made to support Zope"""
     
