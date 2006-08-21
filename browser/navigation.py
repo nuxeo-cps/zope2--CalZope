@@ -74,6 +74,8 @@ class RedirectToLastView(BrowserView):
         else:
             raise ValueError("Unknown view_type " + view_type)
         url = view.absolute_url()
+        if self.request.has_key('portal_status_message'):
+            url = url + '?portal_status_message=' + self.request['portal_status_message']
         response = self.request.RESPONSE
         response.redirect(url)
     
