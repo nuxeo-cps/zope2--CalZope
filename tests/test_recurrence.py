@@ -71,6 +71,8 @@ class TestRecurrence(CalendarTestCase):
         self.assertEquals(1, len(events))
         events = florent.getEvents(may)
         self.assertEquals(1, len(events))
+        events = florent.getEvents((None, None))
+        self.assertEquals(1, len(events))
 
         events = florent.getOccurrences(april)
         self.assertEquals(3, len(events))
@@ -84,9 +86,12 @@ class TestRecurrence(CalendarTestCase):
         self.assertEquals(1, len(events))
         events = martijn.getEvents(may)
         self.assertEquals(0, len(events))
+        events = martijn.getEvents((None,None))
+        self.assertEquals(1, len(events))
 
         events = martijn.getOccurrences(april)
         self.assertEquals(5, len(events))
+
 
 
 def test_suite():

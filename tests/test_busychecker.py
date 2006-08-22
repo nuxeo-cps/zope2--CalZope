@@ -24,7 +24,7 @@ if __name__ == '__main__':
 # a duplication from usecase.txt in CalCore,
 # but hard to reuse doctests in Zope 2 context..
 import unittest
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from zope.app import zapi
 
@@ -119,8 +119,8 @@ class TestBusyChecker(CalendarTestCase):
         checker.check(datetime(2005, 4, 10, 15, 00), 
                       datetime(2005, 4, 10, 16, 00))
 
-    def test_recurringblock(self):
-        # Recurring events with no end date caused the BusyChecker
+    def test_recurringblock1(self):
+        # Recurring events caused the BusyChecker
         # to block EVERYTHING after the start of that event.
         self.login('testmgr')
         
@@ -148,6 +148,25 @@ class TestBusyChecker(CalendarTestCase):
                           datetime(2006, 4, 16, 10, 00), 
                           datetime(2006, 4, 16, 11, 00))
 
+        self.testmgr.createEvent(
+            dtstart=datetime(2005, 4, 10, 10, 00),
+            duration=timedelta(minutes=60),
+            status='CONFIRMED',
+            title="Recurring event will also block only during the event",
+            recurrence=recurrent.DailyRecurrenceRule(
+                until=date(2005,4,25)))
+
+        # Not busy the day before:
+        checker.check(datetime(2005, 4, 9, 10, 00), 
+                      datetime(2005, 4, 9, 11, 00))
+        # Not busy in the afternoons:
+        checker.check(datetime(2005, 4, 15, 14, 00), 
+                      datetime(2005, 4, 15, 15, 00))
+        
+        # Is busy when it happens:
+        self.assertRaises(BusyUserError, checker.check,
+                          datetime(2005, 4, 16, 10, 00), 
+                          datetime(2005, 4, 16, 11, 00))
 
 def test_suite():
     return unittest.TestSuite((

@@ -162,7 +162,7 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
                 try:
                     rows = index.values(minkey, maxkey, excludemin=excludemin)
                 except TypeError:
-                    # XXX exclude{min|max} parameter does exist
+                    # XXX exclude{min|max} parameter does not exist
                     # on some ZODB versions
                     if excludemin:
                         # increments minkey by one second
@@ -185,47 +185,77 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
         # This function call slows this method with a couple of percents,
         # but I prefer that from code duplication, at least at this early
         # stage of the code, since it may change a lot still.
-        if end is not None:
-            end = end.utctimetuple()
         result = []
         for event_ids in rows:
-            events = self._eventValidate(event_ids, end, search_criteria)
+            events = self._eventValidate(event_ids, period, search_criteria)
             result.extend(events)
 
         # Include open ended events:
-        if index.has_key(None):
-            events = self._eventValidate(index[None], end, search_criteria)
-            # Open ended recurring events will this far match if the period is
-            # between the first event and the last event. But we need to match
-            # only if the event is actually occuring during the period.
-            if period[1] is None:
-                # Open ended events and open ended period: Add all.
-                result.extend(events)
-            else:
-                for event in events:
-                    for occurrence in event.expand(period):
-                        if cal.inPeriod(occurrence, period):
-                            # There is a match:
-                            result.append(event)
-                            break
+        if begin is not None and index.has_key(None):
+            events = self._eventValidate(index[None], period, search_criteria)
+            result.extend(events)
+            
         return result
 
-    def _eventValidate(self, event_ids, end, search_criteria):
+    def _eventValidate(self, event_ids, period, search_criteria):
         # This method is _very_ internal, and should only be called from
         # getEvents.
+        if period[0] is not None:
+            begin_date = period[0].date()
+        else:
+            begin_date = None
+            
+        if period[1] is not None:
+            end_date = period[1].date()
+            end_utc = period[1].utctimetuple()
+        else:
+            end_utc = end_date = None
+            
         unindex = self._unindexes['dtstart']
         result = []
+
         for event_id in event_ids:
             try:
                 dtstart = unindex[event_id]
             except KeyError:
                 # In case the index contains events that no longer exist.
                 continue
-            if end and dtstart >= end:
+            if end_utc and dtstart >= end_utc:
                 continue
             event = self._events[event_id]
             if search_criteria is not None and not search_criteria._match(event):
                 continue
+
+            # Recurring events will this far match if the period is between
+            # the first event and the last event. But we need to match only if
+            # the event is actually occuring during the period.                
+            if event.recurrence is not None:
+                match = False
+                # This is a possible place where optimizations can be done if
+                # necessary. For example, for periods where the start and end
+                # date is the same, we can first check if the start time and
+                # and time of the date falls inbetween the start and end times
+                # of the period, so to avoid expansion. But most likely this
+                # will have a very small impact on speed, so I skip this until
+                # it actually becomes a problem.                
+                recurrence = event.recurrence
+                for occurrence_date in recurrence.apply(event):
+                    if begin_date is not None and occurrence_date < begin_date:
+                        continue
+                    if end_date is not None and occurrence_date > end_date:
+                        break
+
+                    dtstart = datetime.combine(occurrence_date, 
+                                               event.dtstart.time())
+                    # must be in right period
+                    if cal.inPeriod(cal.Timed(dtstart, event.duration), period):
+                        match = True
+                        break
+                        
+                if not match:
+                    # This event does not match. Go to next.
+                    continue
+                
             result.append(event)
         return result
 
