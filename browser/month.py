@@ -32,6 +32,9 @@ from interfaces import IUnPositionedView, IEventDisplay
 from calview import CalendarView
 from widget import make_calendar_js
 
+def cmp_occurrence(a, b):
+    return cmp(a.dtstart, b.dtstart)
+
 class MonthView(CalendarView):
     """Holds the rendering information for month views"""
 
@@ -70,6 +73,8 @@ class MonthView(CalendarView):
 
     def getOccurrenceDisplays(self, day):
         occurrences = self.calendar.getOccurrencesInDay(day)
+        occurrences.sort(cmp=cmp_occurrence)
+        
         count = 0
         self.date_display_maxed[day] = 0
         displays = []

@@ -18,6 +18,8 @@ Bug fixes:
   of recurring events.
 - The translation files are now compiled with --use-fuzzy, to include my
   guesses and dictionary lookups (better than nothing).
+- In the month day, the events are now sorted and displayed in the order of
+  the start-time.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
