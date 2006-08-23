@@ -988,3 +988,7 @@ msgstr "Este Semana"
 
 msgid "label_current_day"
 msgstr "Hoje"
+
+#, fuzzy
+msgid "More..."
+msgstr "Mais..."

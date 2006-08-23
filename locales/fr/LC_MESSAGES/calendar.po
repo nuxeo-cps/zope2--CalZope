@@ -1024,3 +1024,6 @@ msgstr "Cette semaine"
 
 msgid "label_current_day"
 msgstr "Aujourd'hui"
+
+msgid "More..."
+msgstr "Plus..."

@@ -1050,3 +1050,7 @@ msgstr "Aceasta Saptamana"
 
 msgid "label_current_day"
 msgstr "Azi"
+
+#, fuzzy
+msgid "More..."
+msgstr "Mai..."

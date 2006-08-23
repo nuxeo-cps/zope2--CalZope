@@ -33,10 +33,10 @@
       </a>
     </td>
     <tal:block repeat="weekday python:range(1,8)">
-      <td tal:define="day python:view.getDateForWeekDay(week, weekday)"
+      <td tal:define="day python:view.getDateForWeekDay(week, weekday);
+            dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};"
           class="monthDay inCalendar">
-        <div class="monthDayHeader"
-          tal:define="dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};">
+        <div class="monthDayHeader">
           <a tal:attributes="href dayurl">
             <tal:block content="string:calendar_day_${day/weekday}" 
               i18n:translate="" />
@@ -60,7 +60,15 @@
                  tal:condition="display/viewable">
                   <tal:block replace="display/title" />
               </a>
-              <tal:block replace="display/title" tal:condition="not:display/viewable"/>
+              <tal:block condition="not:display/viewable" 
+                         replace="display/title"/>
+            </div>
+          </tal:block>
+          <tal:block condition="python:view.hasMoreEvents(day)">
+            <div>
+              <a tal:attributes="href dayurl" i18n:translate="More..." i18n:domain="calendar">
+                More...
+              </a>
             </div>
           </tal:block>
         </div>

@@ -36,6 +36,9 @@ class MonthView(CalendarView):
     """Holds the rendering information for month views"""
 
     implements(IUnPositionedView)
+    
+    # A month view has a very limited amount of space:
+    display_max_events = 5
 
     def calcInfo(self):
         """Calculates all the information necessary for display"""
@@ -57,15 +60,36 @@ class MonthView(CalendarView):
         self.weeks = int(((self.ends - self.begins).days + 1) / 7)
 
         self.first_week = self.begins.isocalendar()[1]
+
+        # A per viewing cache of which days that have more events than can
+        # be displayed, just to avoid searching each day twice.
+        self.date_display_maxed = {}
             
     def getDateForWeekDay(self, week, weekday):
         return self.begins + timedelta(week * 7 + weekday - 1)
 
     def getOccurrenceDisplays(self, day):
         occurrences = self.calendar.getOccurrencesInDay(day)
-        displays = [getMultiAdapter([occurrence, self], IEventDisplay) for
-                    occurrence in occurrences]
+        count = 0
+        self.date_display_maxed[day] = 0
+        displays = []
+        for occurrence in occurrences:
+            count += 1
+            if count > self.display_max_events:
+                self.date_display_maxed[day] = 1
+                break
+            displays.append(getMultiAdapter([occurrence, self], IEventDisplay))
+        # Cut off the last one (to be replaced by a More... tag)
+        if self.date_display_maxed[day] == 1:
+            displays = displays[:-1]
         return displays
+    
+    def hasMoreEvents(self, day):
+        """Returns true if there are more events than can be displayed"""
+        if not self.date_display_maxed.has_key(day):
+            # We haven't checked yet:
+            self.getOccurrenceDisplays(day)            
+        return self.date_display_maxed[day]
 
     def getTodayInfo(self):
         today = date.today()

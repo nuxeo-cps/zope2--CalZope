@@ -990,3 +990,6 @@ msgstr "This Week"
 
 msgid "label_current_day"
 msgstr "Today"
+
+msgid "More..."
+msgstr "More..."

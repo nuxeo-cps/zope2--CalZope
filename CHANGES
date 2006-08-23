@@ -3,7 +3,9 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
--
+- In the month view, the max events displayed per day is now limited to five.
+  If you have more than that, only four are displayed, and a More... link
+  appears linking you to the day-view.
 Bug fixes:
 ~~~~~~~~~~
 - Fixed some french translations.
@@ -14,6 +16,8 @@ Bug fixes:
   for actions in CMF that should only be done on the calendar.
 - The getEvents with periods less than one day still had bugs in the handling
   of recurring events.
+- The translation files are now compiled with --use-fuzzy, to include my
+  guesses and dictionary lookups (better than nothing).
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -
