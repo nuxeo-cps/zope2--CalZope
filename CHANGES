@@ -6,7 +6,7 @@ New features:
 -
 Bug fixes:
 ~~~~~~~~~~
--
+- Fixed a bug under Plone caused by not "unwrapping" the cotext properly.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
 -

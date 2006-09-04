@@ -164,20 +164,26 @@ class CalendarEditView:
 
 
 class CalendarEventInfoView(CalendarView):
+    
+    def getCalendar(self):
+        # Because this is a view on a view, the context is really the 
+        # contexts context. So we need this, or the resulting calendar will
+        # be wrapped in a view.
+        return self.context.context.getCalendar()
 
     def getNeedsActionAmount(self):
         """Get all events that need action for attendees.
         """
-        calendar = self.context.getCalendar()
+        calendar = self.getCalendar()
         return len(getNeedsActionEvents(calendar))
 
     def getAttendedAmount(self):
-        return len(getAttendedEvents(self.context.getCalendar()))
+        return len(getAttendedEvents(self.getCalendar()))
 
     def getOrganizedAmount(self):
         """Get all events in the future that attendees organized.
         """
-        calendar = self.context.getCalendar()
+        calendar = self.getCalendar()
         return len(getOrganizedEvents(calendar))
 
     def displayEventLists(self):
