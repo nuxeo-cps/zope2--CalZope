@@ -71,7 +71,7 @@ class StorageManager(SimpleItem, cal.StorageManagerBase):
     security = ClassSecurityInfo()
 
     implements(IZopeStorageManager)
-    
+
     meta_type = 'Calendar Storage Manager'
 
     def __init__(self, id='IStorageManager', title=''):
@@ -90,8 +90,8 @@ class StorageManager(SimpleItem, cal.StorageManagerBase):
         if IEventModifiedEvent.providedBy(event):
             self._storage.reindexEvent(event.event.unique_id, event.event)
         # (Reindex on adding and deleting is handled elsewhere).
-    
-    
+
+
 InitializeClass(StorageManager)
 
 manage_addStorageManagerForm = PageTemplateFile(
@@ -136,8 +136,11 @@ class UserFolderAttendeeSource(SimpleItem):
         # This is to acquire the security settings from the calendar:
         return attendee.__of__(homecal)
 
+    def getCurrentUserAttendeeId(self):
+        return getSecurityManager().getUser().getId()
+
     def getCurrentUserAttendee(self):
-        return self.getAttendee(getSecurityManager().getUser().getId())
+        return self.getAttendee(self.getCurrentUserAttendeeId())
 
     def findByName(self, query_str, attendee_type=None):
         # don't deal with anything but individuals
@@ -259,7 +262,7 @@ class Calendar(SimpleItem, cal.CalendarBase):
             e = event.export(private)
             ical.add_component(e)
         ical_text = ical.as_string()
-        self._logger.debug('export generated ical text: \n\n%s\n\n' % ical_text)
+        self._logger.log(5, 'export generated ical text: \n\n%s\n\n', ical_text)
         return ical_text
 
     def _importNewEvent(self, uid, e):
@@ -432,7 +435,7 @@ class Day(SimpleItem):
 
     def getCalendarUrl(self):
         return self.getCalendar().absolute_url()
-    
+
 InitializeClass(Day)
 
 class EventList(SimpleItem):
@@ -598,7 +601,7 @@ class BaseBusyChecker(object):
         from calcore.cal import SearchCriteria
         storage = zapi.getUtility(IStorageManager, context=self.context)
         asrc = zapi.getUtility(IZopeAttendeeSource, context=self.context)
-        currentattendee = asrc.getCurrentUserAttendee().getAttendeeId()
+        currentattendee = asrc.getCurrentUserAttendeeId()
         attendees = [asrc.getAttendee(a) for a in self.attendees]
 
         sc = SearchCriteria(attendees=attendees)
@@ -643,7 +646,7 @@ class AddBusyChecker(BaseBusyChecker):
             self.attendees = attendees
         else:
             calendar = addview.context.getCalendar()
-            self.attendees = [calendar.getMainAttendee().getAttendeeId()]
+            self.attendees = [calendar.getMainAttendeeId()]
         if getattr(addview, '_event_unique_id', None) is not None:
             self.ignore_events = [addview._event_unique_id]
         else:
@@ -667,9 +670,9 @@ class AttendeeBusyChecker(BaseBusyChecker):
 
 def handleEventEvent(event):
     # Call both the storage manager and attendee source here.
-    # The attendee source doesn't actually care about events, 
+    # The attendee source doesn't actually care about events,
     # but might want to care in the future.
-    
+
     # BBB We should really look for IZopeStorageManager here, but to keep
     # Five 1.3 compatibility, we look for IStorageManager. This will
     # fixed when we drop Zope 2.9 support.

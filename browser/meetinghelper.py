@@ -125,7 +125,7 @@ class MeetingHelperView(EditView):
         return [self._getAttendeeSource().getAttendee(id) for id in attendees]
 
     def getMainAttendeeId(self):
-        return self.context.getCalendar().getMainAttendee().getAttendeeId()
+        return self.context.getCalendar().getMainAttendeeId()
 
     def getSearchResults(self):
         attendee_source = self._getAttendeeSource()

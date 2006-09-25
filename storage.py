@@ -194,7 +194,7 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
         if begin is not None and index.has_key(None):
             events = self._eventValidate(index[None], period, search_criteria)
             result.extend(events)
-            
+
         return result
 
     def _eventValidate(self, event_ids, period, search_criteria):
@@ -204,13 +204,13 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
             begin_date = period[0].date()
         else:
             begin_date = None
-            
+
         if period[1] is not None:
             end_date = period[1].date()
             end_utc = period[1].utctimetuple()
         else:
             end_utc = end_date = None
-            
+
         unindex = self._unindexes['dtstart']
         result = []
 
@@ -228,7 +228,7 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
 
             # Recurring events will this far match if the period is between
             # the first event and the last event. But we need to match only if
-            # the event is actually occuring during the period.                
+            # the event is actually occuring during the period.
             if event.recurrence is not None:
                 match = False
                 # This is a possible place where optimizations can be done if
@@ -237,7 +237,7 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
                 # and time of the date falls inbetween the start and end times
                 # of the period, so to avoid expansion. But most likely this
                 # will have a very small impact on speed, so I skip this until
-                # it actually becomes a problem.                
+                # it actually becomes a problem.
                 recurrence = event.recurrence
                 for occurrence_date in recurrence.apply(event):
                     if begin_date is not None and occurrence_date < begin_date:
@@ -245,17 +245,17 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
                     if end_date is not None and occurrence_date > end_date:
                         break
 
-                    dtstart = datetime.combine(occurrence_date, 
+                    dtstart = datetime.combine(occurrence_date,
                                                event.dtstart.time())
                     # must be in right period
                     if cal.inPeriod(cal.Timed(dtstart, event.duration), period):
                         match = True
                         break
-                        
+
                 if not match:
                     # This event does not match. Go to next.
                     continue
-                
+
             result.append(event)
         return result
 
@@ -266,7 +266,7 @@ class ZODBStorage(SimpleItem, cal.StorageBase):
         for event in events:
             result.extend(event.expand(period))
         return result
-    
+
     def _upgrade2unicode(self):
         # Moves all events in the storage from Latin-9 to unicode.
         all = self.getEvents((None,None),None)
@@ -323,8 +323,7 @@ class ZODBEvent(SimpleItem, cal.EventBase):
 
         # Find the current attendee id:
         attendee_src = zapi.getUtility(IZopeAttendeeSource, context=self)
-        current_attendee = attendee_src.getCurrentUserAttendee()
-        current_id = current_attendee.getAttendeeId()
+        current_id = attendee_src.getCurrentUserAttendeeId()
         attendees = [current_id]
 
         # Check if the current user is an attendee manager for this calendar
@@ -334,7 +333,7 @@ class ZODBEvent(SimpleItem, cal.EventBase):
         if 'AttendeeManager' in roles:
             # Current user is attendee manager for this calendars user, so
             # We'll add this calendars user to the list of current attendees
-            attendees.append(calendar.getAttendees()[0].getAttendeeId())
+            attendees.append(calendar.getMainAttendeeId())
 
         # Check if the current organizer is one of the relevant users, in that
         # case we should get the organizer role as well as local roles:
@@ -346,7 +345,7 @@ class ZODBEvent(SimpleItem, cal.EventBase):
         for id in attendees:
             if id in event_attendees:
                 roles.append('EventParticipant')
-        
+
         for id in event_attendees:
             roles.extend(current_user.getRolesInContext(
                 attendee_src.getMainCalendarForAttendeeId(id)))

@@ -9,4 +9,6 @@ Bug fixes:
 - Fixed a bug under Plone caused by not "unwrapping" the cotext properly.
 New internal features:
 ~~~~~~~~~~~~~~~~~~~~~~
--
+- [OPTIM] make use of two new methods: getCurrentUserAttendeeId and
+  getMainAttendeeId to check permissions of events without computing the
+  Attendee objects.
