@@ -3,7 +3,7 @@ Requires:
 -
 New features:
 ~~~~~~~~~~~~~
--
+- ical import: read the 'synchronize' option from the request
 Bug fixes:
 ~~~~~~~~~~
 - Fixed a bug under Plone caused by not "unwrapping" the cotext properly.

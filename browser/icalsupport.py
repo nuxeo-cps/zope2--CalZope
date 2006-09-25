@@ -18,8 +18,6 @@
 # $Id$
 
 from Products.Five import BrowserView
-from AccessControl import getSecurityManager
-from AccessControl import Unauthorized
 
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory("calendar")
@@ -85,7 +83,8 @@ class ICalendarImportExportView(BrowserView):
         Permission is managed on a per event bases by the importer.
         """
         ical_text = REQUEST['BODYFILE'].read()
-        self._import(ical_text, synchronize=1)
+        synchronize = REQUEST.form.get('synchronize', 1)
+        self._import(ical_text, synchronize=synchronize)
         RESPONSE.setStatus(204)
         return RESPONSE
 
