@@ -346,7 +346,14 @@ class ZODBEvent(SimpleItem, cal.EventBase):
             if id in event_attendees:
                 roles.append('EventParticipant')
 
+        # Collecting local roles dynamically inherited from the calendars of
+        # participants of that event
+        already_done_id = calendar.getMainAttendeeId()
         for id in event_attendees:
+            if id == already_done_id:
+                # Roles on the calendar of the current attendee were already
+                # collected
+                continue
             roles.extend(current_user.getRolesInContext(
                 attendee_src.getMainCalendarForAttendeeId(id)))
 

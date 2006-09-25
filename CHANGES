@@ -12,3 +12,5 @@ New internal features:
 - [OPTIM] make use of two new methods: getCurrentUserAttendeeId and
   getMainAttendeeId to check permissions of events without computing the
   Attendee objects.
+- [OPTIM] make ZODBEvent.__ac_local_roles__ compute inherited local roles only once
+  for each calendar of each attendee participating in the event
