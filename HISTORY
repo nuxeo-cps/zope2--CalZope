@@ -1,3 +1,27 @@
+===========================================================
+Package: CalZope 2.8.0
+===========================================================
+First release built by: ogrisel at: 2006-10-04T21:19:18
+SVN Tag: https://svn.nuxeo.org/pub/Zope2/CalZope/tags/2.8.0
+Build from: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk@49317
+
+Requires:
+~~~~~~~~~
+-
+New features:
+~~~~~~~~~~~~~
+- ical import: read the 'synchronize' option from the request
+Bug fixes:
+~~~~~~~~~~
+- Fixed a bug under Plone caused by not "unwrapping" the cotext properly.
+New internal features:
+~~~~~~~~~~~~~~~~~~~~~~
+- [OPTIM] make use of two new methods: getCurrentUserAttendeeId and
+  getMainAttendeeId to check permissions of events without computing the
+  Attendee objects.
+- [OPTIM] make ZODBEvent.__ac_local_roles__ compute inherited local roles only once
+  for each calendar of each attendee participating in the event
+
 *******************************************
 ** CalZope V2.7.0 [R1 build 2006/08/24-15:41 by lregebro]
 ** SVN URL: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk Revision: 48558
