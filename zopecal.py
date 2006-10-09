@@ -587,7 +587,7 @@ class BusyUsersError(ValidationError):
                 mapping={'users': self.users}))
 
 class BusyUserError(ValidationError):
-    __doc__ = "This attendee is busy during the selected period"
+    __doc__ = _("This attendee is busy during the selected period")
 
 
 class BaseBusyChecker(object):

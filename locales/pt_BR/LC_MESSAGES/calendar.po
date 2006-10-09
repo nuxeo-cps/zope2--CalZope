@@ -992,3 +992,13 @@ msgstr "Hoje"
 #, fuzzy
 msgid "More..."
 msgstr "Mais..."
+
+# Busy checker:
+msgid "The attendee is busy during this event"
+msgstr ""
+
+msgid "This attendee is busy during the selected period"
+msgstr ""
+
+msgid "Some attendees are busy during the selected period: ${users}"
+msgstr ""
