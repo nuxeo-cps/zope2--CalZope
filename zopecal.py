@@ -579,12 +579,14 @@ from zope.i18n import translate
 
 class BusyUsersError(ValidationError):
 
-    def __init__(self, users):
+    def __init__(self, users, context):
         self.users = ', '.join(users)
+        self.context = context
 
     def doc(self):
-        return translate(_("Some attendees are busy during the selected period: ${users}",
-                mapping={'users': self.users}))
+        return translate(
+            _("Some attendees are busy during the selected period: %(users)s"),
+            context=self.context.request) % {'users': self.users}
 
 class BusyUserError(ValidationError):
     __doc__ = _("This attendee is busy during the selected period")
@@ -630,7 +632,7 @@ class BaseBusyChecker(object):
                 if title not in users:
                     users.append(title)
         if users:
-            raise BusyUsersError(users)
+            raise BusyUsersError(users, self.context)
 
         # All is well
         return

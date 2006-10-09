@@ -990,5 +990,5 @@ msgstr ""
 msgid "This attendee is busy during the selected period"
 msgstr ""
 
-msgid "Some attendees are busy during the selected period: ${users}"
+msgid "Some attendees are busy during the selected period: %(users)s"
 msgstr ""

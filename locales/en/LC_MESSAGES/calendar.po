@@ -1001,5 +1001,5 @@ msgstr "The attendee is busy during this event"
 msgid "This attendee is busy during the selected period"
 msgstr "This attendee is busy during the selected period"
 
-msgid "Some attendees are busy during the selected period: ${users}"
-msgstr "Some attendees are busy during the selected period: ${users}"
+msgid "Some attendees are busy during the selected period: %(users)s"
+msgstr "Some attendees are busy during the selected period: %(users)s"

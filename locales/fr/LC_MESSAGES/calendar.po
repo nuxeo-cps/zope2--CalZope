@@ -1035,5 +1035,5 @@ msgstr "Il existe deja un évènement pour cette agenda dans cette evenement"
 msgid "This attendee is busy during the selected period"
 msgstr "Il existe deja un évènement dans cette periode"
 
-msgid "Some attendees are busy during the selected period: ${users}"
-msgstr "Il existe deja un évènement dans cette periode pour: ${users"
+msgid "Some attendees are busy during the selected period: %(users)s"
+msgstr "Il existe deja un évènement dans cette periode pour: %(users)s"
