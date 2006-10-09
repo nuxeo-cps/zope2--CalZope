@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CalZope\n"
 "POT-Creation-Date: 2005-10-02 14:40default\n"
-"PO-Revision-Date: 2006-04-05 09:33+0100\n"
+"PO-Revision-Date: 2006-08-17 09:54+0100\n"
 "Last-Translator: Jesús Martín <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
 "MIME-Version: 1.0\n"
@@ -24,20 +24,20 @@ msgstr ""
 #.                 ${amount (tal replace="needs_action_amount")} events that need action</a>
 #: from ../skins/calendar.pt
 msgid "${amount} events that need action"
-msgstr "con ${amount} acontecimientos en espera"
+msgstr "con ${amount} eventos en espera"
 
 #.   <a href="attended_events.html">
 #.                 ${amount (tal replace="attended_amount")}
 #.                 events you attend</a>
 #: from ../skins/calendar.pt
 msgid "${amount} events you attend"
-msgstr "participa en ${amount} acontecimientos"
+msgstr "participa en ${amount} eventos"
 
 #.   <a href="organized_events.html">
 #.                 ${amount (tal replace="organized_amount")} events you organize</a>
 #: from ../skins/calendar.pt
 msgid "${amount} events you organize"
-msgstr "organiza ${amount} acontecimientos"
+msgstr "organiza ${amount} eventos"
 
 #.   <block condition="recurrence/count">, for ${count (tal content="recurrence/count")} times</block>
 #: from ../skins/event.pt
@@ -57,12 +57,12 @@ msgstr "hasta ${date}"
 #.             </a>
 #: from ../skins/day.pt ../skins/month.pt ../skins/week_macro.pt
 msgid "Add event"
-msgstr "Añadir acontecimiento"
+msgstr "Añadir evento"
 
 #.   <h1>Do you want to delete this event?</h1>
 #: from ../skins/eventdelete.pt
 msgid "Do you want to delete this event?"
-msgstr "¿Desea borrar este acontecimiento?"
+msgstr "¿Desea borrar este evento?"
 
 #.   <span>Edit calendar</span>
 #: from ../skins/calendar_edit.pt
@@ -77,12 +77,12 @@ msgstr "Editar algo"
 #.   <h1>Events you are attending</h1>
 #: from ../skins/attended_events.pt
 msgid "Events you are attending"
-msgstr "Acontecimientos a los que asiste"
+msgstr "Eventos a los que asiste"
 
 #.   <h1>Events you organized</h1>
 #: from ../skins/organized_events.pt
 msgid "Events you organized"
-msgstr "Acontecimientos que ha organizado"
+msgstr "Eventos que ha organizado"
 
 #.   <h1>Import iCalendar file</h1>
 #: from ../skins/ical_import.pt
@@ -175,7 +175,7 @@ msgstr "Enviar"
 #.         </p>
 #: from ../skins/calendar_edit.pt
 msgid "description_multiple_calendar_view"
-msgstr "Gracias a la vista múltiple de calendarios, puede ver los acontecimientos de varios calendarios en uno solo."
+msgstr "Gracias a la vista múltiple de calendarios, puede ver los eventos de varios calendarios en uno solo."
 
 #.   <label for="file_field">
 #.                 Filename
@@ -219,9 +219,8 @@ msgstr "Categorías"
 #.   <a attributes="href string:+/addmeeting.html?${timeurl}">
 #.             Add event</a>
 #: from ../skins/meetinghelper.pt
-#, fuzzy
 msgid "label_add_event"
-msgstr "Añadir un acontecimiento"
+msgstr "Añadir un evento"
 
 #.   <h3>Current attendees</h3>
 #: from ../skins/meetinghelper.pt
@@ -242,9 +241,6 @@ msgstr "Fecha"
 #.   <a attributes="href view/getDayUrl">day</a>
 #: from ../skins/attendees.pt ../skins/event.pt
 msgid "day"
-msgstr "día"
-
-msgid "Day"
 msgstr "Día"
 
 #.   <label for="desc_field">label_description</label>
@@ -295,9 +291,6 @@ msgstr "Organizar una reunión"
 #.   <a attributes="href view/getMonthUrl">month</a>
 #: from ../skins/attendees.pt ../skins/event.pt
 msgid "month"
-msgstr "mes"
-
-msgid "Month"
 msgstr "Mes"
 
 #.   <h3>
@@ -409,12 +402,12 @@ msgstr "Año"
 #.       </h1>
 #: from ../skins/action_needed_events.pt
 msgid "message_events_action_is_needed_for"
-msgstr "Acontecimientos"
+msgstr "Eventos"
 
 #.   <block>.</block>
 #: from ../skins/attendees.pt ../skins/event.pt
 msgid "message_see_this_events_postfix"
-msgstr "de este acontecimiento"
+msgstr "de este evento"
 
 #.   <block>see this event's</block>
 #: from ../skins/attendees.pt ../skins/event.pt
@@ -433,14 +426,14 @@ msgstr "Seleccionar el estado"
 #.                   </b>
 #: from ../skins/event.pt
 msgid "message_this_is_an_all_day_event"
-msgstr "Acontecimiento de día completo"
+msgstr "Evento de todo el día"
 
 #.   <b>
 #.                 You can be invited to meetings during this event.
 #.               </b>
 #: from ../skins/event.pt
 msgid "transparent_description"
-msgstr "Está disponible durante este acontecimiento"
+msgstr "Está disponible durante este evento"
 
 #.   <block>you have</block>
 #: from ../skins/calendar.pt
@@ -455,13 +448,13 @@ msgid "AttendeeReader"
 msgstr "Lector de la  agenda"
 
 msgid "EventParticipant"
-msgstr "Participante en el acontecimiento"
+msgstr "Participante en el evento"
 
 msgid "EventOrganizer"
-msgstr "Organizador del acontecimiento"
+msgstr "Organizador del evento"
 
 msgid "EventReader"
-msgstr "Lector del acontecimiento"
+msgstr "Lector del evento"
 
 # Event status
 msgid "CANCELED"
@@ -558,7 +551,7 @@ msgid "Stop search at this hour"
 msgstr "Finalizar la búsqueda a partir de esta hora"
 
 msgid "The expected duration of the event"
-msgstr "Duración prevista del acontecimiento"
+msgstr "Duración prevista del evento"
 
 msgid "Width"
 msgstr "Ancho"
@@ -600,67 +593,67 @@ msgid "Title"
 msgstr "Título"
 
 msgid "The title of the event."
-msgstr "Título del acontecimiento"
+msgstr "Título del evento"
 
 msgid "Description"
 msgstr "Descripción"
 
 msgid "A description of the event."
-msgstr "Descripción del acontecimiento"
+msgstr "Descripción del evento"
 
 msgid "Starts"
 msgstr "Comienzo"
 
 msgid "Date and time when this event starts."
-msgstr "Fecha y hora de comienzo del acontecimiento"
+msgstr "Fecha y hora de comienzo del evento"
 
 msgid "Ends"
 msgstr "Fin"
 
 msgid "Date and time when this event ends."
-msgstr "Fecha y hora de finalización del acontecimiento"
+msgstr "Fecha y hora de finalización del evento"
 
 msgid "Takes all day"
 msgstr "Día completo"
 
 msgid "Check this box if the event goes on all day"
-msgstr "Marque esta casilla si el acontecimiento dura todo el día"
+msgstr "Marque esta casilla si el evento dura todo el día"
 
 msgid "Not busy"
 msgstr "Disponible"
 
 msgid "This event should not appear as busy time in the meeting helper."
-msgstr "Este acontecimiento no aparece como franja horaria ocupada para la organización de la reunión."
+msgstr "Este evento no aparece como franja horaria ocupada para la organización de la reunión."
 
 msgid "Location"
 msgstr "Localización"
 
 msgid "The location where this event takes place."
-msgstr "Localización del acontecimiento"
+msgstr "Localización del evento"
 
 msgid "Status"
 msgstr "Estado"
 
 msgid "The status of the event."
-msgstr "Estado del acontecimiento"
+msgstr "Estado del evento"
 
 msgid "Document"
 msgstr "Documento"
 
 msgid "A document related to this event."
-msgstr "Documento relativo al acontecimiento"
+msgstr "Documento relativo al evento"
 
 msgid "Categories"
 msgstr "Categorías"
 
 msgid "Categories for this event"
-msgstr "Categorías para el acontecimiento"
+msgstr "Categorías para el evento"
 
 msgid "Access"
 msgstr "Acceso"
 
 msgid "Edit event"
-msgstr "Modificar el acontecimiento"
+msgstr "Modificar el evento"
 
 # Error messages:
 msgid "Required input is missing."
@@ -784,9 +777,6 @@ msgstr "D"
 msgid "week"
 msgstr "semana"
 
-msgid "Week"
-msgstr "Semana"
-
 msgid "year"
 msgstr "Año"
 
@@ -800,7 +790,7 @@ msgid "Date selector"
 msgstr "Elegir la fecha"
 
 msgid "Selects the recurrence rule for the object"
-msgstr "Elegir el tipo de frecuencia para el acontecimiento"
+msgstr "Elegir el tipo de frecuencia para el evento"
 
 # Yes, we would really like to use a short ID here,
 # but we can't do that until Five 1.2, unfortunately.
@@ -809,7 +799,7 @@ msgid ""
 "\n"
 "        For example, to indicate that an event occurs every second day,\n"
 "        you would create a DailyRecurrenceRule witl interval equal to 2."
-msgstr "Intevalo de frecuencia: para indicar que un acontecimiento tiene lugar cada dos días, crear por ejemplo una regla de frecuencia cotidiana con un intervalo de 2."
+msgstr "Intevalo de frecuencia: para indicar que un evento tiene lugar cada dos días, crear por ejemplo una regla de frecuencia cotidiana con un intervalo de 2."
 
 msgid ""
 "Number of times the event is repeated.\n"
@@ -817,7 +807,7 @@ msgid ""
 "        Can be None or an integer value.  If count is not None then\n"
 "        until must be None.  If both count and until are None the\n"
 "        event repeats forever."
-msgstr "Número de veces que se repite un acontecimiento (puede ser cero o un valor entero)"
+msgstr "Número de veces que se repite un evento (puede ser cero o un valor entero)"
 
 msgid ""
 "The date of the last recurrence of the event.\n"
@@ -825,7 +815,7 @@ msgid ""
 "        Can be None or a datetime.date instance.  If until is not None\n"
 "        then count must be None.  If both count and until are None the\n"
 "        event repeats forever."
-msgstr "La fecha de la última convocatoria de este acontecimiento. Se puede dejar vacía. Si este campo ha sido rellenado, el campo <<número de repeticiones>> debe estar vacío. Si los dos están vacíos, el acontecimiento se repite indefinidamente."
+msgstr "La fecha de la última convocatoria de este evento. Se puede dejar vacía. Si este campo ha sido rellenado, el campo <<número de repeticiones>> debe estar vacío. Si los dos están vacíos, el evento se repite indefinidamente."
 
 msgid ""
 "A set of weekdays when this event occurs.\n"
@@ -867,7 +857,7 @@ msgid "Updated on %(date_time)s"
 msgstr "Última actualización: %(date_time)s"
 
 msgid "No events to list"
-msgstr "No hay acontecimientos en la lista"
+msgstr "No hay eventos en la lista"
 
 msgid "days"
 msgstr "Días"
@@ -981,21 +971,15 @@ msgstr "Do"
 msgid "event"
 msgstr "evento"
 
-#, fuzzy
 msgid "label_current_year"
-msgstr "Este Año"
+msgstr "Este año"
 
-#, fuzzy
 msgid "label_current_month"
-msgstr "Este Mes"
+msgstr "Este mes"
 
-#, fuzzy
 msgid "label_current_week"
-msgstr "Este Semana"
+msgstr "Esta semana"
 
 msgid "label_current_day"
 msgstr "Hoy"
 
-#, fuzzy
-msgid "More..."
-msgstr "Más..."
