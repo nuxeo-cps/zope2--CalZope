@@ -852,14 +852,21 @@ msgid ""
 "                      end of month (e.g. 2nd last Friday of a month)."
 msgstr "Behaviour of monthly recurrence"
 
+# Short date format (for help texts)
 msgid "YYYY-MM-DD"
 msgstr "MM/DD/YYYY"
 
+# Short date (for strftime)
 msgid "%Y-%m-%d"
 msgstr "%m/%d/%Y"
 
+# Really short date (for strftime)
 msgid "%d/%m"
 msgstr "%m/%d"
+
+# Long date format, used for replacing in python:
+msgid "%(day)s %(month)s %(year)s"
+msgstr "%(month)s %(day)s, %(year)s"
 
 msgid "Updated on %(date_time)s"
 msgstr "Updated on %(date_time)s"

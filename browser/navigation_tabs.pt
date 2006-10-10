@@ -1,9 +1,7 @@
 <div i18n:domain="calendar" class="dayTab"
      tal:define="calendar_url view/getCalendarUrl;">
   <span id="dateTabsStart">&nbsp;</span><span id="dateTabsMid">
-      <span tal:content="view/year"/>
-      <span tal:content="string:calendar_month_${view/month}" i18n:translate=""/>
-      <span tal:content="view/day"/>
+      <span tal:content="view/long_date"/>
       <span tal:content="structure context/@@navigation_calendar.html"/>
   </span>
   <span id="dateTabsEnd">&nbsp;</span>

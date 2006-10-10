@@ -882,32 +882,27 @@ msgid ""
 "                      end of month (e.g. 2nd last Friday of a month)."
 msgstr ""
 
+# Short date format (for help texts)
 #, fuzzy
 msgid "YYYY-MM-DD"
 msgstr "YYYY-MM-DD"
 
+# Short date (for strftime)
 #, fuzzy
 msgid "%Y-%m-%d"
 msgstr "%Y-%m-%d"
 
+# Really short date (for strftime)
+msgid "%d/%m"
+msgstr "%d/%m"
+
+# Long date format, used for replacing in python:
+msgid "%(day)s %(month)s %(year)s"
+msgstr ""
+
 #, fuzzy
 msgid "Updated on %(date_time)s"
 msgstr "Mise à jour en %(date_time)s"
-
-#~ msgid "There are"
-#~ msgstr "Tu"
-
-#~ msgid "message_see_this_events"
-#~ msgstr "Vizualizeaza evenimentul"
-
-#~ msgid "Permission denied"
-#~ msgstr "Acces interzis"
-
-#~ msgid "You do not have the permission to delete this event."
-#~ msgstr "Nu ai dreptul sa stergi acest eveniment."
-
-#~ msgid "button_edit"
-#~ msgstr "Editeaza"
 
 #, fuzzy
 msgid "No events to list"

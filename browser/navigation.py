@@ -139,7 +139,12 @@ class NavigationView:
         self.view_date = dt
         self.year = dt.year
         self.month = dt.month
+        self.month_name = translate(_('calendar_month_%s' % self.month), 
+                                    context=self.request)
         self.day = dt.day
+        self.long_date = self.getLongDateFormat() % {'day': self.day,
+                                                     'month': self.month_name,
+                                                     'year': self.year}
         week_info = dt.isocalendar()
         self.week_year = week_info[0]
         self.week = week_info[1]
@@ -163,7 +168,10 @@ class NavigationView:
                 'istoday': istoday}
 
     def getDateFormat(self):
-        return translate(_('%Y-%m-%d'))
+        return translate(_('%Y-%m-%d'), context=self.request)
+
+    def getLongDateFormat(self):
+        return translate(_('%(day)s %(month)s %(year)s'), context=self.request)
 
 class YearNavigationView(NavigationView):
     """The navigation view for year views"""

@@ -885,14 +885,21 @@ msgstr ""
 "mois>> est similaire mais en comptant de la  fin du mois, par exemple "
 "l'avant-dernier vendredi du mois."
 
+# Short date format (for help texts)
 msgid "YYYY-MM-DD"
 msgstr "JJ/MM/AAAA"
 
+# Short date (for strftime)
 msgid "%Y-%m-%d"
 msgstr "%d/%m/%Y"
 
+# Really short date (for strftime)
 msgid "%d/%m"
 msgstr "%d/%m"
+
+# Long date format, used for replacing in python:
+msgid "%(day)s %(month)s %(year)s"
+msgstr "%(day)s %(month)s %(year)s"
 
 msgid "Updated on %(date_time)s"
 msgstr "Dernière mise à jour: %(date_time)s"
