@@ -1,4 +1,25 @@
 ===========================================================
+Package: CalZope 2.8.1
+===========================================================
+First release built by: ogrisel at: 2006-10-10T11:45:34
+SVN Tag: https://svn.nuxeo.org/pub/Zope2/CalZope/tags/2.8.1
+Build from: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk@49442
+
+Requires
+~~~~~~~~
+-
+New features
+~~~~~~~~~~~~
+-
+Bug fixes
+~~~~~~~~~
+- Updated Spanish translation thanks to Jesús Martín.
+- The BusyChecker errors were not translated.
+New internal features
+~~~~~~~~~~~~~~~~~~~~~
+- 
+
+===========================================================
 Package: CalZope 2.8.0
 ===========================================================
 First release built by: ogrisel at: 2006-10-04T21:19:18
