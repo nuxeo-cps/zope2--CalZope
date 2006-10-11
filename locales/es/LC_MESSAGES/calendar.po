@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CalZope\n"
 "POT-Creation-Date: 2005-10-02 14:40default\n"
-"PO-Revision-Date: 2006-08-17 09:54+0100\n"
+"PO-Revision-Date: 2006-10-10 18:10+0100\n"
 "Last-Translator: Jesús Martín <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
 "MIME-Version: 1.0\n"
@@ -844,21 +844,14 @@ msgid ""
 "                      end of month (e.g. 2nd last Friday of a month)."
 msgstr "Especificación de la frecuencia mensual"
 
-# Short date format (for help texts)
 msgid "YYYY-MM-DD"
 msgstr "DD-MM-AAAA"
 
-# Short date (for strftime)
 msgid "%Y-%m-%d"
 msgstr "%d-%m-%Y"
 
-# Really short date (for strftime)
 msgid "%d/%m"
 msgstr "%d-%m"
-
-# Long date format, used for replacing in python:
-msgid "%(day)s %(month)s %(year)s"
-msgstr ""
 
 msgid "Updated on %(date_time)s"
 msgstr "Última actualización: %(date_time)s"
@@ -992,10 +985,11 @@ msgstr "Hoy"
 
 # Busy checker:
 msgid "The attendee is busy during this event"
-msgstr ""
+msgstr "El participante está ocupado durante este evento"
 
 msgid "This attendee is busy during the selected period"
-msgstr ""
+msgstr "Los participantes ya están ocupados en el perído seleccionado"
 
 msgid "Some attendees are busy during the selected period: %(users)s"
-msgstr ""
+msgstr "Algunos participantes ya están ocupados en el perído seleccionado: %(users)s"
+
