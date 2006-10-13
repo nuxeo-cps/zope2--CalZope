@@ -1,26 +1,31 @@
 <html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
   <metal:block fill-slot="style_slot">
-    <style type="text/css" media="all" 
+    <style type="text/css" media="all"
       tal:content="string:@import url(${context/absolute_url}/++resource++calendar.css);"
     />
-  </metal:block>  
-  
+  </metal:block>
+
   <body metal:fill-slot="body"
-    tal:define="event context" 
+    tal:define="event context"
     >
-      
+
     <div class="eventTitle">
       <div class="contextlinks" style="float: right"
         >
         <tal:block i18n:translate="message_see_this_events_prefix">see this event's</tal:block>
-        <a tal:attributes="href view/getDayUrl" i18n:translate="">day</a>, 
-        <a tal:attributes="href view/getWeekUrl" i18n:translate="">week</a>, 
+        <a tal:attributes="href view/getDayUrl" i18n:translate="">day</a>,
+        <a tal:attributes="href view/getWeekUrl" i18n:translate="">week</a>,
         <a tal:attributes="href view/getMonthUrl" i18n:translate="">month</a
         ><tal:block i18n:translate="message_see_this_events_postfix">.</tal:block>
       </div>
-      
+
       <h1>
-        <tal:block content="event/title"/>
+        <tal:comment condition="nothing">
+          <!-- Use 'structure' so that the 'xmlcharref' fallback of the
+          unicode to browser encoding implicit conversion is not escaped
+          by the TAL machinery -->
+        </tal:comment>
+        <tal:block content="structure event/title"/>
       </h1>
     </div>
 
@@ -46,9 +51,9 @@
             </td>
           </tr>
         </tal:block>
-        
+
         <tal:block condition="context/allday">
-          <tal:block 
+          <tal:block
             define="
               startdate view/startdate;
               enddate view/enddate;
@@ -83,8 +88,8 @@
           </tal:block>
         </tal:block>
 
-        <tal:block 
-          define="recurrence view/getRecurrenceRule;" 
+        <tal:block
+          define="recurrence view/getRecurrenceRule;"
           condition="python:recurrence is not None">
           <tr>
             <td class="rowlabel"><tal:block i18n:translate="label_recurrence">Recurrence</tal:block>:</td>
@@ -93,14 +98,14 @@
                 <!-- This part is necessarily complex. We need different labels
                   per day, week, month and year, because of gender differences.
                   We also need to differentiate between events that happen
-                  every time, every other time, or with other intervals, 
+                  every time, every other time, or with other intervals,
                   because not only is there a singular/plural difference,
-                  some languges, such as swedish, has a special case for 
+                  some languges, such as swedish, has a special case for
                   "every other", and you simply can not say "every 2 days",
                   event though two is *not* a special case in normal plural
                   handling. /-->
                 <tal:block condition="python:recurrence.interval == 1"
-                  i18n:translate="">Every <tal:block 
+                  i18n:translate="">Every <tal:block
                   replace="recurrence/unit"
                 /></tal:block
                 ><tal:block condition="python:recurrence.interval == 2"
@@ -108,7 +113,7 @@
                   replace="recurrence/unit"
                 /></tal:block
                 ><tal:block condition="python:recurrence.interval > 2"
-                  i18n:translate="">Every <tal:block 
+                  i18n:translate="">Every <tal:block
                   content="recurrence/interval" i18n:name="count"
                 /> <tal:block replace="recurrence/unit"/>s</tal:block
                 ><tal:block condition="recurrence/count" i18n:translate=""
@@ -121,11 +126,11 @@
             </td>
           </tr>
         </tal:block>
-        
+
         <tr>
           <td class="rowlabel"><tal:block i18n:translate="label_location">Location</tal:block>:</td>
           <td>
-            <b tal:content="context/location" />
+            <b tal:content="structure context/location" />
           </td>
         </tr>
         <tr tal:condition="context/transparent">
@@ -152,7 +157,7 @@
           <td class="rowlabel"><tal:block i18n:translate="label_categories">Categories</tal:block>:</td>
           <td>
             <tal:block tal:repeat="category context/categories">
-              <b tal:content="category" />
+              <b tal:content="structure category" />
               <br tal:condition="not: repeat/category/end" />
             </tal:block>
           </td>
@@ -165,7 +170,7 @@
             </a>
           </td>
         </tr>
-      
+
       </table>
 
       <div class="eventDescription">
@@ -175,7 +180,7 @@
           </b>
         </div>
         <div>
-          <tal:block content="event/description" />
+          <tal:block content="structure event/description" />
         </div>
       </div>
       <div class="eventDescription">
@@ -183,7 +188,7 @@
           <b i18n:translate="label_attendee_list">
             List of attendees:
           </b>
-        </div>  
+        </div>
         <table>
           <thead>
             <tr align="left">
@@ -205,13 +210,13 @@
                 >
                 <td>
                   <tal:block content="attendee/title" />
-                  (<tal:block content="python: attendee.getAttendeeType()" 
-                    i18n:translate="" /><tal:block 
+                  (<tal:block content="python: attendee.getAttendeeType()"
+                    i18n:translate="" /><tal:block
                     condition="python:attendee.getId() == context.getOrganizerId()">,
                     <tal:block i18n:translate="">label_organizer</tal:block>
                    </tal:block>)
                 </td>
-                <tal:block 
+                <tal:block
                   define="
                     status python: event.getParticipationStatus(attendee);
                     statuslist python: management.validStatusList(attendee);
@@ -231,7 +236,7 @@
             </tal:block>
           </tbody>
         </table>
-        
+
       </div>
     </div>
   </body>
