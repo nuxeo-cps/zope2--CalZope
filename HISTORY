@@ -1,4 +1,25 @@
 ===========================================================
+Package: CalZope 2.8.4
+===========================================================
+First release built by: ogrisel at: 2006-10-15T22:40:12
+SVN Tag: https://svn.nuxeo.org/pub/Zope2/CalZope/tags/2.8.4
+Build from: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk@49572
+
+Requires
+~~~~~~~~
+-
+New features
+~~~~~~~~~~~~
+-
+Bug fixes
+~~~~~~~~~
+- use structure on event attributes in the event view so that xmlcharref
+  characters are not escaped by TAL
+New internal features
+~~~~~~~~~~~~~~~~~~~~~
+- 
+
+===========================================================
 Package: CalZope 2.8.3
 ===========================================================
 First release built by: ogrisel at: 2006-10-11T20:19:21

@@ -6,8 +6,7 @@ New features
 -
 Bug fixes
 ~~~~~~~~~
-- use structure on event attributes in the event view so that xmlcharref
-  characters are not escaped by TAL
+-
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
 - 
