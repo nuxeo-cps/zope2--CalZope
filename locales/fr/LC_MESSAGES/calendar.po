@@ -1037,10 +1037,10 @@ msgstr "Plus..."
 
 # Busy checker:
 msgid "The attendee is busy during this event"
-msgstr "Il existe deja un évènement pour cette agenda dans cette evenement"
+msgstr "Il existe deja un évènement pour cette agenda sur cette evenement"
 
 msgid "This attendee is busy during the selected period"
-msgstr "Il existe deja un évènement dans cette periode"
+msgstr "Il existe deja un évènement sur cette periode"
 
 msgid "Some attendees are busy during the selected period: %(users)s"
-msgstr "Il existe deja un évènement dans cette periode pour: %(users)s"
+msgstr "Il existe deja un évènement sur cette periode pour: %(users)s"
