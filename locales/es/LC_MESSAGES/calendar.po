@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CalZope\n"
 "POT-Creation-Date: 2005-10-02 14:40default\n"
-"PO-Revision-Date: 2006-10-10 18:10+0100\n"
+"PO-Revision-Date: 2006-11-03 17:37+0100\n"
 "Last-Translator: Jesús Martín <jesusmartin@lasalle.es>\n"
 "Language-Team: español <jesusmartin@lasalle.es>\n"
 "MIME-Version: 1.0\n"
@@ -192,7 +192,7 @@ msgstr "Accesibilidad"
 #.   <block>Attached Document</block>
 #: from ../skins/event.pt
 msgid "label_attached_document"
-msgstr "Nombre del fichero adjunto"
+msgstr "Nombre del archivo adjunto"
 
 #.   <b>
 #.               List of attendees:
@@ -243,6 +243,9 @@ msgstr "Fecha"
 msgid "day"
 msgstr "Día"
 
+msgid "Day"
+msgstr "Día"
+
 #.   <label for="desc_field">label_description</label>
 #.   <b>
 #.               Description:
@@ -291,6 +294,9 @@ msgstr "Organizar una reunión"
 #.   <a attributes="href view/getMonthUrl">month</a>
 #: from ../skins/attendees.pt ../skins/event.pt
 msgid "month"
+msgstr "mes"
+
+msgid "Month"
 msgstr "Mes"
 
 #.   <h3>
@@ -777,6 +783,9 @@ msgstr "D"
 msgid "week"
 msgstr "semana"
 
+msgid "Week"
+msgstr "Semana"
+
 msgid "year"
 msgstr "Año"
 
@@ -827,6 +836,7 @@ msgid ""
 "        if that weekday is not in this set."
 msgstr "Seleccione en qué días ocurren los eventos"
 
+#, fuzzy
 msgid ""
 "Specification of monthly occurence behaviour.\n"
 "\n"
@@ -982,6 +992,9 @@ msgstr "Esta semana"
 
 msgid "label_current_day"
 msgstr "Hoy"
+
+msgid "More..."
+msgstr "Más..."
 
 # Busy checker:
 msgid "The attendee is busy during this event"
