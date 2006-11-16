@@ -84,9 +84,9 @@ msgstr "Editez quelque chose"
 msgid "Events you are attending"
 msgstr "Évènements auxquels vous participez"
 
-#.   <h1>Events you organized</h1>
+#.   <h1>Events you organize</h1>
 #: from ../skins/organized_events.pt
-msgid "Events you organized"
+msgid "Events you organize"
 msgstr "Évènements que vous organisez"
 
 #.   <h1>Import iCalendar file</h1>

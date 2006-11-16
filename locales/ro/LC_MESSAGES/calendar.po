@@ -82,10 +82,10 @@ msgstr "Editeaza"
 msgid "Events you are attending"
 msgstr "Événements auxquels vous participez"
 
-#.   <h1>Events you organized</h1>
+#.   <h1>Events you organize</h1>
 #: from ../skins/organized_events.pt
 #, fuzzy
-msgid "Events you organized"
+msgid "Events you organize"
 msgstr "Événements que vous organisez"
 
 #.   <block>Every</block>

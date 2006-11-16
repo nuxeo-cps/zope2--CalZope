@@ -6,7 +6,7 @@
 </metal:block>
 <metal:block fill-slot="body">
   <div class="eventTitle">
-    <h1 i18n:translate="">Events you organized</h1>
+    <h1 i18n:translate="">Events you organize</h1>
   </div>
   <div class="event">
     <div class="eventDescription">

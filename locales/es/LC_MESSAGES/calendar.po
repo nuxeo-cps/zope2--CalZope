@@ -79,9 +79,9 @@ msgstr "Editar algo"
 msgid "Events you are attending"
 msgstr "Eventos a los que asiste"
 
-#.   <h1>Events you organized</h1>
+#.   <h1>Events you organize</h1>
 #: from ../skins/organized_events.pt
-msgid "Events you organized"
+msgid "Events you organize"
 msgstr "Eventos que ha organizado"
 
 #.   <h1>Import iCalendar file</h1>

@@ -76,15 +76,13 @@ msgstr ""
 
 #.   <h1>Events you are attending</h1>
 #: from ../skins/attended_events.pt
-#, fuzzy
 msgid "Events you are attending"
-msgstr "${amount} events you attend"
+msgstr "Events you are attending"
 
-#.   <h1>Events you organized</h1>
+#.   <h1>Events you organize</h1>
 #: from ../skins/organized_events.pt
-#, fuzzy
-msgid "Events you organized"
-msgstr "${amount} events you organize"
+msgid "Events you organize"
+msgstr "Events you organize"
 
 #.   <h1>Import iCalendar file</h1>
 #: from ../skins/ical_import.pt
