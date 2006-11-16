@@ -289,6 +289,11 @@ class EventView(BrowserView):
         asrc = zapi.getUtility(IZopeAttendeeSource, context=self.context)
         organizer = asrc.getAttendee(organizer)
         return organizer.title
+    
+    def url(self):
+        calendar = self.context.getCalendar()
+        calurl = calendar.absolute_url()
+        return calurl + '/event/' + self.context.unique_id
         
     
 class AttendeeManagementView(BrowserView):

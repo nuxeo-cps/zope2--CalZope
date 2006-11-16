@@ -8,6 +8,7 @@ Bug fixes
 ~~~~~~~~~
 - Spelling fixes in french translation.
 - Updated Spanish translation.
+- The event URL in the generic event list macro is now more stable.
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
 - 

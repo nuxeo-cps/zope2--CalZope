@@ -45,7 +45,7 @@
     <td>
       <a 
         tal:content="event/title"
-        tal:attributes="href string:event/${event/unique_id}"
+        tal:attributes="href eventview/url"
       />
     </td>
     <td 
