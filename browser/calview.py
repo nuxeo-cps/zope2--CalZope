@@ -145,13 +145,13 @@ class CalendarEditView:
         res =  []
         for attendee in result:
             id = attendee.getAttendeeId()
+            # Filter out the ones that exist already
+            if id in attendeelist:
+                continue
             cal = attendee_source.getMainCalendarForAttendeeId(id)
             # Check that you have view permission (or no calendar exists)
             if (cal is not None and
                 not self.checkPermission('View calendar', cal)):
-                continue
-            # Filter out the ones that exist already
-            if id in attendeelist:
                 continue
             res.append(attendee)
         return res
