@@ -1,0 +1,1004 @@
+# Gettext Message File for calendar.
+# Dragos Ivan <div@nuxeo.com>, 2005.
+# Lennart Regebro <regebro@nuxeo.com>, 2005.
+msgid ""
+msgstr ""
+"Project-Id-Version: CalZope\n"
+"POT-Creation-Date: 2005-10-02 14:40default\n"
+"PO-Revision-Date: 2006-11-16 15:31+0100\n"
+"Last-Translator: Jesus Martin <jesusmartin@lasalle.es>\n"
+"Language-Team: euskera <perikoalkain@lasalle.es>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Code: fr\n"
+"Language-Name: Spanish\n"
+"Preferred-Encodings: latin9\n"
+"Domain: default\n"
+"X-Generator: KBabel 1.3.1\n"
+"X-Poedit-Language: basque\n"
+"X-Poedit-Country: SPAIN\n"
+
+#.   <a href="action_needed_events.html">
+#.                 ${amount (tal replace="needs_action_amount")} events that need action</a>
+#: from ../skins/calendar.pt
+msgid "${amount} events that need action"
+msgstr " ${amount} gertaera zain dituzu"
+
+#.   <a href="attended_events.html">
+#.                 ${amount (tal replace="attended_amount")}
+#.                 events you attend</a>
+#: from ../skins/calendar.pt
+msgid "${amount} events you attend"
+msgstr " ${amount} gertaeratan hartzen duzu parte"
+
+#.   <a href="organized_events.html">
+#.                 ${amount (tal replace="organized_amount")} events you organize</a>
+#: from ../skins/calendar.pt
+msgid "${amount} events you organize"
+msgstr " ${amount} gertaera antolatzen dituzu"
+
+#.   <block condition="recurrence/count">, for ${count (tal content="recurrence/count")} times</block>
+#: from ../skins/event.pt
+msgid ", for ${count} times"
+msgstr ", ${count} aldiz"
+
+#.   <block condition="recurrence/until">, until ${date (tal content="recurrence/until")}</block>
+#: from ../skins/event.pt
+msgid ", until ${date}"
+msgstr " ${date} arte"
+
+#.   <a class="addEventShortcut" title="Add event" attributes="href string:${dayurl}/+/addevent.html" define="dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};">
+#.             +
+#.           </a>
+#.   <a class="addEventShortcut" title="Add event" attributes="href string:${dayurl}/+/addevent.html">
+#.               +
+#.             </a>
+#: from ../skins/day.pt ../skins/month.pt ../skins/week_macro.pt
+msgid "Add event"
+msgstr "Gertaera erantsi"
+
+#.   <h1>Do you want to delete this event?</h1>
+#: from ../skins/eventdelete.pt
+msgid "Do you want to delete this event?"
+msgstr "Gertaera hau ezabatu nahi duzu?"
+
+#.   <span>Edit calendar</span>
+#: from ../skins/calendar_edit.pt
+msgid "Edit calendar"
+msgstr "Egutegia editatu"
+
+#.   <h1 content="view/label" condition="view/label" define-slot="heading">Edit something</h1>
+#: from ../skins/edit.pt
+msgid "Edit something"
+msgstr "Zerbait editatu"
+
+#.   <h1>Events you are attending</h1>
+#: from ../skins/attended_events.pt
+msgid "Events you are attending"
+msgstr "Joango zaren gertaeretara"
+
+#.   <h1>Events you organized</h1>
+#: from ../skins/organized_events.pt
+msgid "Events you organized"
+msgstr "Antolatu dituzun gertaerak"
+
+#.   <h1>Import iCalendar file</h1>
+#: from ../skins/ical_import.pt
+msgid "Import iCalendar file"
+msgstr "Egutegia inportatu"
+
+#.   <p>Search in full names and titles of users.</p>
+#: from ../skins/meetinghelper.pt
+msgid "Search in full names and titles of users."
+msgstr "Erabiltzaileak izenez bkilatu"
+
+#.   <p condition="view/errors">
+#.             There are ${num_errors (tal content="python:len(view.errors)")} input errors.
+#.           </p>
+#: from ../skins/edit.pt
+msgid "There are ${num_errors} input errors."
+msgstr " $(num_errors) hautapen-akats daude"
+
+#.   <input type="text" name="search_query" title="Use * to list all attendees (may take a very long time)" />
+#: from ../skins/meetinghelper.pt
+msgid "Use * to list all attendees (may take a very long time)"
+msgstr " * erabil ezazu partaideen zerrenda erakusteko (luze jo dezake)"
+
+#.   <block>
+#.             Week ${week (tal replace="thisweek")}
+#.           </block>
+#.   <block>
+#.           Week ${week (tal replace="view/week")}
+#.         </block>
+#: from ../skins/month.pt ../skins/week_macro.pt
+msgid "Week ${week}"
+msgstr " ${week} astea"
+
+#.   <input type="submit" name="UPDATE_ADD" value="button_add" condition="results" />
+#.   <input condition="results" type="submit" name="UPDATE_ADD" value="button_add" />
+#: from ../skins/attendees.pt ../skins/meetinghelper.pt
+msgid "button_add"
+msgstr "Gehitu"
+
+#.   <input type="submit" name="SUBMIT_CANCEL" value="button_cancel" />
+#: from ../skins/eventdelete.pt
+msgid "button_cancel"
+msgstr "Ezeztatu"
+
+#.   <input type="submit" name="UPDATE_STATUS" value="button_change" />
+#.   <input name="SUBMIT_EDIT" type="submit" class="standalone" value="button_change" />
+#.   <input type="submit" name="update_participation_status" value="button_change" />
+#: from ../skins/attendees.pt ../skins/calendar_edit.pt
+#: ../skins/eventlist_macro.pt
+msgid "button_change"
+msgstr "Aldatu"
+
+#.   <input type="submit" name="SUBMIT_DELETE" value="button_confirm" />
+#: from ../skins/eventdelete.pt
+msgid "button_confirm"
+msgstr "Berretsi"
+
+#.   <input type="submit" name="UPDATE_REFRESH" value="button_refresh" />
+#: from ../skins/edit.pt
+msgid "button_refresh"
+msgstr "Gaurkotu"
+
+#.   <input type="submit" name="UPDATE_REMOVE" value="button_remove" condition="view/canManageAttendees" />
+#.   <input type="submit" name="UPDATE_REMOVE" value="button_remove" />
+#: from ../skins/attendees.pt ../skins/calendar_edit.pt
+#: ../skins/meetinghelper.pt
+msgid "button_remove"
+msgstr "Ezabatu"
+
+#.   <input type="submit" name="UPDATE_SEARCH" value="button_search" />
+#.   <input type="submit" name="UPDATE_USER_SEARCH" value="button_search" />
+#: from ../skins/attendees.pt ../skins/meetinghelper.pt
+msgid "button_search"
+msgstr "Bilatu"
+
+#.   <input type="submit" name="UPDATE_SEARCH_FREETIME" value="button_search_for_free_time" />
+#: from ../skins/meetinghelper.pt
+msgid "button_search_for_free_time"
+msgstr "Une libreen bilaketa"
+
+#.   <input type="submit" name="UPDATE_SUBMIT" value="button_submit" />
+#.   <input type="submit" name="SUBMIT_IMPORT" value="button_submit" />
+#: from ../skins/edit.pt ../skins/ical_import.pt
+msgid "button_submit"
+msgstr "Bidali"
+
+#.   <p>
+#.           With multiple calendar view, you can see the events from several
+#.           calendars as if they were one.
+#.         </p>
+#: from ../skins/calendar_edit.pt
+msgid "description_multiple_calendar_view"
+msgstr "Egutegien ikuspegi anizkoitzari esker, egutegi batzuen gertaerak egutegi bakar batean ikus ditzakezu."
+
+#.   <label for="file_field">
+#.                 Filename
+#.               </label>
+#: from ../skins/ical_import.pt
+msgid "filename_label"
+msgstr "Artxiboaren izena"
+
+#.   <block>Access</block>
+#: from ../skins/event.pt
+msgid "label_access"
+msgstr "Erabilerraztasuna"
+
+#.   <block>Attached Document</block>
+#: from ../skins/event.pt
+msgid "label_attached_document"
+msgstr "Atxikitutako fitxategiaren izena"
+
+#.   <b>
+#.               List of attendees:
+#.             </b>
+#: from ../skins/event.pt
+msgid "label_attendee_list"
+msgstr "Partaideak"
+
+#.   <th>name</th>
+#: from ../skins/attendees.pt ../skins/event.pt
+msgid "label_attendee_name"
+msgstr "Izena"
+
+#.   <th>status</th>
+#: from ../skins/attendees.pt
+msgid "label_attendee_status"
+msgstr "Egoera"
+
+#.   <block>Categories</block>
+#: from ../skins/event.pt
+msgid "label_categories"
+msgstr "Kategoriak"
+
+#.   <a attributes="href string:+/addmeeting.html?${timeurl}">
+#.             Add event</a>
+#: from ../skins/meetinghelper.pt
+msgid "label_add_event"
+msgstr "Gertaera erantsi"
+
+#.   <h3>Current attendees</h3>
+#: from ../skins/meetinghelper.pt
+msgid "label_current_attendees"
+msgstr "Oraingo partaideak"
+
+#.   <h4>label_currently_visible_calendars</h4>
+#: from ../skins/calendar_edit.pt
+msgid "label_currently_visible_calendars"
+msgstr "Orain ikus daitezkeen egutegiak"
+
+#.   <block>Date</block>
+#: from ../skins/event.pt
+msgid "label_date"
+msgstr "Data"
+
+#.   <a attributes="href eventview/getDayUrl">day</a>
+#.   <a attributes="href view/getDayUrl">day</a>
+#: from ../skins/attendees.pt ../skins/event.pt
+msgid "day"
+msgstr "eguna"
+
+msgid "Day"
+msgstr "Eguna"
+
+#.   <label for="desc_field">label_description</label>
+#.   <b>
+#.               Description:
+#.             </b>
+#: from ../skins/calendar_edit.pt ../skins/event.pt
+msgid "label_description"
+msgstr "Deskribapena"
+
+#.   <block>Duration</block>
+#.   <th>Duration</th>
+#: from ../skins/event.pt ../skins/eventlist_macro.pt
+msgid "label_duration"
+msgstr "Iraupena"
+
+#.   <block>Ends</block>
+#.   <th>Ends</th>
+#: from ../skins/event.pt ../skins/meetinghelper.pt
+msgid "label_ends"
+msgstr "Amaiera"
+
+#.   <b>
+#.             List of attendees
+#.           </b>
+#: from ../skins/attendees.pt
+msgid "label_list_of_attendees"
+msgstr "Partaideak"
+
+#.   <h3>List of matching times</h3>
+#: from ../skins/meetinghelper.pt
+msgid "label_list_of_matching_times"
+msgstr "Libre dituzten aldiune komunak"
+
+#.   <block>Location</block>
+#: from ../skins/event.pt
+msgid "label_location"
+msgstr "Kokapena"
+
+#.   <h1>
+#.         Meeting helper
+#.       </h1>
+#: from ../skins/meetinghelper.pt
+msgid "label_meeting_helper"
+msgstr "Bilera bat antolatu"
+
+#.   <a attributes="href eventview/getMonthUrl">month</a>
+#.   <a attributes="href view/getMonthUrl">month</a>
+#: from ../skins/attendees.pt ../skins/event.pt
+msgid "month"
+msgstr "hilabetea"
+
+msgid "Month"
+msgstr "Hilabetea"
+
+#.   <h3>
+#.             Multiple calendar view
+#.           </h3>
+#: from ../skins/calendar_edit.pt
+msgid "label_multiple_calendar_view"
+msgstr "Ikuspegi anizkoitza"
+
+#.   <td>No attendees selected</td>
+#: from ../skins/calendar_edit.pt ../skins/meetinghelper.pt
+msgid "label_no_attendees_selected"
+msgstr "Partaide bat, gutxienez, hautatu behar duzu"
+
+#.   <block>Recurrence</block>
+#: from ../skins/event.pt
+msgid "label_recurrence"
+msgstr "Maiztasuna"
+
+#.   <b>
+#.               Search for attendees
+#.             </b>
+#.   <h3>Search for attendees</h3>
+#: from ../skins/attendees.pt ../skins/meetinghelper.pt
+msgid "label_search_for_attendees"
+msgstr "Partaide-bilaketa"
+
+#.   <h4>label_search_for_calendars_to_add</h4>
+#: from ../skins/calendar_edit.pt
+msgid "label_search_for_calendars_to_add"
+msgstr "Egutegi-bilaketa"
+
+#.   <input type="submit" name="UPDATE_SEARCH_FREETIME" value="label_search_for_free_time" />
+#: from ../skins/meetinghelper.pt
+msgid "label_search_for_free_time"
+msgstr "Aldiune libre eta komunen bilaketa"
+
+#.   <b>
+#.                 Search results
+#.               </b>
+#.   <h4>Search results</h4>
+#.   <h3>Search results</h3>
+#: from ../skins/attendees.pt ../skins/calendar_edit.pt
+#: ../skins/meetinghelper.pt
+msgid "label_search_results"
+msgstr "Bilaketaren emaitza"
+
+#.   <h3>Select Timespan</h3>
+#: from ../skins/meetinghelper.pt
+msgid "label_select_timespan"
+msgstr "Epe bat aukeratu"
+
+#.   <th>Start</th>
+#: from ../skins/eventlist_macro.pt
+msgid "label_start"
+msgstr "Hasiera"
+
+#.   <block>Starts</block>
+#.   <th>Starts</th>
+#: from ../skins/event.pt ../skins/meetinghelper.pt
+msgid "label_starts"
+msgstr "Hasierak"
+
+#.   <block>Status</block>
+#.   <th>status</th>
+#.   <th>Status</th>
+#: from ../skins/event.pt ../skins/eventlist_macro.pt
+msgid "label_status"
+msgstr "Egoera"
+
+#.   <label for="title_field">label_title</label>
+#.   <th>Title</th>
+#: from ../skins/calendar_edit.pt ../skins/eventlist_macro.pt
+msgid "label_title"
+msgstr "Izenburua"
+
+#.   <a attributes="href string:${view/getCalendarUrl}/${today/year}/${today/month}/${today/day}" define="today view/getTodayInfo">
+#.       Today
+#.     </a>
+#: from ../skins/day.pt ../skins/month.pt ../skins/week_macro.pt
+msgid "label_today"
+msgstr "Gaur"
+
+#.   <block>Not Busy</block>
+#: from ../skins/event.pt
+msgid "label_transparent"
+msgstr "gardena"
+
+msgid "label_organizer"
+msgstr "Antolatzailea"
+
+#.   <label for="type_field">label_type</label>
+#: from ../skins/calendar_edit.pt
+msgid "label_type"
+msgstr "Mota"
+
+#.   <h2>Weeks</h2>
+#: from ../skins/weeklist.pt
+msgid "Weeks"
+msgstr "Asteak"
+
+#.   <block>Year</block>
+#: from ../skins/weekyear.pt ../skins/year.pt
+msgid "Year"
+msgstr "Urtea"
+
+#.   <h1>
+#.         Events that need action from you
+#.       </h1>
+#: from ../skins/action_needed_events.pt
+msgid "message_events_action_is_needed_for"
+msgstr "Gertaerak"
+
+#.   <block>.</block>
+#: from ../skins/attendees.pt ../skins/event.pt
+msgid "message_see_this_events_postfix"
+msgstr "gertaera honen"
+
+#.   <block>see this event's</block>
+#: from ../skins/attendees.pt ../skins/event.pt
+msgid "message_see_this_events_prefix"
+msgstr "Ikusi"
+
+#.   <h4>
+#.       Select new participation status
+#.     </h4>
+#: from ../skins/eventlist_macro.pt
+msgid "message_select_new_participation_status"
+msgstr "Aukeratu egoera"
+
+#.   <b>
+#.                     This is an all-day event.
+#.                   </b>
+#: from ../skins/event.pt
+msgid "message_this_is_an_all_day_event"
+msgstr "Egun osoko gertaera"
+
+#.   <b>
+#.                 You can be invited to meetings during this event.
+#.               </b>
+#: from ../skins/event.pt
+msgid "transparent_description"
+msgstr "Gertaera honetarako prest egon"
+
+#.   <block>you have</block>
+#: from ../skins/calendar.pt
+msgid "you have"
+msgstr "Bad(it)uzu"
+
+# Role names:
+msgid "AttendeeManager"
+msgstr "Agendaren arduraduna"
+
+msgid "AttendeeReader"
+msgstr "Agendaren irakurlea"
+
+msgid "EventParticipant"
+msgstr "Gertaeraren partaidea"
+
+msgid "EventOrganizer"
+msgstr "Gertaeraren antolatzailea"
+
+msgid "EventReader"
+msgstr "Gertaeraren irakurlea"
+
+# Event status
+msgid "CANCELED"
+msgstr "Ezeztatua"
+
+msgid "CONFIRMED"
+msgstr "Berretsia"
+
+msgid "TENTATIVE"
+msgstr "Berrespenaren zain"
+
+msgid "ACCEPTED"
+msgstr "Onartuta"
+
+msgid "DELEGATED"
+msgstr "Ordezkatuta"
+
+msgid "DECLINED"
+msgstr "Ukatuta"
+
+msgid "NEEDS-ACTION"
+msgstr "Tratatzekoak"
+
+msgid "needs-action"
+msgstr "Tratatzekoak"
+
+msgid "label_true"
+msgstr "Bai"
+
+msgid "label_false"
+msgstr "Ez"
+
+msgid "accepted"
+msgstr "Onartuta"
+
+msgid "delegated"
+msgstr "Ordezkatuta"
+
+msgid "declined"
+msgstr "Ukatuta"
+
+msgid "tentative"
+msgstr "Berrespenaren zain"
+
+# Visibility
+msgid "PRIVATE"
+msgstr "Pribatua"
+
+msgid "PUBLIC"
+msgstr "Publikoa"
+
+msgid "CONFIDENTIAL"
+msgstr "Konfidentziala"
+
+# For event display
+msgid "Private Event"
+msgstr "Gertaera pribatua"
+
+# Attendee types
+msgid "INDIVIDUAL"
+msgstr "Bakarka"
+
+msgid "RESOURCE"
+msgstr "Baliabidea"
+
+msgid "WORKSPACE"
+msgstr "Lan-esparrua"
+
+msgid "Search between"
+msgstr "Bilatu hauen artean"
+
+msgid "First date"
+msgstr "Hasierako data"
+
+msgid "Last date"
+msgstr "Amaierako data"
+
+msgid "and"
+msgstr "eta"
+
+msgid "Duration"
+msgstr "Iraupena"
+
+msgid "Start searching from this date."
+msgstr "Bilatu data honetatik aurrera"
+
+msgid "Stop searching after this date."
+msgstr "Amaitu bilaketa data honetan"
+
+msgid "Start search at this hour"
+msgstr "Bilatu ordu honetatik aurrera"
+
+msgid "Stop search at this hour"
+msgstr "Amaitu bilaketa ordu honetan"
+
+msgid "The expected duration of the event"
+msgstr "Gertaeraren ustezko iraupena"
+
+msgid "Width"
+msgstr "Zabalera"
+
+msgid "The total width of the view"
+msgstr "Ikuspegiaren zabalera osoa"
+
+msgid "Height"
+msgstr "Altuera"
+
+msgid "The total height of the view"
+msgstr "Ikuspegiaren altuera osoa"
+
+msgid "First Day"
+msgstr "Lehenengo eguna"
+
+msgid "The first day of the view"
+msgstr "Ikuspegiaren lehenengo eguna"
+
+msgid "Days"
+msgstr "Egunak"
+
+msgid "The number of days shown"
+msgstr "Erakutsitako egun-kopurua"
+
+msgid "From hour"
+msgstr "Honako ordutik aurrera"
+
+msgid "The time at the top of the view"
+msgstr "Ikuspegiaren goiko aldean erakutsitako ordua"
+
+msgid "To hour"
+msgstr "Honako ordura arte"
+
+msgid "The time at the bottom of the view"
+msgstr "Ikuspegiaren beheko aldean erakutsitako ordua"
+
+msgid "Title"
+msgstr "Izenburua"
+
+msgid "The title of the event."
+msgstr "Gertaeraren izenburua"
+
+msgid "Description"
+msgstr "Deskribapena"
+
+msgid "A description of the event."
+msgstr "Gertaeraren deskribapena"
+
+msgid "Starts"
+msgstr "Hasiera"
+
+msgid "Date and time when this event starts."
+msgstr "Gertaeraren hasierako data eta ordua"
+
+msgid "Ends"
+msgstr "Amaiera"
+
+msgid "Date and time when this event ends."
+msgstr "Gertaeraren amaierako data eta ordua"
+
+msgid "Takes all day"
+msgstr "Egun osokoa"
+
+msgid "Check this box if the event goes on all day"
+msgstr "Klikatu ondoko leihatila gertaera egun osokoa bada"
+
+msgid "Not busy"
+msgstr "Prest"
+
+msgid "This event should not appear as busy time in the meeting helper."
+msgstr "Gertaera hau ez da agertzen hartutako ordu-zerrenda gisa bileraren antolakuntzarako"
+
+msgid "Location"
+msgstr "Kokapena"
+
+msgid "The location where this event takes place."
+msgstr "Gertaeraren kokapena"
+
+msgid "Status"
+msgstr "Egoera"
+
+msgid "The status of the event."
+msgstr "Gertaeraren egoera"
+
+msgid "Document"
+msgstr "Txostena"
+
+msgid "A document related to this event."
+msgstr "Gertaerari buruzko txostena"
+
+msgid "Categories"
+msgstr "Kategoriak"
+
+msgid "Categories for this event"
+msgstr "Gertaerarako kategoriak"
+
+msgid "Access"
+msgstr "Sarrera"
+
+msgid "Edit event"
+msgstr "Gertaera aldatu"
+
+# Error messages:
+msgid "Required input is missing."
+msgstr "Datuak falta dira"
+
+msgid "End must come after start"
+msgstr "Amaierako data hasierakoa baino beranduago izan behar"
+
+msgid "Invalid datetime data"
+msgstr "Baliorik gabeko data edota ordua"
+
+msgid "An error occured."
+msgstr "Akats bat gertatu da"
+
+msgid "Invalid duration"
+msgstr "Baliogabeko epea"
+
+msgid "Invalid time"
+msgstr "Baliogabeko ordua"
+
+msgid "Invalid value"
+msgstr "Baliogabeko balioa"
+
+msgid "Invalid integer data"
+msgstr "Baliogabeko data-epea"
+
+msgid "Edit recurrence"
+msgstr "Maiztasuna aldatu"
+
+msgid "No recurrence"
+msgstr "Maiztasunik gabe"
+
+msgid "Daily recurrence"
+msgstr "Eguneroko maiztasuna"
+
+msgid "Weekly recurrence"
+msgstr "Asteko maiztasuna"
+
+msgid "Monthly recurrence"
+msgstr "Hileko maiztasuna"
+
+msgid "Yearly recurrence"
+msgstr "Urteko maiztasuna"
+
+msgid "Edit Recurrence"
+msgstr "Maiztasuna aldatu"
+
+msgid "Recurrence type"
+msgstr "Maiztasun-mota"
+
+msgid "Interval"
+msgstr "Tartea"
+
+msgid "Count"
+msgstr "Kopuru osoa"
+
+# recurrence only. Just before a date...
+msgid "Until"
+msgstr "Noiz arte"
+
+msgid "Weekdays"
+msgstr "Egunak"
+
+msgid "nop"
+msgstr "Ez hauetan"
+
+msgid "monthday"
+msgstr "Hilaren"
+
+msgid "weekday"
+msgstr "Asteko eguna"
+
+msgid "lastweekday"
+msgstr "Hileko azken eguna"
+
+# pas tres clair, mais infobulle pour preciser
+# Long day labels
+msgid "weekday_0"
+msgstr "Astelehena"
+
+msgid "weekday_1"
+msgstr "Asteartea"
+
+msgid "weekday_2"
+msgstr "Asteazkena"
+
+msgid "weekday_3"
+msgstr "Osteguna"
+
+msgid "weekday_4"
+msgstr "Ostirala"
+
+msgid "weekday_5"
+msgstr "Larunbata"
+
+msgid "weekday_6"
+msgstr "Igandea"
+
+# The initial
+msgid "weekday_initial_0"
+msgstr "A"
+
+msgid "weekday_initial_1"
+msgstr "A"
+
+msgid "weekday_initial_2"
+msgstr "A"
+
+msgid "weekday_initial_3"
+msgstr "O"
+
+msgid "weekday_initial_4"
+msgstr "O"
+
+msgid "weekday_initial_5"
+msgstr "L"
+
+msgid "weekday_initial_6"
+msgstr "I"
+
+msgid "week"
+msgstr "astea"
+
+msgid "year"
+msgstr "Urtea"
+
+msgid "psm_file_uploaded"
+msgstr "Inportatutako fitxategia"
+
+msgid "Behaviour"
+msgstr "Portaera"
+
+msgid "Date selector"
+msgstr "Aukeratu data"
+
+msgid "Selects the recurrence rule for the object"
+msgstr "Aukera ezazu gertaerarako maiztasun-mota"
+
+# Yes, we would really like to use a short ID here,
+# but we can't do that until Five 1.2, unfortunately.
+msgid ""
+"Interval of recurrence (a positive integer).\n"
+"\n"
+"        For example, to indicate that an event occurs every second day,\n"
+"        you would create a DailyRecurrenceRule witl interval equal to 2."
+msgstr "Maiztasun-tartea: bi egunetik behin ematen den gertaerarentzat, adibidez, sor ezazu  2ko tartea duen maiztasun-tartea"
+
+msgid ""
+"Number of times the event is repeated.\n"
+"\n"
+"        Can be None or an integer value.  If count is not None then\n"
+"        until must be None.  If both count and until are None the\n"
+"        event repeats forever."
+msgstr "Gertaera bat errepikatzen den aldi-kopurua (zero edota zenbaki oso bat izan daiteke)"
+
+msgid ""
+"The date of the last recurrence of the event.\n"
+"\n"
+"        Can be None or a datetime.date instance.  If until is not None\n"
+"        then count must be None.  If both count and until are None the\n"
+"        event repeats forever."
+msgstr "Gertaera honen azken deialdiaren data. Hutsik utz daiteke. Eremu hau bete bada,  <<aldi-kopurua>> eremuak hutsik egon behar du. Biak hutsik badaude, gertaera mugarik gabe errepikatuko da."
+
+msgid ""
+"A set of weekdays when this event occurs.\n"
+"\n"
+"        Weekdays are represented as integers from 0 (Monday) to 6 (Sunday).\n"
+"        This is what the `calendar` and `datetime` modules use.\n"
+"\n"
+"        The event repeats on the weekday of the first occurence even\n"
+"        if that weekday is not in this set."
+msgstr "Aukera itzazu gertaera-egunak"
+
+msgid ""
+"Specification of monthly occurence behaviour.\n"
+"\n"
+"        Can be one of three values: 'monthday', 'weekday', 'lastweekday'.\n"
+"\n"
+"        'monthday'    specifies that the event recurs on the same day of month\n"
+"                      (e.g., 25th day of a month).\n"
+"\n"
+"        'weekday'     specifies that the event recurs on the same week\n"
+"                      within a month on the same weekday, indexed from the\n"
+"                      first (e.g. 3rd Friday of a month).\n"
+"\n"
+"        'lastweekday' specifies that the event recurs on the same week\n"
+"                      within a month on the same weekday, indexed from the\n"
+"                      end of month (e.g. 2nd last Friday of a month)."
+msgstr "Hileko maiztasunaren zehaztapena"
+
+msgid "YYYY-MM-DD"
+msgstr "EE-HH-UUUU"
+
+msgid "%Y-%m-%d"
+msgstr "%e-%h-%U"
+
+msgid "%d/%m"
+msgstr "%e-%h"
+
+msgid "Updated on %(date_time)s"
+msgstr "Azken gaurkotzea: %(date_time)s"
+
+msgid "No events to list"
+msgstr "Zerrendan ez dago gertaerarik"
+
+msgid "days"
+msgstr "Egunak"
+
+msgid "weeks"
+msgstr "Asteak"
+
+msgid "months"
+msgstr "Hilabeteak"
+
+msgid "years"
+msgstr "urteak"
+
+msgid "Every day"
+msgstr "Egunero"
+
+msgid "Every week"
+msgstr "Astero"
+
+msgid "Every month"
+msgstr "Hilero"
+
+msgid "Every year"
+msgstr "Urtero"
+
+msgid "Every other day"
+msgstr "Bi egunero behin"
+
+msgid "Every other week"
+msgstr "Bi astero behin"
+
+msgid "Every other month"
+msgstr "Bi hilero behin"
+
+msgid "Every other year"
+msgstr "Bi urtero behin"
+
+msgid "Every ${count} days"
+msgstr " ${count} egunero behin"
+
+msgid "Every ${count} weeks"
+msgstr " ${count} astero behin"
+
+msgid "Every ${count} months"
+msgstr " ${count} hilero behin"
+
+msgid "Every ${count} years"
+msgstr " ${count} urtero behin"
+
+msgid "Who has access to this event."
+msgstr "Nor dago baimenduta gertaera honetarako?"
+
+# # Dates
+msgid "calendar_month_1"
+msgstr "Urtarrila"
+
+msgid "calendar_month_2"
+msgstr "Otsaila"
+
+msgid "calendar_month_3"
+msgstr "Martxoa"
+
+msgid "calendar_month_4"
+msgstr "Apirila"
+
+msgid "calendar_month_5"
+msgstr "Maiatza"
+
+msgid "calendar_month_6"
+msgstr "Ekaina"
+
+msgid "calendar_month_7"
+msgstr "Uztaila"
+
+msgid "calendar_month_8"
+msgstr "Abuztua"
+
+msgid "calendar_month_9"
+msgstr "Iraila"
+
+msgid "calendar_month_10"
+msgstr "Urria"
+
+msgid "calendar_month_11"
+msgstr "Azaroa"
+
+msgid "calendar_month_12"
+msgstr "Abendua"
+
+msgid "calendar_day_0"
+msgstr "Al"
+
+msgid "calendar_day_1"
+msgstr "Ar"
+
+msgid "calendar_day_2"
+msgstr "Az"
+
+msgid "calendar_day_3"
+msgstr "Og"
+
+msgid "calendar_day_4"
+msgstr "Or"
+
+msgid "calendar_day_5"
+msgstr "Lr"
+
+msgid "calendar_day_6"
+msgstr "Ig"
+
+msgid "event"
+msgstr "gertaera"
+
+msgid "label_current_year"
+msgstr "Aurten"
+
+msgid "label_current_month"
+msgstr "Hilabete hau"
+
+msgid "label_current_week"
+msgstr "Aste hau"
+
+msgid "label_current_day"
+msgstr "Gaur"
+
+msgid "More..."
+msgstr "Gehiago..."
+
+# Busy checker:
+msgid "The attendee is busy during this event"
+msgstr "Partaidea lanpetuta dago gertaera honetan"
+
+msgid "This attendee is busy during the selected period"
+msgstr "Partaideak dagoeneko lanpeturik daude hautatuako epean"
+
+msgid "Some attendees are busy during the selected period: %(users)s"
+msgstr "Partaide batzuk dagoeneko lanpeturik daude hautatutako epean: %(users)"
+
