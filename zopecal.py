@@ -206,6 +206,8 @@ class Calendar(SimpleItem, cal.CalendarBase):
     security = ClassSecurityInfo()
 
     meta_type = 'Calendar'
+    
+    _View_Permission = '_View_calendar_Permission'
 
     def __init__(self, id, title='', description=''):
         Calendar.inheritedAttribute('__init__')(self)

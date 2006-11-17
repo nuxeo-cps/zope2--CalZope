@@ -6,7 +6,8 @@ New features
 -
 Bug fixes
 ~~~~~~~~~
--
+- Made the "View" permission redirect to "View calendar" for easier calendar
+  management (usually only a problem in CMF and CPS).
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
 - 
