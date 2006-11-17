@@ -1,26 +1,4 @@
 ===========================================================
-Package: CalZope 2.8.6
-===========================================================
-First release built by: lregebro at: 2006-11-17T15:42:45
-SVN Tag: https://svn.nuxeo.org/pub/Zope2/CalZope/tags/2.8.6
-Build from: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk@50095
-
-Requires
-~~~~~~~~
--
-New features
-~~~~~~~~~~~~
--
-Bug fixes
-~~~~~~~~~
-- Spelling fixes in french translation.
-- Updated Spanish translation.
-- The event URL in the generic event list macro is now more stable.
-New internal features
-~~~~~~~~~~~~~~~~~~~~~
-- 
-
-===========================================================
 Package: CalZope 2.8.5
 ===========================================================
 First release built by: lregebro at: 2006-11-01T11:22:51
