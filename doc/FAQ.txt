@@ -87,3 +87,33 @@ User Interface Questions and Answers
    **A:** It's <path to calendar>/calendar.ics?disable_cookie_login__=1
    For example: http://www.nuxeo.com/members/john/calendar/calendar.ics?disable_cookie_login__=1
    
+10. **Q:** What does the different event colours mean?
+
+    **A:** The display of events is split up into five categories. Each
+    category has a CSS class that can be used to control the color of the
+    event. The rules for what category an event belongs to is as follows: If
+    you don't have view access to the event, it is classed as an
+    "Unauthorized" event (grey). If you have access, and the event has more
+    than one attendee, it is classed as a meeting (light green). The other
+    meetings are classified after their access setting: Public (light blue),
+    private (light red) and confidential (white).
+
+11. **Q:** What is the difference between Public, Private and Confidential
+    events?
+    
+    **A:** Public is viewable by those who have the View public event
+    permission on the calendar. This is usually those who have an
+    AttendeeReader role on the calendar. Private and Confidential is viewable
+    by those who have the View private event on the calendar. This is usually
+    set by giving people the AttendeeManager role. There is no difference
+    between private and confidential events, except their color.
+
+12. **Q:** How come nobody has the View permission in the Calendars 
+    permission management screen?
+           
+    **A:** By default the View permission is linked to the View calendar
+    permission. This shows up like nobody has the permission in the ZMI
+    interface. Normally you shouldn't need to change the permission mapping of
+    the calendar. If you have permission problems, contact Nuxeo.
+
+   
