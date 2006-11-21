@@ -1,4 +1,25 @@
 ===========================================================
+Package: CalZope 2.9.1
+===========================================================
+First release built by: lregebro at: 2006-11-21T13:57:18
+SVN Tag: https://svn.nuxeo.org/pub/Zope2/CalZope/tags/2.9.1
+Build from: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk@50191
+
+Requires
+~~~~~~~~
+-
+New features
+~~~~~~~~~~~~
+-
+Bug fixes
+~~~~~~~~~
+- Made the "View" permission redirect to "View calendar" for easier calendar
+  management (usually only a problem in CMF and CPS).
+New internal features
+~~~~~~~~~~~~~~~~~~~~~
+- 
+
+===========================================================
 Package: CalZope 2.9.0
 ===========================================================
 First release built by: lregebro at: 2006-11-17T15:50:48
