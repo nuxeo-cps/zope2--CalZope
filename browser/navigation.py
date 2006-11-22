@@ -203,8 +203,16 @@ class MonthNavigationView(NavigationView):
     monthTabClass = "selected"
     
     def calcDate(self):
-        """Recalculates which day should be shown"""        
-        return date(self.context.getYear(), self.context.getMonth(), self.day)
+        """Recalculates which day should be shown"""
+        try:
+            return date(self.context.getYear(), 
+                        self.context.getMonth(), 
+                        self.day)
+        except ValueError:
+            # The day is out of range. Lower the day with one and try again
+            # recursively until it works (four times, in the worst case):
+            self.day -= 1
+            return self.calcDate()
 
     def todayInView(self):
         return self.today.year == self.year and self.today.month == self.month

@@ -7,6 +7,7 @@ New features
 Bug fixes
 ~~~~~~~~~
 - The title of the main attendee is now displayed on the calendar pages.
+- Fixed #1736: Next month links crash on the last days of some month.
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
 - 
