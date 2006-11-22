@@ -1,4 +1,25 @@
 ===========================================================
+Package: CalZope 2.9.2
+===========================================================
+First release built by: lregebro at: 2006-11-22T16:27:02
+SVN Tag: https://svn.nuxeo.org/pub/Zope2/CalZope/tags/2.9.2
+Build from: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk@50213
+
+Requires
+~~~~~~~~
+-
+New features
+~~~~~~~~~~~~
+-
+Bug fixes
+~~~~~~~~~
+- The title of the main attendee is now displayed on the calendar pages.
+- Fixed #1736: Next month links crash on the last days of some month.
+New internal features
+~~~~~~~~~~~~~~~~~~~~~
+- 
+
+===========================================================
 Package: CalZope 2.9.1
 ===========================================================
 First release built by: lregebro at: 2006-11-21T13:57:18
