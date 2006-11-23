@@ -1,4 +1,4 @@
-<h3 tal:content="python:context.calendar.getMainAttendee().title"/>
+<h3 tal:content="python:view.getCalendar().getMainAttendee().title"/>
 
 <tal:block define="needs_action_amount view/getNeedsActionAmount;
                    organized_amount view/getOrganizedAmount;
