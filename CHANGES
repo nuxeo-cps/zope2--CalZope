@@ -6,7 +6,8 @@ New features
 -
 Bug fixes
 ~~~~~~~~~
--
+- Viewing calendars that didn't have a main attendee set cause an attribute 
+  error when the calendar tried to calculate it's attendee.
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
 - 
