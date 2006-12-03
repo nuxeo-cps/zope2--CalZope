@@ -114,10 +114,11 @@ class TestBusyChecker(CalendarTestCase):
                           datetime(2005, 4, 10, 15, 00), 
                           datetime(2005, 4, 10, 16, 00))
         
-        # However, somebody who is a manager, should not:
+        # Not even if you are a manager should you be able to double book:
         self.login('testmgr')
-        checker.check(datetime(2005, 4, 10, 15, 00), 
-                      datetime(2005, 4, 10, 16, 00))
+        self.assertRaises(BusyUsersError, checker.check,
+                          datetime(2005, 4, 10, 15, 00), 
+                          datetime(2005, 4, 10, 16, 00))
 
     def test_recurringblock1(self):
         # Recurring events caused the BusyChecker

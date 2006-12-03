@@ -8,6 +8,10 @@ Bug fixes
 ~~~~~~~~~
 - Viewing calendars that didn't have a main attendee set cause an attribute 
   error when the calendar tried to calculate it's attendee.
+- If you have the "Manage participation status" permission on a calendar
+  (typically given via the AttendeeManager role) and you invite that calendar
+  to a meeting, it will automatically accept the invitation.
+- You can no longer double-book a calendar even if you are a manager
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
 - 

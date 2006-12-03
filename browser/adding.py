@@ -19,6 +19,7 @@
 
 from datetime import datetime, timedelta
 
+from AccessControl import getSecurityManager
 from zope.app.form.utility import applyWidgetsChanges
 from Products.Five.form import AddView
 from Products.Five.browser.adding import ContentAdding
@@ -57,9 +58,15 @@ def MeetingFactory(view, id, title, dtstart, dtend, allday=False):
     event = EventFactory(view, id, title, dtstart, dtend, allday)
     attendees = view.request.SESSION.get('meeting_helper_attendees', [])
     asrc = zapi.getUtility(IAttendeeSource)
-    attendees = [asrc.getAttendee(each) for each in attendees]
-    event.attendees = event.invite(attendees)
-    # Everything worked fine, clear the list of attendees:
+    currentuser = getSecurityManager().getUser()
+    for attendeeid in attendees:
+        attendee = asrc.getAttendee(attendeeid)
+        event.attendees = event.invite([attendee])
+        calendar = asrc.getMainCalendarForAttendeeId(attendeeid)
+        if currentuser.has_permission('Manage participation status', calendar):
+            event.setParticipationStatus(attendee, 'ACCEPTED')
+
+   # Everything worked fine, clear the list of attendees:
     attendees = view.request.SESSION['meeting_helper_attendees'] = []
     return event
     

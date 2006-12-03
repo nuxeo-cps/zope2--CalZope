@@ -620,19 +620,16 @@ class BaseBusyChecker(object):
         users = []
         for attendeeid in busy:
             maincal = asrc.getMainCalendarForAttendeeId(attendeeid)
-            # You are trying to double book yourself. You probably don't
-            # want that:
+            # You are trying to double book the calendar you are working in,
+            # which has a simpler error message than the one for double-
+            # booking other calendars:
             if attendeeid == currentattendee:
                 raise BusyUserError()
-            if self._isManager(maincal):
-                # I'm manager for this attendee and allowed to double book.
-                continue
-            else:
-                # XXX I just realized we have no consistent and defined API
-                # for attendees titles. That should be fixed.
-                title = asrc.getAttendee(attendeeid).title
-                if title not in users:
-                    users.append(title)
+            # XXX I just realized we have no consistent and defined API
+            # for attendees titles. That should be fixed.
+            title = asrc.getAttendee(attendeeid).title
+            if title not in users:
+                users.append(title)
         if users:
             raise BusyUsersError(users, self.context)
 
