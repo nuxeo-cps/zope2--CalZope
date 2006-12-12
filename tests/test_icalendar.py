@@ -182,7 +182,7 @@ class TestiCalendar(CalendarTestCase):
         # back to utf-8 and reimported for sanity check
         exported_text = view.export()
         utf8_title = 'A \xc3\xa7\xc3\xb6mplex'
-        self.failUnless(utf8_title in exported_text)
+        self.failUnless(utf8_title in exported_text.encode('utf8'))
 
         request, new_view = self.makeRequestAndView(exported_text, calendar)
         new_view.importUpdate()

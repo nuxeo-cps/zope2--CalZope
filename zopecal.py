@@ -293,6 +293,31 @@ class Calendar(SimpleItem, cal.CalendarBase):
     def getCalendarUrl(self):
         return self.getCalendar().absolute_url()
 
+    def __getitem__(self, name):
+        # url space
+    
+        # day: calendar/2005/05/30
+        # month: calendar/2005/05
+        # year: calendar/2005
+        # week: calendar/week/2005/3
+        # weekday: calendar/week/2005/3/2
+        # event: calendar/event/1223
+        if name == 'event':
+            return EventList().__of__(self)
+        elif name == 'week':
+            return WeekList().__of__(self)
+        else:
+            try:
+                year = int(name)
+                return Year(year).__of__(self)
+            except ValueError:
+                pass
+        if name == 'getId':
+            # XXX Special hack I don't understand.
+            # Maybe I can get rid of it now when I use Traversal adapters?
+            return getattr(self, name)
+        
+        raise KeyError, name
 
 class CalendarTraversable(FiveTraversable):
 
@@ -358,6 +383,14 @@ class Year(SimpleItem):
     def getCalendarUrl(self):
         return self.getCalendar().absolute_url()
 
+    def __getitem__(self, name):
+        try:
+            month = int(name)
+            return Month(self._year, month).__of__(self)
+        except ValueError:
+            pass
+        raise KeyError, name
+
 class YearTraversable(FiveTraversable):
 
     def traverse(self, name, furtherPath):
@@ -399,6 +432,14 @@ class Month(SimpleItem):
 
     def getCalendarUrl(self):
         return self.getCalendar().absolute_url()
+
+    def __getitem__(self, name):
+        try:
+            day = int(name)
+            return Day(self._year, self._month, day).__of__(self)
+        except ValueError:
+            pass
+        raise KeyError
 
 class MonthTraversable(FiveTraversable):
 
@@ -457,6 +498,21 @@ class EventList(SimpleItem):
     def getCalendarUrl(self):
         return self.getCalendar().absolute_url()
 
+    def __getitem__(self, name):
+        try:
+            calendar = self.getCalendar()
+            event = calendar.getCalendar().getEvent(name)
+            c_attendees = calendar.getAttendees()
+            e_attendees = event.getAttendeeIds()
+            for attendee in c_attendees:
+                if attendee.getAttendeeId() in e_attendees:
+                    return event.__of__(self)
+            # None of this calendars attendees are attendees on the event.
+            # The event should not be displayed.
+        except (ValueError, KeyError):
+            pass
+        raise KeyError, name
+
 class EventListTraversable(FiveTraversable):
 
     def traverse(self, name, furtherPath):
@@ -495,6 +551,14 @@ class WeekList(SimpleItem):
     def getCalendarUrl(self):
         return self.getCalendar().absolute_url()
 
+    def __getitem__(self, name):
+        try:
+            year = int(name)
+            return WeekYear(year).__of__(self)
+        except ValueError:
+            pass
+        raise KeyError, name
+
 
 class WeekListTraversable(FiveTraversable):
 
@@ -526,6 +590,14 @@ class WeekYear(SimpleItem):
 
     def getCalendarUrl(self):
         return self.getCalendar().absolute_url()
+
+    def __getitem__(self, name):
+        try:
+            week_nr = int(name)
+            return Week(self._year, week_nr).__of__(self)
+        except ValueError:
+            pass
+        raise KeyError, name
 
 class WeekYearTraversable(FiveTraversable):
 
@@ -564,6 +636,14 @@ class Week(SimpleItem):
     def getCalendarUrl(self):
         return self.getCalendar().absolute_url()
 
+    def __getitem__(self, name):
+        try:
+            d = self.getDateForWeekday(int(name))
+            return Day(d.year, d.month, d.day).__of__(self)
+        except ValueError:
+            pass
+        raise KeyError, name
+
 class WeekTraversable(FiveTraversable):
 
     def traverse(self, name, furtherPath):
@@ -575,6 +655,7 @@ class WeekTraversable(FiveTraversable):
         return FiveTraversable.traverse(self, name, furtherPath)
 
 InitializeClass(Week)
+
 
 from zope.schema.interfaces import ValidationError
 from zope.i18n import translate

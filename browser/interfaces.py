@@ -146,3 +146,4 @@ class IEventEditSchema(Interface):
         description=_(u"Categories for this event"),
         value_type=Text(),
         required=False)
+

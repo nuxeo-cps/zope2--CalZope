@@ -105,7 +105,10 @@ class ICalendarImportExportView(BrowserView):
         self.request.RESPONSE.setHeader(
             'Content-Type', 'text/calendar;charset=utf-8')
         calendar = self._getCalendar()
-        return calendar.export()
+        ical = calendar.export()
+        # XXX Zope 2.10 and later wants unicode here, but I'm not
+        # sure that will work with 2.9, which needs support still.
+        return ical.decode('utf-8')
 
     def _getCalendar(self):
         return self.context.aq_inner
