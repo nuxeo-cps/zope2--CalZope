@@ -28,6 +28,7 @@ from calcore.interfaces import IAttendeeSource, ICalendar
 
 from widget import make_calendar_js, setupLanguage
 
+from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
 _ = MessageFactory("calendar")
 
@@ -60,7 +61,7 @@ class CalendarView(BrowserView):
             return calendar.absolute_url()
 
     def getShortDate(self, date):
-        format = _('%d/%m')
+        format = translate(_('%d/%m'))
         return date.strftime(str(format))
 
 
