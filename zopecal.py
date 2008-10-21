@@ -1,5 +1,5 @@
 # -*- coding: ISO-8859-15 -*-
-# (C) Copyright 2005 Nuxeo SARL <http://nuxeo.com>
+# (C) Copyright 2005-2008 Nuxeo SAS <http://nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 2 as published
@@ -667,9 +667,12 @@ class BusyUsersError(ValidationError):
         self.context = context
 
     def doc(self):
+        # TODO: Latin9
+        # This change should be reverted when CPS uses Unicode  everywhere.
+        users_unicode = unicode(self.users, 'iso-8859-15')
         return translate(
             _("Some attendees are busy during the selected period: %(users)s"),
-            context=self.context.request) % {'users': self.users}
+            context=self.context.request) % {'users': users_unicode}
 
 class BusyUserError(ValidationError):
     __doc__ = _("This attendee is busy during the selected period")

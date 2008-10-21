@@ -6,6 +6,7 @@ New features
 -
 Bug fixes
 ~~~~~~~~~
+- #1921: Event creation breaks in calendar on a busy period
 - Removed wrong svn:executable properties.
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
