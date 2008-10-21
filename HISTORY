@@ -1,4 +1,25 @@
 ===========================================================
+Package: CalZope 2.10.2
+===========================================================
+First release built by: madarche at: 2008-10-21T22:24:44
+SVN Tag: https://svn.nuxeo.org/pub/Zope2/CalZope/tags/2.10.2
+Build from: https://svn.nuxeo.org/pub/Zope2/CalZope/trunk@53006
+
+Requires
+~~~~~~~~
+-
+New features
+~~~~~~~~~~~~
+-
+Bug fixes
+~~~~~~~~~
+- #1921: Event creation breaks in calendar on a busy period
+- Removed wrong svn:executable properties.
+New internal features
+~~~~~~~~~~~~~~~~~~~~~
+- 
+
+===========================================================
 Package: CalZope 2.10.1
 ===========================================================
 First release built by: madarche at: 2007-04-06T17:24:20
