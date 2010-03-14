@@ -1,4 +1,21 @@
 ===========================================================
+Package: CalZope 2.10.3
+===========================================================
+First release built by: gracinet at: 2010-03-14T16:53:21
+Requires
+~~~~~~~~
+-
+New features
+~~~~~~~~~~~~
+-
+Bug fixes
+~~~~~~~~~
+- Switch to mercurial DCVS and hgbundler release manager
+New internal features
+~~~~~~~~~~~~~~~~~~~~~
+- 
+
+===========================================================
 Package: CalZope 2.10.2
 ===========================================================
 First release built by: madarche at: 2008-10-21T22:24:44
