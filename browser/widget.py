@@ -1,4 +1,4 @@
-# -*- coding: ISO-8859-15 -*-
+# -*- coding: iso-8859-15 -*-
 #
 # The code for DivDatetimeWidget, DivDateWidget and supporting methds is ZPL. 
 # It's based on code by Gary Poster, gary@zope.com and then extended a lot.

@@ -1,4 +1,4 @@
-# -*- coding: ISO-8859-15 -*-
+# -*- coding: iso-8859-15 -*-
 # (C) Copyright 2005-2008 Nuxeo SAS <http://nuxeo.com>
 #
 # This program is free software; you can redistribute it and/or modify
