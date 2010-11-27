@@ -6,7 +6,7 @@ New features
 -
 Bug fixes
 ~~~~~~~~~
--
+- Fixed invalid python encoding marker
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
 - 
