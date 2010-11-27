@@ -1,4 +1,21 @@
 ===========================================================
+Package: CalZope 2.10.4
+===========================================================
+First release built by: gracinet at: 2010-11-27T04:24:32
+Requires
+~~~~~~~~
+-
+New features
+~~~~~~~~~~~~
+-
+Bug fixes
+~~~~~~~~~
+- Fixed invalid python encoding marker
+New internal features
+~~~~~~~~~~~~~~~~~~~~~
+- 
+
+===========================================================
 Package: CalZope 2.10.3
 ===========================================================
 First release built by: gracinet at: 2010-03-14T16:53:21
