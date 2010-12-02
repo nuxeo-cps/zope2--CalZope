@@ -1,13 +1,20 @@
 <html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
+ <tal:comment condition="nothing">
+  GR: the use of utf8:ustring might not be appropriate for a pure ZTK context
+  or Zope >= 2.11. No time to check that thoroughly. However, one thing I do
+  know is that in the current zope.component versions, one cannot override
+  twice. Therefore this has to be made here.
+ </tal:comment>
   <body metal:fill-slot="body" tal:define="dummy view/update">
 
     <h1><span i18n:translate="">Edit calendar</span>: <tal:block replace="here/title"/></h1>
-    <form tal:attributes="action request/URL" method="post">
+    <form tal:attributes="action request/URL" method="post"
+          accept-charset="utf8">
       <div class="label">
         <label for="title_field" i18n:translate="">label_title</label>:
       </div>
       <div class="field">
-        <input type="text" name="title" id="title_field" 
+        <input type="text" name="title:utf8:ustring" id="title_field" 
           tal:attributes="value view/title" />
       </div>
 
@@ -31,7 +38,8 @@
         <label for="desc_field" i18n:translate="">label_description</label>:
       </div>
       <div class="field">
-        <textarea cols="50" rows="5" name="description" id="desc_field"
+        <textarea cols="50" rows="5" name="description:utf8:ustring"
+                  id="desc_field"
           tal:content="view/description" />
       </div>
 
