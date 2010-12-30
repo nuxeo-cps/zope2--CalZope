@@ -6,7 +6,7 @@ New features
 -
 Bug fixes
 ~~~~~~~~~
--
+- #2294: unicode problems in calendar object properties
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
 - 
