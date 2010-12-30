@@ -1,4 +1,21 @@
 ===========================================================
+Package: CalZope 2.10.5
+===========================================================
+First release built by: gracinet at: 2010-12-30T12:08:34
+Requires
+~~~~~~~~
+-
+New features
+~~~~~~~~~~~~
+-
+Bug fixes
+~~~~~~~~~
+- #2294: unicode problems in calendar object properties
+New internal features
+~~~~~~~~~~~~~~~~~~~~~
+- 
+
+===========================================================
 Package: CalZope 2.10.4
 ===========================================================
 First release built by: gracinet at: 2010-11-27T04:24:32
