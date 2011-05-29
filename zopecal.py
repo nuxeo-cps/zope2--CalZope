@@ -667,12 +667,9 @@ class BusyUsersError(ValidationError):
         self.context = context
 
     def doc(self):
-        # TODO: Latin9
-        # This change should be reverted when CPS uses Unicode  everywhere.
-        users_unicode = unicode(self.users, 'iso-8859-15')
         return translate(
             _("Some attendees are busy during the selected period: %(users)s"),
-            context=self.context.request) % {'users': users_unicode}
+            context=self.context.request) % {'users': self.users}
 
 class BusyUserError(ValidationError):
     __doc__ = _("This attendee is busy during the selected period")
