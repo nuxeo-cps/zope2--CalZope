@@ -2,7 +2,7 @@
 <html metal:use-macro="context/@@standard_macros/page" i18n:domain="calendar">
 <metal:block fill-slot="style_slot">
   <style type="text/css" media="all" 
-    tal:content="string:@import url(${context/absolute_url}/++resource++calendar.css);"
+    tal:content="string:@import url(${context/absolute_url}/++resource++calzope.css);"
     />
 </metal:block>
 <metal:block fill-slot="body">

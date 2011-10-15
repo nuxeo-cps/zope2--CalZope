@@ -403,8 +403,8 @@
 
   <!-- needed css -->
   <browser:resource
-    template="calendar.css"
-    name="calendar.css"
+    template="calzope.css"
+    name="calzope.css"
     permission="zope.Public"
     />
 
