@@ -404,7 +404,7 @@
   <!-- needed css -->
   <browser:resource
     template="calzope.css"
-    name="calzope.css"
+    name="cpscalendar.css"
     permission="zope.Public"
     />
 
