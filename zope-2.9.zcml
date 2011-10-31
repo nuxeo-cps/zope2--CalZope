@@ -1,0 +1,11 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:i18n="http://namespaces.zope.org/i18n"
+           i18n_domain="calendar">
+
+  <!-- Directives for Zope 2.9 case only
+       TODO: move all the <five:traversable> directives in here ?
+  -->
+  <five:defaultViewable class=".storage.ZODBEvent" />
+
+</configure>

@@ -1,9 +1,13 @@
 <configure xmlns="http://namespaces.zope.org/zope" 
            xmlns:five="http://namespaces.zope.org/five"
+           xmlns:zcml="http://namespaces.zope.org/zcml"
            xmlns:i18n="http://namespaces.zope.org/i18n">
 
   <include file="permissions.zcml" />
   <include file="browser/configure.zcml" />
+  <configure zcml:condition="have zope-2.9">
+   <include file="zope-2.9.zcml"/>
+  </configure>
 
   <i18n:registerTranslations directory="locales" />
 
