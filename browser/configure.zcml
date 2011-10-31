@@ -68,7 +68,6 @@
       />
 
   <five:traversable class=".storage.ZODBEvent" />
-  <five:defaultViewable class=".storage.ZODBEvent" />
 
   <browser:page
     for="calcore.interfaces.ICalendar"
