@@ -26,14 +26,15 @@
   </span>
   &nbsp;&nbsp;&nbsp;
   <span class="unselected">
-    <li><a
-      tal:attributes="href view/getPrevViewUrl">
+    <li>
+      <a tal:attributes="href python:view.getHref(view.getPrevViewUrl());
+               onclick python: view.getOnClick(view.getPrevViewUrl())">
       &lt;&lt;</a>
     </li>
   </span>
   <span tal:define="today view/getTodayInfo;"
         tal:attributes="class view/todayTabClass">
-    <li>
+    <li> 
       <a tal:attributes="href view/getTodayViewUrl"
          i18n:translate="" 
          tal:content="string: label_current_${view/view_type}" />
@@ -41,7 +42,8 @@
   </span>
   <span class="unselected">
     <li>
-      <a tal:attributes="href view/getNextViewUrl">
+      <a tal:attributes="href python:view.getHref(view.getNextViewUrl());
+               onclick python: view.getOnClick(view.getNextViewUrl())">
         &gt;&gt;</a>
     </li>
   </span>
