@@ -182,16 +182,6 @@ class NavigationView:
 
     def getLongDateFormat(self):
         return translate(_('%(day)s %(month)s %(year)s'), context=self.request)
-        
-    def getHref(self, url):
-        if self.protect:
-            return '#'
-        return url
-
-    def getOnClick(self, url):
-        if self.protect:
-            return 'window.location="%s"; return false;' % url
-        return
 
 class YearNavigationView(NavigationView):
     """The navigation view for year views"""
