@@ -20,6 +20,7 @@
                onclick python: view.getOnClick(urlink)" 
            i18n:translate="">Month</a></li>
   </span>
+  
   <span tal:attributes="class view/weekTabClass"
         tal:define="urlink string:${calendar_url}/week/${view/week_year}/${view/week}">
     <li><a tal:attributes="href python:view.getHref(urlink);
@@ -30,7 +31,7 @@
         tal:define = "urlink  string:${calendar_url}/${view/year}/${view/month}/${view/day}">
     
     <li><a tal:attributes="href python:view.getHref(urlink);
-               onclick python: view.getOnClick(urlink)" 
+               onclick python:view.getOnClick(urlink)" 
            i18n:translate="">Day</a></li>
   </span>
   &nbsp;&nbsp;&nbsp;
@@ -44,7 +45,9 @@
   <span tal:define="today view/getTodayInfo;"
         tal:attributes="class view/todayTabClass">
     <li> 
-      <a tal:attributes="href view/getTodayViewUrl"
+      <a tal:define="url view/getTodayViewUrl"
+      tal:attributes="href python:view.getHref(url);
+                            onclick python:view.getOnClick(url)"
          i18n:translate="" 
          tal:content="string: label_current_${view/view_type}" />
     </li>

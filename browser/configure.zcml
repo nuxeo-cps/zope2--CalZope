@@ -5,8 +5,8 @@
            i18n_domain="calendar">
 
 
-  <five:traversable class=".zopecal.StorageManager" />
-  <five:traversable class=".zopecal.Attendee" />
+  <five:traversable class=".zopecal.StorageManager"/>
+  <five:traversable class=".zopecal.Attendee"/>
 
   <five:traversable class=".zopecal.Calendar" />
   <five:defaultViewable class=".zopecal.Calendar" />
