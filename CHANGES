@@ -6,7 +6,7 @@ New features
 -
 Bug fixes
 ~~~~~~~~~
--
+- #2501 (partial): optional JS protection of internal calendar navigation
 New internal features
 ~~~~~~~~~~~~~~~~~~~~~
 - 
