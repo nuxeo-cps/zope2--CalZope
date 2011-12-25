@@ -45,6 +45,5 @@
       />
    
   <!-- five:localsite class="OFS.Folder.Folder" /-->
-  <!-- five:traversable class="OFS.Folder.Folder" /-->
   
 </configure>

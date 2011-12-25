@@ -5,10 +5,6 @@
            i18n_domain="calendar">
 
 
-  <five:traversable class=".zopecal.StorageManager" />
-  <five:traversable class=".zopecal.Attendee" />
-
-  <five:traversable class=".zopecal.Calendar" />
   <five:defaultViewable class=".zopecal.Calendar" />
   <adapter
       for="calcore.interfaces.ICalendar"
@@ -16,7 +12,6 @@
       provides="zope.app.traversing.interfaces.ITraversable"
       />
 
-  <five:traversable class=".zopecal.Year" />
   <five:defaultViewable class=".zopecal.Year" />
   <adapter
       for=".interfaces.IYear"
@@ -24,7 +19,6 @@
       provides="zope.app.traversing.interfaces.ITraversable"
       />
 
-  <five:traversable class=".zopecal.Month" />
   <five:defaultViewable class=".zopecal.Month" />
   <adapter
       for=".interfaces.IMonth"
@@ -32,10 +26,8 @@
       provides="zope.app.traversing.interfaces.ITraversable"
       />
 
-  <five:traversable class=".zopecal.Day" />
   <five:defaultViewable class=".zopecal.Day" />
 
-  <five:traversable class=".zopecal.WeekList" />
   <five:defaultViewable class=".zopecal.WeekList" />
   <adapter
       for=".interfaces.IWeekList"
@@ -43,7 +35,6 @@
       provides="zope.app.traversing.interfaces.ITraversable"
       />
 
-  <five:traversable class=".zopecal.WeekYear" />
   <five:defaultViewable class=".zopecal.WeekYear" />
   <adapter
       for=".interfaces.IWeekYear"
@@ -51,7 +42,6 @@
       provides="zope.app.traversing.interfaces.ITraversable"
       />
 
-  <five:traversable class=".zopecal.Week" />
   <five:defaultViewable class=".zopecal.Week" />
   <adapter
       for=".interfaces.IWeek"
@@ -59,15 +49,12 @@
       provides="zope.app.traversing.interfaces.ITraversable"
       />
 
-  <five:traversable class=".zopecal.EventList" />
   <five:defaultViewable class=".zopecal.EventList" />
   <adapter
       for=".interfaces.IEventList"
       factory=".zopecal.EventListTraversable"
       provides="zope.app.traversing.interfaces.ITraversable"
       />
-
-  <five:traversable class=".storage.ZODBEvent" />
 
   <browser:page
     for="calcore.interfaces.ICalendar"
