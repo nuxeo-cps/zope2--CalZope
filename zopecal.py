@@ -318,7 +318,8 @@ class Calendar(SimpleItem, cal.CalendarBase):
             return getattr(self, name)
         
         raise KeyError, name
-
+        
+        
 class CalendarTraversable(FiveTraversable):
 
     # url space

@@ -78,7 +78,16 @@ class RedirectToLastView(BrowserView):
             url = url + '?portal_status_message=' + self.request['portal_status_message']
         response = self.request.RESPONSE
         response.redirect(url)
-    
+
+    def getHref(self, url):
+        if self.protect:
+            return '#'
+        return url
+
+    def getOnClick(self, url):
+        if self.protect:
+            return 'window.location="%s"; return false;' % url
+        return
 
 class NavigationView:
     """Basic view for navigational support"""
@@ -94,6 +103,8 @@ class NavigationView:
         self.context = context
         self.request = request
         self.calendar = self.context.getCalendar()
+        #TODO : Ask calendar if links should be protected +
+        # change modify calendar
         self.today = date.today()
         
         # Get the last date shown from the session:
@@ -119,6 +130,7 @@ class NavigationView:
         self.request.SESSION['calzope_view_date'] = new_date
         # This is used by the redirect views to select the view type:
         self.request.SESSION['calzope_view_type'] = self.view_type
+        self.protect=True
         
     def calcDate(self):
         raise NotImplementedError('NavigationView must be subclassed')
@@ -172,7 +184,17 @@ class NavigationView:
 
     def getLongDateFormat(self):
         return translate(_('%(day)s %(month)s %(year)s'), context=self.request)
+    
+    def getHref(self, url):
+        if self.protect:
+            return '#'
+        return url
 
+    def getOnClick(self, url):
+        if self.protect:
+            return 'window.location="%s"; return false;' % url
+        return
+    
 class YearNavigationView(NavigationView):
     """The navigation view for year views"""
     

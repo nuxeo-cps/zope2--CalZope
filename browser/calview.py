@@ -35,6 +35,8 @@ _ = MessageFactory("calendar")
 class CalendarView(BrowserView):
     """Abstract base class for day, week, month and year views"""
 
+    protect = True
+
     def getOccurrencesInDay(self, day):
         return self.context.getCalendar().getOccurrencesInDay(day)
 
@@ -43,6 +45,16 @@ class CalendarView(BrowserView):
             object = self.context
         user = getSecurityManager().getUser()
         return user.has_permission(permission, object)
+
+    def getHref(self, url):
+        if self.protect:
+            return '#'
+        return url
+
+    def getOnClick(self, url):
+        if self.protect:
+            return 'window.location="%s"; return false;' % url
+        return
 
     def makeCalendarJs(self):
         setupLanguage(self.context, self.request)

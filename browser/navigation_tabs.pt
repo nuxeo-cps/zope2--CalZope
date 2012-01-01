@@ -8,40 +8,54 @@
 </div>
 <div i18n:domain="calendar" class="navigationTabs"
      tal:define="calendar_url view/getCalendarUrl">
-  <span tal:attributes="class view/yearTabClass">
-    <li><a tal:attributes="href string:${calendar_url}/${view/year}" 
+  <span tal:attributes="class view/yearTabClass"
+        tal:define="urlink string:${calendar_url}/${view/year}">
+    <li><a tal:attributes="href python:view.getHref(urlink);
+               onclick python: view.getOnClick(urlink)" 
            i18n:translate="">Year</a></li>
   </span>
-  <span tal:attributes="class view/monthTabClass">
-    <li><a tal:attributes="href string:${calendar_url}/${view/year}/${view/month}" 
+  <span tal:attributes="class view/monthTabClass"
+        tal:define="urlink string:${calendar_url}/${view/year}/${view/month}">
+    <li><a tal:attributes="href python:view.getHref(urlink);
+               onclick python: view.getOnClick(urlink)" 
            i18n:translate="">Month</a></li>
   </span>
-  <span tal:attributes="class view/weekTabClass">
-    <li><a tal:attributes="href string:${calendar_url}/week/${view/week_year}/${view/week}" 
+  
+  <span tal:attributes="class view/weekTabClass"
+        tal:define="urlink string:${calendar_url}/week/${view/week_year}/${view/week}">
+    <li><a tal:attributes="href python:view.getHref(urlink);
+               onclick python: view.getOnClick(urlink)" 
            i18n:translate="">Week</a></li>
   </span>
-  <span tal:attributes="class view/dayTabClass">
-    <li><a tal:attributes="href string:${calendar_url}/${view/year}/${view/month}/${view/day}" 
+  <span tal:attributes="class view/dayTabClass"
+        tal:define = "urlink  string:${calendar_url}/${view/year}/${view/month}/${view/day}">
+    
+    <li><a tal:attributes="href python:view.getHref(urlink);
+               onclick python:view.getOnClick(urlink)" 
            i18n:translate="">Day</a></li>
   </span>
   &nbsp;&nbsp;&nbsp;
   <span class="unselected">
-    <li><a
-      tal:attributes="href view/getPrevViewUrl">
+    <li>
+      <a tal:attributes="href python:view.getHref(view.getPrevViewUrl());
+               onclick python: view.getOnClick(view.getPrevViewUrl())">
       &lt;&lt;</a>
     </li>
   </span>
   <span tal:define="today view/getTodayInfo;"
         tal:attributes="class view/todayTabClass">
-    <li>
-      <a tal:attributes="href view/getTodayViewUrl"
+    <li> 
+      <a tal:define="url view/getTodayViewUrl"
+      tal:attributes="href python:view.getHref(url);
+                            onclick python:view.getOnClick(url)"
          i18n:translate="" 
          tal:content="string: label_current_${view/view_type}" />
     </li>
   </span>
   <span class="unselected">
     <li>
-      <a tal:attributes="href view/getNextViewUrl">
+      <a tal:attributes="href python:view.getHref(view.getNextViewUrl());
+               onclick python: view.getOnClick(view.getNextViewUrl())">
         &gt;&gt;</a>
     </li>
   </span>

@@ -37,7 +37,8 @@
             dayurl string:${view/getCalendarUrl}/${day/year}/${day/month}/${day/day};"
           class="monthDay inCalendar">
         <div class="monthDayHeader">
-          <a tal:attributes="href dayurl">
+          <a tal:attributes="href python:view.getHref(dayurl);
+          onclick python:view.getOnClick(dayurl)">
             <tal:block content="string:calendar_day_${day/weekday}" 
               i18n:translate="" />
               <tal:block replace="python:view.getShortDate(day)"/>
