@@ -1,5 +1,6 @@
 <h3 tal:define="dummy view/calcInfo">
-  <a tal:attributes="href view/month"
+  <a tal:attributes="href python:view.getHref(view.month);
+                     onclick python:view.getOnClick(view.month)"
      tal:content="string:calendar_month_${view/month}" i18n:translate="" 
      i18n:domain="calendar" />
 </h3>
