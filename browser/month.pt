@@ -59,7 +59,8 @@
              style="height: 100%">
           <tal:block repeat="display python:view.getOccurrenceDisplays(day)">
             <div class="monthEvent" tal:attributes="title display/title_and_time">
-              <a tal:attributes="href display/url"
+              <a tal:attributes="href python:view.getHref(display.url);
+                                 onclick python:view.getOnClick(display.url)"
                  tal:condition="display/viewable">
                   <tal:block replace="display/title" />
               </a>

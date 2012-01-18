@@ -33,6 +33,8 @@ from widget import calendar_js_template
 from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
 
+from Products.CalZope.browser.utils import LinkProtectable
+
 _ = MessageFactory("calendar")
 
 
@@ -49,7 +51,7 @@ class RedirectToLastView(BrowserView):
         url = cal.absolute_url()
         # Get the view type and date that should be shown from the
         # session:
-        self.protect=cal.areLinksProtected()
+        self.protect_links_javascript=cal.areLinksProtected()
         if self.request.form.get('date'):
             year, month, day = self.request.form.get('date').split('-')
             view_date = date(int(year), int(month), int(day))
@@ -81,17 +83,8 @@ class RedirectToLastView(BrowserView):
         response = self.request.RESPONSE
         response.redirect(url)
 
-    def getHref(self, url):
-        if self.protect_links_javascript:
-            return '#'
-        return url
 
-    def getOnClick(self, url):
-        if self.protect_links_javascript:
-            return 'window.location="%s"; return false;' % url
-        return
-
-class NavigationView:
+class NavigationView(LinkProtectable):
     """Basic view for navigational support"""
     
     yearTabClass = "unselected"
@@ -106,10 +99,11 @@ class NavigationView:
         self.context = context
         self.request = request
         self.calendar = self.context.getCalendar()
+        
         self.protect_links_javascript = self.calendar.areLinksProtected()
         
-        #TODO : Ask calendar if links should be protected +
-        # change modify calendar
+        #protect_links_javascript definded in LinkProtectable +
+        # 
         
         #self.protect=self.calendar.linksAreProtected()
         self.today = date.today()
@@ -192,17 +186,6 @@ class NavigationView:
 
     def getLongDateFormat(self):
         return translate(_('%(day)s %(month)s %(year)s'), context=self.request)
-    
-    
-    def getHref(self, url):
-        if self.protect_links_javascript:
-            return '#'
-        return url
-
-    def getOnClick(self, url):
-        if self.protect_links_javascript:
-            return 'window.location="%s"; return false;' % url
-        return 
     
 class YearNavigationView(NavigationView):
     """The navigation view for year views"""
