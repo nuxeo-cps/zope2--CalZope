@@ -1,4 +1,21 @@
 ===========================================================
+Package: CalZope 2.11.2-CPS-3.5
+===========================================================
+First release built by: gracinet at: 2011-12-19T15:33:47
+Requires
+~~~~~~~~
+-
+New features
+~~~~~~~~~~~~
+-
+Bug fixes
+~~~~~~~~~
+- #2501 (partial): optional JS protection of internal calendar navigation
+New internal features
+~~~~~~~~~~~~~~~~~~~~~
+- 
+
+===========================================================
 Package: CalZope 2.11.1-CPS-3.5
 ===========================================================
 First release built by: gracinet at: 2011-11-23T19:59:10
