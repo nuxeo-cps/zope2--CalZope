@@ -32,6 +32,7 @@ from widget import calendar_js_template
 
 from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
+
 _ = MessageFactory("calendar")
 
 
@@ -48,6 +49,7 @@ class RedirectToLastView(BrowserView):
         url = cal.absolute_url()
         # Get the view type and date that should be shown from the
         # session:
+        self.protect=cal.areLinksProtected()
         if self.request.form.get('date'):
             year, month, day = self.request.form.get('date').split('-')
             view_date = date(int(year), int(month), int(day))
@@ -80,12 +82,12 @@ class RedirectToLastView(BrowserView):
         response.redirect(url)
 
     def getHref(self, url):
-        if self.protect:
+        if self.protect_links_javascript:
             return '#'
         return url
 
     def getOnClick(self, url):
-        if self.protect:
+        if self.protect_links_javascript:
             return 'window.location="%s"; return false;' % url
         return
 
@@ -98,13 +100,18 @@ class NavigationView:
     dayTabClass = "unselected"
     todayTabClass  = "unselected"
     
+    
     def __init__(self, context, request):
         """ttw"""
         self.context = context
         self.request = request
         self.calendar = self.context.getCalendar()
+        self.protect_links_javascript = self.calendar.areLinksProtected()
+        
         #TODO : Ask calendar if links should be protected +
         # change modify calendar
+        
+        #self.protect=self.calendar.linksAreProtected()
         self.today = date.today()
         
         # Get the last date shown from the session:
@@ -130,7 +137,8 @@ class NavigationView:
         self.request.SESSION['calzope_view_date'] = new_date
         # This is used by the redirect views to select the view type:
         self.request.SESSION['calzope_view_type'] = self.view_type
-        self.protect=True
+        
+        
         
     def calcDate(self):
         raise NotImplementedError('NavigationView must be subclassed')
@@ -185,15 +193,16 @@ class NavigationView:
     def getLongDateFormat(self):
         return translate(_('%(day)s %(month)s %(year)s'), context=self.request)
     
+    
     def getHref(self, url):
-        if self.protect:
+        if self.protect_links_javascript:
             return '#'
         return url
 
     def getOnClick(self, url):
-        if self.protect:
+        if self.protect_links_javascript:
             return 'window.location="%s"; return false;' % url
-        return
+        return 
     
 class YearNavigationView(NavigationView):
     """The navigation view for year views"""
