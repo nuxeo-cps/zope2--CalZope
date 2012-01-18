@@ -44,7 +44,7 @@ MONTH_VIEW = 'month'
 WEEK_VIEW = 'week'
 DAY_VIEW = 'day'
 
-class RedirectToLastView(BrowserView):
+class RedirectToLastView(BrowserView,LinkProtectable):
     
     def __call__(self):
         cal = self.context.getCalendar()
@@ -84,7 +84,7 @@ class RedirectToLastView(BrowserView):
         response.redirect(url)
 
 
-class NavigationView(LinkProtectable):
+class NavigationView(LinkProtectable,LinkProtectable):
     """Basic view for navigational support"""
     
     yearTabClass = "unselected"
