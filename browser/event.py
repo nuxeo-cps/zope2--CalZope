@@ -251,7 +251,6 @@ class EventView(BrowserView, LinkProtectable):
         return self.context.allday
     
     def getDayUrl(self):
-        import pdb;pdb.set_trace()
         dt = self.context.dtstart
         base = self.context.getCalendar().absolute_url()
         return '%s/%s/%s/%s' % (base, dt.year, dt.month, dt.day)
