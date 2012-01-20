@@ -3,8 +3,7 @@ Requires
 -
 New features
 ~~~~~~~~~~~~
-- #2501:  now javascript protection of links link calendar works on most views (default behavior implemented, as the actual used class is a sublclass)
-- #2501:  New vlass for link protection
+-
 Bug fixes
 ~~~~~~~~~
 -
