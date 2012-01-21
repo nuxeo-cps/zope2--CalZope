@@ -119,7 +119,8 @@
                   title display/title_and_time;
                   class string:${display/getCssEventClass}Event"
   >
-  <a tal:attributes="href url;" tal:condition="display/viewable">
+  <a tal:attributes="href python:view.getHref(url);
+                     onclick python:view.getOnClick(url)" tal:condition="display/viewable">
     <tal:block replace="display/title" />
   </a>
   <tal:block replace="display/title" tal:condition="not:display/viewable"/>

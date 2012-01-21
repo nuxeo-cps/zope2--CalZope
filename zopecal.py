@@ -319,6 +319,18 @@ class Calendar(SimpleItem, cal.CalendarBase):
         
         raise KeyError, name
         
+    def areLinksProtected(self):
+        """
+        For compat, as the class is overloaded in an other product
+        returns false so as to keep the "traditional behaviour" that used to be 
+        the only available before.
+        Returns the boolean that determines if links should be rewritten using
+        javascript in order to avoid robots to click all links and therefor 
+        may cause a large load on server 
+        
+        """
+        return False
+        
         
 class CalendarTraversable(FiveTraversable):
 

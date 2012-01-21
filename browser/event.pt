@@ -12,11 +12,23 @@
     <div class="eventTitle">
       <div class="contextlinks" style="float: right"
         >
-        <tal:block i18n:translate="message_see_this_events_prefix">see this event's</tal:block>
-        <a tal:attributes="href view/getDayUrl" i18n:translate="">day</a>,
-        <a tal:attributes="href view/getWeekUrl" i18n:translate="">week</a>,
-        <a tal:attributes="href view/getMonthUrl" i18n:translate="">month</a
-        ><tal:block i18n:translate="message_see_this_events_postfix">.</tal:block>
+        <tal:block i18n:translate="message_see_this_events_prefix">
+            see this event's
+       </tal:block>
+        <a tal:attributes="href python:view.getHref(view.getDayUrl());
+                           onclick python:view.getOnClick(view.getDayUrl())"
+           i18n:translate="">
+            day
+        </a>,
+        <a tal:attributes="href python:view.getHref(view.getWeekUrl());
+                           onclick python:view.getOnClick(view.getWeekUrl())" 
+                           i18n:translate="">week</a>,
+        <a tal:attributes="href python:view.getHref(view.getMonthUrl());
+                            onclick python:view.getOnClick(view.getMonthUrl())" i18n:translate="">
+        month
+        </a>
+        <tal:block i18n:translate="message_see_this_events_postfix">.
+        </tal:block>
       </div>
 
       <h1>
@@ -33,7 +45,9 @@
       <table>
         <tal:block condition="not: context/allday">
           <tr>
-            <td class="rowlabel"><tal:block i18n:translate="label_starts">Starts</tal:block>:</td>
+            <td class="rowlabel"><tal:block i18n:translate="label_starts">
+              Starts
+            </tal:block>:</td>
             <td>
               <b tal:content="view/starttime" />
             </td>

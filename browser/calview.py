@@ -30,12 +30,15 @@ from widget import make_calendar_js, setupLanguage
 
 from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
+
+from Products.CalZope.browser.utils import LinkProtectable
+
 _ = MessageFactory("calendar")
 
-class CalendarView(BrowserView):
+class CalendarView(BrowserView, LinkProtectable):
     """Abstract base class for day, week, month and year views"""
 
-    protect = True
+    
 
     def getOccurrencesInDay(self, day):
         return self.context.getCalendar().getOccurrencesInDay(day)
@@ -45,16 +48,6 @@ class CalendarView(BrowserView):
             object = self.context
         user = getSecurityManager().getUser()
         return user.has_permission(permission, object)
-
-    def getHref(self, url):
-        if self.protect:
-            return '#'
-        return url
-
-    def getOnClick(self, url):
-        if self.protect:
-            return 'window.location="%s"; return false;' % url
-        return
 
     def makeCalendarJs(self):
         setupLanguage(self.context, self.request)

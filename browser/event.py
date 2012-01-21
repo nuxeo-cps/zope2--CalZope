@@ -50,6 +50,9 @@ from Products.CalZope.zopecal import BusyUserError, BusyUsersError
 
 from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
+
+from Products.CalZope.browser.utils import LinkProtectable
+
 _ = MessageFactory("calendar")
 
 class IRecurrenceSelectorSchema(Interface):
@@ -177,11 +180,13 @@ class WeeklyRecurrenceRuleView(YearlyRecurrenceRuleView):
         
         self.unit = 'week'
 
-class EventView(BrowserView):
+class EventView(BrowserView, LinkProtectable):
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.protect_links_javascript=context.getCalendar().areLinksProtected()
+        
         self.document_url = str(getattr(self.context, 'document', ''))
         if self.document_url:
             try:
@@ -295,6 +300,7 @@ class EventView(BrowserView):
         calurl = calendar.absolute_url()
         return calurl + '/event/' + self.context.unique_id
         
+
     
 class AttendeeManagementView(BrowserView):
     """A view for events with helper functions for attendee management"""

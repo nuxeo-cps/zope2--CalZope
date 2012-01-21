@@ -32,6 +32,9 @@ from widget import calendar_js_template
 
 from zope.i18n import translate
 from zope.i18nmessageid import MessageFactory
+
+from Products.CalZope.browser.utils import LinkProtectable
+
 _ = MessageFactory("calendar")
 
 
@@ -41,13 +44,14 @@ MONTH_VIEW = 'month'
 WEEK_VIEW = 'week'
 DAY_VIEW = 'day'
 
-class RedirectToLastView(BrowserView):
+class RedirectToLastView(BrowserView,LinkProtectable):
     
     def __call__(self):
         cal = self.context.getCalendar()
         url = cal.absolute_url()
         # Get the view type and date that should be shown from the
         # session:
+        self.protect_links_javascript=cal.areLinksProtected()
         if self.request.form.get('date'):
             year, month, day = self.request.form.get('date').split('-')
             view_date = date(int(year), int(month), int(day))
@@ -79,17 +83,8 @@ class RedirectToLastView(BrowserView):
         response = self.request.RESPONSE
         response.redirect(url)
 
-    def getHref(self, url):
-        if self.protect:
-            return '#'
-        return url
 
-    def getOnClick(self, url):
-        if self.protect:
-            return 'window.location="%s"; return false;' % url
-        return
-
-class NavigationView:
+class NavigationView(LinkProtectable,LinkProtectable):
     """Basic view for navigational support"""
     
     yearTabClass = "unselected"
@@ -98,13 +93,19 @@ class NavigationView:
     dayTabClass = "unselected"
     todayTabClass  = "unselected"
     
+    
     def __init__(self, context, request):
         """ttw"""
         self.context = context
         self.request = request
         self.calendar = self.context.getCalendar()
-        #TODO : Ask calendar if links should be protected +
-        # change modify calendar
+        
+        self.protect_links_javascript = self.calendar.areLinksProtected()
+        
+        #protect_links_javascript definded in LinkProtectable +
+        # 
+        
+        #self.protect=self.calendar.linksAreProtected()
         self.today = date.today()
         
         # Get the last date shown from the session:
@@ -130,7 +131,8 @@ class NavigationView:
         self.request.SESSION['calzope_view_date'] = new_date
         # This is used by the redirect views to select the view type:
         self.request.SESSION['calzope_view_type'] = self.view_type
-        self.protect=True
+        
+        
         
     def calcDate(self):
         raise NotImplementedError('NavigationView must be subclassed')
@@ -184,16 +186,6 @@ class NavigationView:
 
     def getLongDateFormat(self):
         return translate(_('%(day)s %(month)s %(year)s'), context=self.request)
-    
-    def getHref(self, url):
-        if self.protect:
-            return '#'
-        return url
-
-    def getOnClick(self, url):
-        if self.protect:
-            return 'window.location="%s"; return false;' % url
-        return
     
 class YearNavigationView(NavigationView):
     """The navigation view for year views"""
